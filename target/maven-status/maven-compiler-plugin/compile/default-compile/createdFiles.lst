@@ -1,1 +1,10 @@
+com\mycompany\reflexologia\SecondaryController.class
+com\mycompany\reflexologia\App.class
+com\mycompany\reflexologia\G130Controller.class
+dao\G110DAO.class
+modelo\G110.class
+com\mycompany\reflexologia\G110Controller.class
+com\mycompany\reflexologia\PrimaryController.class
+conexion\ConexionMySQL.class
 module-info.class
+com\mycompany\reflexologia\G120Controller.class

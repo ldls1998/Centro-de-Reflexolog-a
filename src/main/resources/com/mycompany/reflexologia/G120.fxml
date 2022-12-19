@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -61,7 +62,6 @@
          </font></Text>
       <TextField layoutX="130.0" layoutY="56.0" prefHeight="26.0" prefWidth="149.0" />
       <TextField layoutX="130.0" layoutY="87.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField layoutX="130.0" layoutY="116.0" prefHeight="25.0" prefWidth="199.0" />
       <TextField layoutX="130.0" layoutY="179.0" prefHeight="25.0" prefWidth="352.0" />
       <TextField layoutX="130.0" layoutY="208.0" prefHeight="25.0" prefWidth="352.0" />
       <TextField layoutX="130.0" layoutY="239.0" prefHeight="25.0" prefWidth="199.0" />
@@ -80,5 +80,6 @@
       </TableView>
       <ChoiceBox layoutX="516.0" layoutY="284.0" prefHeight="25.0" prefWidth="98.0" />
       <TextField layoutX="621.0" layoutY="284.0" prefHeight="25.0" prefWidth="418.0" />
+      <DatePicker layoutX="130.0" layoutY="117.0" />
    </children>
 </AnchorPane>
