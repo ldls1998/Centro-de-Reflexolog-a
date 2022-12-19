@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.MessageDigest;
 
 /**
  * JavaFX App
@@ -17,8 +18,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-            scene = new Scene(loadFXML("G110"));
+        scene = new Scene(loadFXML("Login"));
         stage.setScene(scene);
+        stage.setTitle("ReflexoPerú");
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -30,7 +33,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-
+    
     public static void main(String[] args) {
         launch();
     }
