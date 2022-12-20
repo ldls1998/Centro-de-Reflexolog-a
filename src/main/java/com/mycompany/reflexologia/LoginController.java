@@ -6,11 +6,16 @@
 package com.mycompany.reflexologia;
 
 import dao.LoginDAO;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -37,7 +42,7 @@ public class LoginController implements Initializable {
     private Label lblMensageError;
     @FXML
     private PasswordField psfContrasena;
-    
+
     private LoginDAO loginDAO;
 
     /**
@@ -50,8 +55,8 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public void loggin(ActionEvent e) {
-        
+    public void loggin(ActionEvent e) throws IOException {
+
         Administrador admin = new Administrador();
         admin.setUsuario(txtUsuario.getText());
         admin.setContrasena(psfContrasena.getText());
@@ -64,13 +69,27 @@ public class LoginController implements Initializable {
             lblMensageError.setText("Ingrese su contraseña");
         } else {
             boolean rpta = this.loginDAO.iniciarSesion(admin);
-            
+
             if (rpta) {
-                lblMensageError.setText("Éxito al iniciar sesión");
+                Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
+
+                Parent root = FXMLLoader.load(getClass().getResource("primary.fxml"));
+
+                // Creamos la escena con la raíz de la jerarquía de nodos como raíz
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setWidth(1280);
+                stage.setHeight(720);
+                stage.setTitle("ReflexoPeru");
+                stage.centerOnScreen();
+                stage.setResizable(false);
+                
+                stage.show();
+                
             } else {
                 lblMensageError.setText("Datos incorrectos");
             }
-            
+
         }
     }
 

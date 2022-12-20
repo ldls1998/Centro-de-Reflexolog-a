@@ -7,27 +7,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.PrimaryController">
    <children>
-      <MenuBar VBox.vgrow="NEVER">
+      <MenuBar fx:id="myMenuBar" prefHeight="30.0" prefWidth="1280.0">
          <menus>
             <Menu mnemonicParsing="false" text="Archivos Maestros">
                <items>
-                  <MenuItem mnemonicParsing="false" text="G110. - Registro de Pacientes" />
-                  <MenuItem mnemonicParsing="false" text="G120. - Registro de Terapeutas" />
-                  <MenuItem mnemonicParsing="false" text="G130. - Registro de Diagnótsicos" />
-                  <MenuItem mnemonicParsing="false" text="G140. - Diagnósticos Médicos" />
+                  <MenuItem fx:id="miG110" mnemonicParsing="false" onAction="#cambiarAG110" text="G110. - Registro de Pacientes" />
+                  <MenuItem fx:id="miG120" mnemonicParsing="false" text="G120. - Registro de Terapeutas" />
+                  <MenuItem fx:id="miG130" mnemonicParsing="false" text="G130. - Registro de Diagnótsicos" />
+                  <MenuItem fx:id="miG140" mnemonicParsing="false" text="G140. - Diagnósticos Médicos" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Movimientos-Caja1">
                <items>
-                  <MenuItem mnemonicParsing="false" text="G210. - Movimiento Diario - Recepción y Cobranza" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="G220. - Movimiento Diario - Citas" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="G230. - Movimiento Diario - Resultado de Consulta" />
+                  <MenuItem fx:id="mi210" mnemonicParsing="false" text="G210. - Movimiento Diario - Recepción y Cobranza" />
+                  <MenuItem fx:id="mi220" disable="true" mnemonicParsing="false" text="G220. - Movimiento Diario - Citas" />
+                  <MenuItem fx:id="mi230" disable="true" mnemonicParsing="false" text="G230. - Movimiento Diario - Resultado de Consulta" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="G250. - Emisión de Tickets - Adelantos" />
+                  <MenuItem fx:id="mi250" mnemonicParsing="false" text="G250. - Emisión de Tickets - Adelantos" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="G240. - Informe de Caja Diario" />
+                  <MenuItem fx:id="mi240" mnemonicParsing="false" text="G240. - Informe de Caja Diario" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Movimientos-Caja2">
@@ -39,21 +39,25 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Consulta">
                <items>
-                  <MenuItem mnemonicParsing="false" text="G310. - Visualiza Pacientes" />
-                  <MenuItem mnemonicParsing="false" text="Informes" />
-                  <MenuItem mnemonicParsing="false" text="Copia de Seguridad" />
+                  <MenuItem fx:id="mi310" mnemonicParsing="false" text="G310. - Visualiza Pacientes" />
+                  <MenuItem fx:id="miInformes" mnemonicParsing="false" text="Informes" />
+                  <MenuItem fx:id="miCopiaSeguridad" mnemonicParsing="false" text="Copia de Seguridad" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="G320. - Revisa Fechas e Impresión" />
-                  <MenuItem mnemonicParsing="false" text="Mantenimiento de Índices" />
+                  <MenuItem fx:id="mi320" mnemonicParsing="false" text="G320. - Revisa Fechas e Impresión" />
+                  <MenuItem fx:id="miMantenimientoIndices" mnemonicParsing="false" text="Mantenimiento de Índices" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Cerrar el Sistema">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Salir" />
+                  <MenuItem fx:id="miSalir" mnemonicParsing="false" onAction="#salir" text="Salir" />
                </items>
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="594.0" prefWidth="1246.0" VBox.vgrow="ALWAYS">
+         <children>
+            <AnchorPane fx:id="apRootPane" layoutX="183.0" layoutY="79.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
    </children>
 </VBox>

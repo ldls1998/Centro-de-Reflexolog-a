@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.security.MessageDigest;
 
 /**
  * JavaFX App
@@ -15,18 +14,24 @@ import java.security.MessageDigest;
 public class App extends Application {
 
     private static Scene scene;
+    private static Scene login;
+    private static Scene main_scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("Login"));
-        stage.setScene(scene);
-        stage.setTitle("ReflexoPerú");
-        stage.setResizable(false);
-        stage.show();
+        
+        // Mostrar login
+        Stage login_stage = new Stage();
+        login = new Scene(loadFXML("Login"));
+        login_stage.setScene(login);
+        login_stage.setTitle("Iniciar Sesión");
+        login_stage.setResizable(false);
+        login_stage.show();
+        
     }
 
     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        login.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
