@@ -23,38 +23,38 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="119.0" layoutY="202.0" text="Usuario" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="91.0" layoutY="248.0" text="Contraseña" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtUsuario" layoutX="196.0" layoutY="202.0" prefHeight="25.0" prefWidth="179.0" promptText="usuario" />
-            <Button fx:id="btnIniciarSesion" layoutX="77.0" layoutY="312.0" mnemonicParsing="false" onAction="#loggin" prefHeight="25.0" prefWidth="329.0" style="-fx-background-color: white;" text="Iniciar sesión" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnSalir" layoutX="237.0" layoutY="356.0" mnemonicParsing="false" onAction="#salir" style="-fx-background-color: white;" text="Salir">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Label fx:id="lblOlvidasteContrasena" layoutX="220.0" layoutY="279.0" text="¿Olvidaste tu contraseña?" textFill="WHITE" underline="true">
-               <font>
-                  <Font name="System Bold" size="11.0" />
-               </font>
-            </Label>
             <Label fx:id="lblMensageError" layoutX="196.0" layoutY="170.0" prefHeight="30.0" prefWidth="205.0" textFill="RED">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
+            <Label layoutX="119.0" layoutY="202.0" text="Usuario" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUsuario" layoutX="196.0" layoutY="202.0" prefHeight="25.0" prefWidth="179.0" promptText="usuario" />
+            <Label layoutX="91.0" layoutY="248.0" text="Contraseña" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
             <PasswordField fx:id="psfContrasena" layoutX="196.0" layoutY="249.0" prefHeight="25.0" prefWidth="179.0" promptText="contraseña" />
+            <Button fx:id="btnIniciarSesion" layoutX="75.0" layoutY="298.0" mnemonicParsing="false" onAction="#loggin" prefHeight="25.0" prefWidth="329.0" style="-fx-background-color: white;" text="Iniciar sesión" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnSalir" layoutX="237.0" layoutY="339.0" mnemonicParsing="false" onAction="#salir" style="-fx-background-color: white;" text="Salir">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Label fx:id="lblOlvidasteContrasena" layoutX="194.0" layoutY="378.0" text="¿Olvidaste tu contraseña?" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

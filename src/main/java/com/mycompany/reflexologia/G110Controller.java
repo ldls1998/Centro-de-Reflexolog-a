@@ -8,6 +8,7 @@ package com.mycompany.reflexologia;
 import dao.G110DAO;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,13 +17,16 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
-import modelo.G110;
+import modelo.Paciente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -86,6 +90,8 @@ public class G110Controller implements Initializable {
     private ComboBox<String> cbSexo;
 
     private G110DAO g110dao;
+    @FXML
+    private TableView<Paciente> tvPacientes;
 
     /**
      * Initializes the controller class.
@@ -102,33 +108,35 @@ public class G110Controller implements Initializable {
         cbSexo.setValue("Seleccione");
 
         this.g110dao = new G110DAO();
+        
+        cargarPacientes();
     }
 
     @FXML
     void btnRegistrarOnAction(ActionEvent event) {
 
-        G110 g110 = new G110();
+        Paciente paciente = new Paciente();
 
-        g110.setNombre(txtNombre.getText());
-        g110.setCodigo(Integer.parseInt(txtCodigo.getText()));
-        g110.setDNICE(Integer.parseInt(txtDNICE.getText()));
-        g110.setFecha_nacimiento(java.sql.Date.valueOf(dpFecNac.getValue()));
-        g110.setSexo(cbSexo.getSelectionModel().getSelectedItem());
-        g110.setDireccion(txtDireccion.getText());
-        g110.setDpto(txtDpto.getText());
-        g110.setProv(txtProv.getText());
-        g110.setDist(txtDist.getText());
-        g110.setEspecial(cbEspecial.isSelected() ? true : false);
-        g110.setTestimonio(txtTestimonio.getText());
-        g110.setResultado(txtResultado.getText());
-        g110.setObservacion(txtObservacion.getText());
-        g110.setOcupacion(txtOcupacion.getText());
-        g110.setTelefono(Integer.parseInt(txtTelefono.getText()));
-        g110.setEmail(txtEmail.getText());
+        paciente.setNombre(txtNombre.getText());
+        paciente.setCodigo(Integer.parseInt(txtCodigo.getText()));
+        paciente.setDNICE(Integer.parseInt(txtDNICE.getText()));
+        paciente.setFecha_nacimiento(java.sql.Date.valueOf(dpFecNac.getValue()));
+        paciente.setSexo(cbSexo.getSelectionModel().getSelectedItem());
+        paciente.setDireccion(txtDireccion.getText());
+        paciente.setDpto(txtDpto.getText());
+        paciente.setProv(txtProv.getText());
+        paciente.setDist(txtDist.getText());
+        paciente.setEspecial(cbEspecial.isSelected() ? true : false);
+        paciente.setTestimonio(txtTestimonio.getText());
+        paciente.setResultado(txtResultado.getText());
+        paciente.setObservacion(txtObservacion.getText());
+        paciente.setOcupacion(txtOcupacion.getText());
+        paciente.setTelefono(Integer.parseInt(txtTelefono.getText()));
+        paciente.setEmail(txtEmail.getText());
 
-        System.out.println(g110.toString());
+        System.out.println(paciente.toString());
 
-        boolean rpta = this.g110dao.registrar(g110);
+        boolean rpta = this.g110dao.registrar(paciente);
 
         if (rpta) {
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
@@ -137,8 +145,10 @@ public class G110Controller implements Initializable {
             alerta.setHeaderText(null);
             alerta.setContentText("Se registró el paciente correctamente");
             alerta.initStyle(StageStyle.UTILITY);
+            alerta.initOwner(btnDatosVisita.getScene().getWindow());
             alerta.showAndWait();
             limpiarCampos();
+            cargarPacientes();
         } else {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
 
@@ -172,4 +182,24 @@ public class G110Controller implements Initializable {
 
     }
 
+    public void cargarPacientes() {
+        
+        tvPacientes.getItems().clear();
+        tvPacientes.getColumns().clear();
+        
+        List<Paciente> pacientes = this.g110dao.listar();
+        
+        ObservableList<Paciente> data = FXCollections.observableArrayList( pacientes );
+        
+        TableColumn codColumn = new TableColumn("Código");
+        codColumn.setCellValueFactory(new PropertyValueFactory("codigo"));
+        
+        TableColumn nombreColumn = new TableColumn("Nombre");
+        nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
+        
+        tvPacientes.setItems(data);
+        tvPacientes.getColumns().addAll(codColumn, nombreColumn);
+
+    }
+    
 }

@@ -9,7 +9,11 @@ import conexion.ConexionMySQL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import modelo.G110;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import modelo.Paciente;
 
 /**
  *
@@ -23,7 +27,7 @@ public class G110DAO {
         this.conexion = new ConexionMySQL();
     }
     
-    public boolean registrar(G110 g110) {
+    public boolean registrar(Paciente paciente) {
         
         try {
             
@@ -35,22 +39,22 @@ public class G110DAO {
             
             PreparedStatement sentencia = connection.prepareStatement(SQL);
             
-            sentencia.setInt(1, g110.getCodigo());
-            sentencia.setString(2, g110.getNombre());
-            sentencia.setInt(3, g110.getDNICE());
-            sentencia.setDate(4, (Date) g110.getFecha_nacimiento());
-            sentencia.setString(5, String.valueOf(g110.getSexo().charAt(0)));
-            sentencia.setString(6, g110.getDireccion());
-            sentencia.setString(7, g110.getDpto());
-            sentencia.setString(8, g110.getProv());
-            sentencia.setString(9, g110.getDist());
-            sentencia.setBoolean(10, g110.getEspecial());
-            sentencia.setString(11, g110.getTestimonio());
-            sentencia.setString(12, g110.getResultado());
-            sentencia.setString(13, g110.getObservacion());
-            sentencia.setString(14, g110.getOcupacion());
-            sentencia.setInt(15, g110.getTelefono());
-            sentencia.setString(16, g110.getEmail());
+            sentencia.setInt(1, paciente.getCodigo());
+            sentencia.setString(2, paciente.getNombre());
+            sentencia.setInt(3, paciente.getDNICE());
+            sentencia.setDate(4, (Date) paciente.getFecha_nacimiento());
+            sentencia.setString(5, String.valueOf(paciente.getSexo().charAt(0)));
+            sentencia.setString(6, paciente.getDireccion());
+            sentencia.setString(7, paciente.getDpto());
+            sentencia.setString(8, paciente.getProv());
+            sentencia.setString(9, paciente.getDist());
+            sentencia.setBoolean(10, paciente.getEspecial());
+            sentencia.setString(11, paciente.getTestimonio());
+            sentencia.setString(12, paciente.getResultado());
+            sentencia.setString(13, paciente.getObservacion());
+            sentencia.setString(14, paciente.getOcupacion());
+            sentencia.setInt(15, paciente.getTelefono());
+            sentencia.setString(16, paciente.getEmail());
             
             sentencia.executeUpdate();
             sentencia.close();
@@ -65,6 +69,44 @@ public class G110DAO {
             
         }
 
+    }
+    
+    public List<Paciente> listar() {
+        
+        List<Paciente> listaPaciente = new ArrayList<>();
+        
+        try {
+            
+            
+            
+            String select_all = "SELECT * FROM paciente;";
+            Connection conexion = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            ResultSet rs = sentencia.executeQuery();
+            
+            while (rs.next()) {
+                
+                Paciente paciente = new Paciente();
+                
+                paciente.setCodigo(rs.getInt(2));
+                paciente.setNombre(rs.getString(3));
+
+                listaPaciente.add(paciente);
+            }
+            
+            rs.close();
+            sentencia.close();
+            
+        } catch (SQLException e) {
+            
+            System.out.println("Error al mostrar pacientes.");
+            System.out.println("Error: " + e);
+            
+        }
+        
+        return listaPaciente;
     }
     
 }

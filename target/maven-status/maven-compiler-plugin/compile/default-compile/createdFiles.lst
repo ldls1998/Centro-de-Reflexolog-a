@@ -4,7 +4,6 @@ com\mycompany\reflexologia\G130Controller.class
 com\mycompany\reflexologia\LoginController.class
 modelo\Cita.class
 dao\G110DAO.class
-modelo\G110.class
 com\mycompany\reflexologia\G110Controller.class
 com\mycompany\reflexologia\PrimaryController.class
 modelo\Administrador.class

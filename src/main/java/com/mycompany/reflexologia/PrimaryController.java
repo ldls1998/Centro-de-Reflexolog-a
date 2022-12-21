@@ -51,7 +51,6 @@ public class PrimaryController {
 
     @FXML
     private void cambiarAG110(ActionEvent e) throws IOException {
-        Stage stage = (Stage) myMenuBar.getScene().getWindow();
 
         Parent root = FXMLLoader.load(getClass().getResource("G110.fxml"));
 
@@ -61,7 +60,7 @@ public class PrimaryController {
         new_stage.setScene(scene_show);
         new_stage.setWidth(1080);
         new_stage.setHeight(620);
-        new_stage.setTitle("ReflexoPeru");
+        new_stage.setTitle("G110. - Registro de Pacientes");
         new_stage.centerOnScreen();
         new_stage.setResizable(false);
         new_stage.setAlwaysOnTop(true);
@@ -72,7 +71,6 @@ public class PrimaryController {
     public void salir(ActionEvent e) {
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
         stage.close();
-
     }
 
 }

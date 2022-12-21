@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,19 +13,17 @@
 
 <AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="1063.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G110Controller">
    <children>
-      <TableView layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="522.0">
-         <columns>
-            <TableColumn prefWidth="21.0" />
-            <TableColumn editable="false" prefWidth="77.0" text="Código" />
-            <TableColumn prefWidth="266.0" text="Nombre" />
-         </columns>
-      </TableView>
       <Text layoutX="564.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CÓDIGO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
       <Text layoutX="562.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="571.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DNI/CE:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -56,6 +53,16 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
+      <Text layoutX="583.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIST:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="562.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ESPECIAL:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
       <Text layoutX="544.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OCUPACIÓN:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -71,54 +78,22 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="562.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ESPECIAL:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text layoutX="583.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIST:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Text>
       <TextField fx:id="txtCodigo" layoutX="634.0" layoutY="14.0" prefHeight="26.0" prefWidth="149.0" />
       <TextField fx:id="txtNombre" layoutX="634.0" layoutY="45.0" prefHeight="25.0" prefWidth="352.0" />
       <TextField fx:id="txtDNICE" layoutX="634.0" layoutY="77.0" prefHeight="25.0" prefWidth="150.0" />
+      <DatePicker fx:id="dpFecNac" layoutX="634.0" layoutY="110.0" promptText="DD/MM/AA" />
+      <ComboBox fx:id="cbSexo" layoutX="634.0" layoutY="142.0" prefWidth="150.0" />
+      <TextField fx:id="txtDireccion" layoutX="635.0" layoutY="172.0" prefHeight="25.0" prefWidth="352.0" />
       <TextField fx:id="txtDpto" layoutX="634.0" layoutY="202.0" prefHeight="25.0" prefWidth="352.0" />
       <TextField fx:id="txtProv" layoutX="634.0" layoutY="233.0" prefHeight="25.0" prefWidth="199.0" />
       <TextField fx:id="txtDist" layoutX="634.0" layoutY="265.0" prefHeight="25.0" prefWidth="199.0" />
+      <CheckBox fx:id="cbEspecial" layoutX="634.0" layoutY="300.0" mnemonicParsing="false" />
+      <TextField fx:id="txtTestimonio" layoutX="778.0" layoutY="296.0" prefHeight="25.0" prefWidth="30.0" />
+      <TextField fx:id="txtResultado" layoutX="906.0" layoutY="296.0" prefHeight="25.0" prefWidth="121.0" />
+      <TextField fx:id="txtObservacion" layoutX="777.0" layoutY="332.0" prefHeight="25.0" prefWidth="250.0" />
       <TextField fx:id="txtOcupacion" layoutX="634.0" layoutY="363.0" prefHeight="25.0" prefWidth="187.0" />
       <TextField fx:id="txtTelefono" layoutX="907.0" layoutY="363.0" prefHeight="25.0" prefWidth="134.0" />
       <TextField fx:id="txtEmail" layoutX="634.0" layoutY="402.0" prefHeight="25.0" prefWidth="187.0" />
-      <CheckBox fx:id="cbEspecial" layoutX="634.0" layoutY="300.0" mnemonicParsing="false" />
-      <TextField fx:id="txtDireccion" layoutX="635.0" layoutY="172.0" prefHeight="25.0" prefWidth="352.0" />
-      <Text layoutX="571.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DNI/CE:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Text>
-      <DatePicker fx:id="dpFecNac" layoutX="634.0" layoutY="110.0" promptText="DD/MM/AA" />
-      <Text layoutX="689.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TESTIMONIO:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Text>
-      <TextField fx:id="txtTestimonio" layoutX="778.0" layoutY="296.0" prefHeight="25.0" prefWidth="30.0" />
-      <Text layoutX="825.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESULTADO:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Text>
-      <TextField fx:id="txtResultado" layoutX="906.0" layoutY="296.0" prefHeight="25.0" prefWidth="121.0" />
-      <TextField fx:id="txtObservacion" layoutX="777.0" layoutY="332.0" prefHeight="25.0" prefWidth="250.0" />
-      <Text layoutX="678.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OBSERVACIÓN:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Text>
-      <ChoiceBox layoutX="14.0" layoutY="402.0" prefHeight="25.0" prefWidth="98.0" />
-      <TextField layoutX="118.0" layoutY="402.0" prefHeight="25.0" prefWidth="418.0" />
-      <ComboBox fx:id="cbSexo" layoutX="634.0" layoutY="142.0" prefWidth="150.0" />
       <Button fx:id="btnDatosVisita" layoutX="872.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="DATOS DE VISITA">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -129,5 +104,23 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <ChoiceBox layoutX="14.0" layoutY="402.0" prefHeight="25.0" prefWidth="98.0" />
+      <TextField layoutX="118.0" layoutY="402.0" prefHeight="25.0" prefWidth="418.0" />
+      <Text layoutX="689.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TESTIMONIO:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="825.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESULTADO:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="678.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OBSERVACIÓN:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <TableView fx:id="tvPacientes" layoutX="14.0" layoutY="14.0" prefHeight="377.0" prefWidth="522.0" />
    </children>
 </AnchorPane>

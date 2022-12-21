@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Vlik35
  */
-public class G110 {
+public class Paciente {
 
     private int ID;
     private int codigo;
@@ -31,7 +31,7 @@ public class G110 {
     private String email;
     private Boolean especial;
 
-    public G110() {
+    public Paciente() {
     }
 
     public int getID() {
