@@ -19,11 +19,11 @@ import modelo.Paciente;
  *
  * @author Vlik35
  */
-public class G110DAO {
+public class Cita_PacienteDAO {
     
     private ConexionMySQL conexion;
     
-    public G110DAO() {
+    public Cita_PacienteDAO() {
         this.conexion = new ConexionMySQL();
     }
     
@@ -106,5 +106,6 @@ public class G110DAO {
         
         return listaPaciente;
     }
+    
     
 }

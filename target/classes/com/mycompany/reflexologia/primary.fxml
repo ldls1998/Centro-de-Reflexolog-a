@@ -21,7 +21,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Movimientos-Caja1">
                <items>
-                  <MenuItem fx:id="mi210" mnemonicParsing="false" text="G210. - Movimiento Diario - Recepción y Cobranza" />
+                  <MenuItem fx:id="mi210" mnemonicParsing="false" onAction="#cambiarAG210" text="G210. - Movimiento Diario - Recepción y Cobranza" />
                   <MenuItem fx:id="mi220" disable="true" mnemonicParsing="false" text="G220. - Movimiento Diario - Citas" />
                   <MenuItem fx:id="mi230" disable="true" mnemonicParsing="false" text="G230. - Movimiento Diario - Resultado de Consulta" />
                   <SeparatorMenuItem mnemonicParsing="false" />

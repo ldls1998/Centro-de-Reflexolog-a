@@ -13,19 +13,12 @@ import java.util.Date;
  */
 public class Cita {
     
-    private int codigo_terapueta;
     private int codigo_paciente;
     private Date fecha_cita;
+    private float importe;
+    
 
     public Cita() {
-    }
-
-    public int getCodigo_terapueta() {
-        return codigo_terapueta;
-    }
-
-    public void setCodigo_terapueta(int codigo_terapueta) {
-        this.codigo_terapueta = codigo_terapueta;
     }
 
     public int getCodigo_paciente() {
@@ -44,9 +37,17 @@ public class Cita {
         this.fecha_cita = fecha_cita;
     }
 
+    public float getImporte() {
+        return importe;
+    }
+
+    public void setImporte(float importe) {
+        this.importe = importe;
+    }
+
     @Override
     public String toString() {
-        return "Cita{" + "codigo_terapueta=" + codigo_terapueta + ", codigo_paciente=" + codigo_paciente + ", fecha_cita=" + fecha_cita + '}';
+        return "Cita{" + "codigo_paciente=" + codigo_paciente + ", fecha_cita=" + fecha_cita + ", importe=" + importe + '}';
     }
     
 }

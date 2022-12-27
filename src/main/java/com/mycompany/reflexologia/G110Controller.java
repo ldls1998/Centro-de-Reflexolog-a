@@ -89,9 +89,10 @@ public class G110Controller implements Initializable {
     @FXML
     private ComboBox<String> cbSexo;
 
-    private G110DAO g110dao;
     @FXML
     private TableView<Paciente> tvPacientes;
+    
+    private G110DAO g110dao;
 
     /**
      * Initializes the controller class.
