@@ -51,7 +51,7 @@ public class G210DAO {
                 cita.setCodigo_paciente(rs.getInt(4));
 
                 String select_nombre = "SELECT * FROM paciente "
-                        + "WHERE id = ?;";
+                        + "WHERE codigo = ?;";
 
                 PreparedStatement sentencia_2 = conexion.prepareStatement(select_nombre);
 
