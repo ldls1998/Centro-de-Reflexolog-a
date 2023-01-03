@@ -1,7 +1,6 @@
 com\mycompany\reflexologia\LoginController.class
 modelo\Cita.class
 dao\G110DAO.class
-module-info.class
 dao\LoginDAO.class
 com\mycompany\reflexologia\G130Controller.class
 com\mycompany\reflexologia\G110Controller.class

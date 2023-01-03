@@ -13,9 +13,7 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Scene scene;
     private static Scene login;
-    private static Scene main_scene;
 
     @Override
     public void start(Stage stage) throws IOException {

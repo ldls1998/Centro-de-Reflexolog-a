@@ -71,20 +71,16 @@ public class LoginController implements Initializable {
             boolean rpta = this.loginDAO.iniciarSesion(admin);
 
             if (rpta) {
-                Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
-
-                Parent root = FXMLLoader.load(getClass().getResource("primary.fxml"));
-
-                // Creamos la escena con la raíz de la jerarquía de nodos como raíz
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setWidth(1280);
-                stage.setHeight(720);
-                stage.setTitle("ReflexoPeru");
-                stage.centerOnScreen();
-                stage.setResizable(false);
                 
-                stage.show();
+                Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
+                stage.close();
+                
+                cargarScene cargarScene = new cargarScene();
+                
+                String scene_name = "primary.fxml";
+                String titulo = "ReflexoPerú";
+        
+                cargarScene.loadScene(scene_name, 1280, 720, titulo, false, true);
                 
             } else {
                 lblMensageError.setText("Datos incorrectos");

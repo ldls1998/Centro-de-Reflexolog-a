@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 
 public class PrimaryController {
 
+    cargarScene cargarScene = new cargarScene();
+    
     @FXML
     private MenuItem miG110;
     @FXML
@@ -55,7 +57,7 @@ public class PrimaryController {
         String scene_name = "G110.fxml";
         String titulo = "G110. - Registro de Pacientes";
         
-        loadScene(scene_name, 1080, 620, titulo, false, true);
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
     }
 
     @FXML
@@ -64,25 +66,7 @@ public class PrimaryController {
         String scene_name = "G210.fxml";
         String titulo = "G210. - Recepción y Cobranza Caja 1";
         
-        loadScene(scene_name, 1080, 620, titulo, false, true);
-    }
-
-    private void loadScene(String scene_name, int width, int height, String title, boolean resizable, boolean onTop) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource(scene_name));
-
-        Scene scene_show = new Scene(root);
-        Stage new_stage = new Stage();
-        // Creamos la escena con la raíz de la jerarquía de nodos como raíz
-        new_stage.setScene(scene_show);
-        new_stage.setWidth(width);
-        new_stage.setHeight(height);
-        new_stage.setTitle(title);
-        new_stage.centerOnScreen();
-        new_stage.setResizable(resizable);
-        new_stage.setAlwaysOnTop(onTop);
-        new_stage.show();
-
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
     }
 
     @FXML
