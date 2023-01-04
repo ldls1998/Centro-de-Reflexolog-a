@@ -107,5 +107,31 @@ public class Cita_PacienteDAO {
         return listaPaciente;
     }
     
+    public boolean eliminar(int registro) {
+        
+        try {
+            
+            String SQL = "DELETE FROM citas WHERE registro = ?;";
+            
+            Connection conexion = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = conexion.prepareStatement(SQL);
+            
+            sentencia.setInt(1, registro);
+            
+            sentencia.executeUpdate();
+            
+            sentencia.close();
+            
+            return true;
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("Error al eliminar cita.");
+            System.out.println("Error: " + e);
+            return false;
+        }
+    }
     
 }

@@ -45,7 +45,8 @@ public class G210DAO {
 
                 Cita cita = new Cita();
                 Paciente paciente = new Paciente();
-
+                
+                cita.setRegistro(rs.getInt(1));
                 cita.setFecha_cita(rs.getDate(2));
                 cita.setImporte(rs.getFloat(3));
                 cita.setCodigo_paciente(rs.getInt(4));

@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class Cita {
     
+    private int registro;
     private int codigo_paciente;
     private Date fecha_cita;
     private float importe;
@@ -21,6 +22,14 @@ public class Cita {
     public Cita() {
     }
 
+    public int getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(int registro) {
+        this.registro = registro;
+    }
+    
     public int getCodigo_paciente() {
         return codigo_paciente;
     }
@@ -47,7 +56,13 @@ public class Cita {
 
     @Override
     public String toString() {
-        return "Cita{" + "codigo_paciente=" + codigo_paciente + ", fecha_cita=" + fecha_cita + ", importe=" + importe + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cita{registro=").append(registro);
+        sb.append(", codigo_paciente=").append(codigo_paciente);
+        sb.append(", fecha_cita=").append(fecha_cita);
+        sb.append(", importe=").append(importe);
+        sb.append('}');
+        return sb.toString();
     }
     
 }

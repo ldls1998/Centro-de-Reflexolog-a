@@ -15,11 +15,11 @@ public class Cita_Paciente {
 
     private Cita cita;
     private Paciente paciente;
+    private int registro;
     private String nombre;
     private int codigo_paciente;
     private Date fecha_cita;
     private float importe;
-    private int codigo;
     private int DNICE;
     private Date fecha_nacimiento;
     private String sexo;
@@ -38,6 +38,7 @@ public class Cita_Paciente {
     public Cita_Paciente(Cita cita, Paciente paciente) {
         this.cita = cita;
         this.paciente = paciente;
+        this.registro = this.cita.getRegistro();
         this.nombre = this.paciente.getNombre();
         this.codigo_paciente = this.cita.getCodigo_paciente();
         this.fecha_cita = this.cita.getFecha_cita();
@@ -73,6 +74,14 @@ public class Cita_Paciente {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+    
+    public int getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(int registro) {
+        this.registro = registro;
+    }
 
     public String getNombre() {
         return nombre;
@@ -104,14 +113,6 @@ public class Cita_Paciente {
 
     public void setImporte(float importe) {
         this.importe = importe;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public int getDNICE() {

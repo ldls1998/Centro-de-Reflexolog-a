@@ -88,8 +88,8 @@ public class G110DAO {
 
                 Paciente paciente = new Paciente();
 
-                paciente.setCodigo(rs.getInt(2));
-                paciente.setNombre(rs.getString(3));
+                paciente.setCodigo(rs.getInt(1));
+                paciente.setNombre(rs.getString(2));
 
                 listaPaciente.add(paciente);
             }
