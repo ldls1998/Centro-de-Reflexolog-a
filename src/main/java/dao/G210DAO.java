@@ -60,22 +60,22 @@ public class G210DAO {
                 ResultSet rs_2 = sentencia_2.executeQuery();
 
                 while (rs_2.next()) {
-                    paciente.setCodigo(rs_2.getInt(2));
-                    paciente.setNombre(rs_2.getString(3));
-                    paciente.setDNICE(rs_2.getInt(4));
-                    paciente.setFecha_nacimiento(rs_2.getDate(5));
-                    paciente.setSexo(rs_2.getString(6));
-                    paciente.setDireccion(rs_2.getString(7));
-                    paciente.setDpto(rs_2.getString(8));
-                    paciente.setProv(rs_2.getString(9));
-                    paciente.setDist(rs_2.getString(10));
-                    paciente.setEspecial(rs_2.getBoolean(11));
-                    paciente.setTestimonio(rs_2.getString(12));
-                    paciente.setResultado(rs_2.getString(13));
-                    paciente.setObservacion(rs_2.getString(14));
-                    paciente.setOcupacion(rs_2.getString(15));
-                    paciente.setTelefono(rs_2.getInt(16));
-                    paciente.setEmail(rs_2.getString(17));
+                    paciente.setCodigo(rs_2.getInt(1));
+                    paciente.setNombre(rs_2.getString(2));
+                    paciente.setDNICE(rs_2.getInt(3));
+                    paciente.setFecha_nacimiento(rs_2.getDate(4));
+                    paciente.setSexo(rs_2.getString(5));
+                    paciente.setDireccion(rs_2.getString(6));
+                    paciente.setDpto(rs_2.getString(7));
+                    paciente.setProv(rs_2.getString(8));
+                    paciente.setDist(rs_2.getString(9));
+                    paciente.setEspecial(rs_2.getBoolean(10));
+                    paciente.setTestimonio(rs_2.getString(11));
+                    paciente.setResultado(rs_2.getString(12));
+                    paciente.setObservacion(rs_2.getString(13));
+                    paciente.setOcupacion(rs_2.getString(14));
+                    paciente.setTelefono(rs_2.getInt(15));
+                    paciente.setEmail(rs_2.getString(16));
                 }
 
                 Cita_Paciente cp = new Cita_Paciente(cita, paciente);

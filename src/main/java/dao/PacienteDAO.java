@@ -38,22 +38,22 @@ public class PacienteDAO {
             ResultSet rs = sentencia.executeQuery();
             
             while (rs.next()) {
-                paciente.setCodigo(rs.getInt(2));
-                paciente.setNombre(rs.getString(3));
-                paciente.setDNICE(rs.getInt(4));
-                paciente.setFecha_nacimiento(rs.getDate(5));
-                paciente.setSexo(rs.getString(6));
-                paciente.setDireccion(rs.getString(7));
-                paciente.setDpto(rs.getString(8));
-                paciente.setProv(rs.getString(9));
-                paciente.setDist(rs.getString(10));
-                paciente.setEspecial(rs.getBoolean(11));
-                paciente.setTestimonio(rs.getString(12));
-                paciente.setResultado(rs.getString(13));
-                paciente.setObservacion(rs.getString(14));
-                paciente.setOcupacion(rs.getString(15));
-                paciente.setTelefono(rs.getInt(16));
-                paciente.setEmail(rs.getString(17));
+                paciente.setCodigo(rs.getInt(1));
+                paciente.setNombre(rs.getString(2));
+                paciente.setDNICE(rs.getInt(3));
+                paciente.setFecha_nacimiento(rs.getDate(4));
+                paciente.setSexo(rs.getString(5));
+                paciente.setDireccion(rs.getString(6));
+                paciente.setDpto(rs.getString(7));
+                paciente.setProv(rs.getString(8));
+                paciente.setDist(rs.getString(9));
+                paciente.setEspecial(rs.getBoolean(10));
+                paciente.setTestimonio(rs.getString(11));
+                paciente.setResultado(rs.getString(12));
+                paciente.setObservacion(rs.getString(13));
+                paciente.setOcupacion(rs.getString(14));
+                paciente.setTelefono(rs.getInt(15));
+                paciente.setEmail(rs.getString(16));
             }
             
             rs.close();
