@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Cita;
+import modelo.Cita_Paciente;
 import modelo.Paciente;
 
 /**
@@ -134,4 +136,299 @@ public class Cita_PacienteDAO {
         }
     }
     
+    public List<Cita_Paciente> buscarPorFecha(String fecha) {
+        
+        List<Cita_Paciente> lista = new ArrayList<>();
+        
+        try {
+            
+            String SQL = "SELECT * FROM citas WHERE fecha_cita = ?;";
+            Connection connection = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = connection.prepareStatement(SQL);
+            
+            sentencia.setString(1, fecha);
+            
+            ResultSet rs = sentencia.executeQuery();
+            
+            while (rs.next()) {
+
+                Cita cita = new Cita();
+                Paciente paciente = new Paciente();
+                
+                cita.setRegistro(rs.getInt(1));
+                cita.setFecha_cita(rs.getDate(2));
+                cita.setImporte(rs.getFloat(3));
+                cita.setCodigo_paciente(rs.getInt(4));
+
+                String select_nombre = "SELECT * FROM paciente "
+                        + "WHERE codigo = ?;";
+
+                PreparedStatement sentencia_2 = connection.prepareStatement(select_nombre);
+
+                sentencia_2.setInt(1, cita.getCodigo_paciente());
+
+                ResultSet rs_2 = sentencia_2.executeQuery();
+
+                while (rs_2.next()) {
+                    paciente.setCodigo(rs_2.getInt(1));
+                    paciente.setNombre(rs_2.getString(2));
+                    paciente.setDNICE(rs_2.getInt(3));
+                    paciente.setFecha_nacimiento(rs_2.getDate(4));
+                    paciente.setSexo(rs_2.getString(5));
+                    paciente.setDireccion(rs_2.getString(6));
+                    paciente.setDpto(rs_2.getString(7));
+                    paciente.setProv(rs_2.getString(8));
+                    paciente.setDist(rs_2.getString(9));
+                    paciente.setEspecial(rs_2.getBoolean(10));
+                    paciente.setTestimonio(rs_2.getString(11));
+                    paciente.setResultado(rs_2.getString(12));
+                    paciente.setObservacion(rs_2.getString(13));
+                    paciente.setOcupacion(rs_2.getString(14));
+                    paciente.setTelefono(rs_2.getInt(15));
+                    paciente.setEmail(rs_2.getString(16));
+                }
+
+                Cita_Paciente cp = new Cita_Paciente(cita, paciente);
+
+                lista.add(cp);
+                rs_2.close();
+                sentencia_2.close();
+            }
+
+            rs.close();
+            sentencia.close();
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("Error al buscar por fecha.");
+            System.out.println("Error: " + e);
+            
+        }
+        
+        return lista;
+    }
+    public List<Cita_Paciente> buscarPorMesYAnio(int mes, int anio) {
+        
+        List<Cita_Paciente> lista = new ArrayList<>();
+        
+        try {
+            
+            String SQL = "SELECT * FROM citas WHERE MONTH(fecha_cita) = ? AND YEAR(fecha_cita) = ?;";
+            Connection connection = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = connection.prepareStatement(SQL);
+            
+            sentencia.setInt(1, mes);
+            sentencia.setInt(2, anio);
+            
+            ResultSet rs = sentencia.executeQuery();
+            
+            while (rs.next()) {
+
+                Cita cita = new Cita();
+                Paciente paciente = new Paciente();
+                
+                cita.setRegistro(rs.getInt(1));
+                cita.setFecha_cita(rs.getDate(2));
+                cita.setImporte(rs.getFloat(3));
+                cita.setCodigo_paciente(rs.getInt(4));
+
+                String select_nombre = "SELECT * FROM paciente "
+                        + "WHERE codigo = ?;";
+
+                PreparedStatement sentencia_2 = connection.prepareStatement(select_nombre);
+
+                sentencia_2.setInt(1, cita.getCodigo_paciente());
+
+                ResultSet rs_2 = sentencia_2.executeQuery();
+
+                while (rs_2.next()) {
+                    paciente.setCodigo(rs_2.getInt(1));
+                    paciente.setNombre(rs_2.getString(2));
+                    paciente.setDNICE(rs_2.getInt(3));
+                    paciente.setFecha_nacimiento(rs_2.getDate(4));
+                    paciente.setSexo(rs_2.getString(5));
+                    paciente.setDireccion(rs_2.getString(6));
+                    paciente.setDpto(rs_2.getString(7));
+                    paciente.setProv(rs_2.getString(8));
+                    paciente.setDist(rs_2.getString(9));
+                    paciente.setEspecial(rs_2.getBoolean(10));
+                    paciente.setTestimonio(rs_2.getString(11));
+                    paciente.setResultado(rs_2.getString(12));
+                    paciente.setObservacion(rs_2.getString(13));
+                    paciente.setOcupacion(rs_2.getString(14));
+                    paciente.setTelefono(rs_2.getInt(15));
+                    paciente.setEmail(rs_2.getString(16));
+                }
+
+                Cita_Paciente cp = new Cita_Paciente(cita, paciente);
+
+                lista.add(cp);
+                rs_2.close();
+                sentencia_2.close();
+            }
+
+            rs.close();
+            sentencia.close();
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("Error al buscar por fecha.");
+            System.out.println("Error: " + e);
+            
+        }
+        
+        return lista;
+    }
+    
+    public List<Cita_Paciente> buscarPorMes(int mes) {
+        
+        List<Cita_Paciente> lista = new ArrayList<>();
+        
+        try {
+            
+            String SQL = "SELECT * FROM citas WHERE MONTH(fecha_cita) = ?;";
+            Connection connection = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = connection.prepareStatement(SQL);
+            
+            sentencia.setInt(1, mes);
+            
+            ResultSet rs = sentencia.executeQuery();
+            
+            while (rs.next()) {
+
+                Cita cita = new Cita();
+                Paciente paciente = new Paciente();
+                
+                cita.setRegistro(rs.getInt(1));
+                cita.setFecha_cita(rs.getDate(2));
+                cita.setImporte(rs.getFloat(3));
+                cita.setCodigo_paciente(rs.getInt(4));
+
+                String select_nombre = "SELECT * FROM paciente "
+                        + "WHERE codigo = ?;";
+
+                PreparedStatement sentencia_2 = connection.prepareStatement(select_nombre);
+
+                sentencia_2.setInt(1, cita.getCodigo_paciente());
+
+                ResultSet rs_2 = sentencia_2.executeQuery();
+
+                while (rs_2.next()) {
+                    paciente.setCodigo(rs_2.getInt(1));
+                    paciente.setNombre(rs_2.getString(2));
+                    paciente.setDNICE(rs_2.getInt(3));
+                    paciente.setFecha_nacimiento(rs_2.getDate(4));
+                    paciente.setSexo(rs_2.getString(5));
+                    paciente.setDireccion(rs_2.getString(6));
+                    paciente.setDpto(rs_2.getString(7));
+                    paciente.setProv(rs_2.getString(8));
+                    paciente.setDist(rs_2.getString(9));
+                    paciente.setEspecial(rs_2.getBoolean(10));
+                    paciente.setTestimonio(rs_2.getString(11));
+                    paciente.setResultado(rs_2.getString(12));
+                    paciente.setObservacion(rs_2.getString(13));
+                    paciente.setOcupacion(rs_2.getString(14));
+                    paciente.setTelefono(rs_2.getInt(15));
+                    paciente.setEmail(rs_2.getString(16));
+                }
+
+                Cita_Paciente cp = new Cita_Paciente(cita, paciente);
+
+                lista.add(cp);
+                rs_2.close();
+                sentencia_2.close();
+            }
+
+            rs.close();
+            sentencia.close();
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("Error al buscar por fecha.");
+            System.out.println("Error: " + e);
+            
+        }
+        
+        return lista;
+    }
+    
+    public List<Cita_Paciente> buscarPorAnio(int anio) {
+        
+        List<Cita_Paciente> lista = new ArrayList<>();
+        
+        try {
+            
+            String SQL = "SELECT * FROM citas WHERE YEAR(fecha_cita) = ?;";
+            Connection connection = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = connection.prepareStatement(SQL);
+            
+            sentencia.setInt(1, anio);
+            
+            ResultSet rs = sentencia.executeQuery();
+            
+            while (rs.next()) {
+
+                Cita cita = new Cita();
+                Paciente paciente = new Paciente();
+                
+                cita.setRegistro(rs.getInt(1));
+                cita.setFecha_cita(rs.getDate(2));
+                cita.setImporte(rs.getFloat(3));
+                cita.setCodigo_paciente(rs.getInt(4));
+
+                String select_nombre = "SELECT * FROM paciente "
+                        + "WHERE codigo = ?;";
+
+                PreparedStatement sentencia_2 = connection.prepareStatement(select_nombre);
+
+                sentencia_2.setInt(1, cita.getCodigo_paciente());
+
+                ResultSet rs_2 = sentencia_2.executeQuery();
+
+                while (rs_2.next()) {
+                    paciente.setCodigo(rs_2.getInt(1));
+                    paciente.setNombre(rs_2.getString(2));
+                    paciente.setDNICE(rs_2.getInt(3));
+                    paciente.setFecha_nacimiento(rs_2.getDate(4));
+                    paciente.setSexo(rs_2.getString(5));
+                    paciente.setDireccion(rs_2.getString(6));
+                    paciente.setDpto(rs_2.getString(7));
+                    paciente.setProv(rs_2.getString(8));
+                    paciente.setDist(rs_2.getString(9));
+                    paciente.setEspecial(rs_2.getBoolean(10));
+                    paciente.setTestimonio(rs_2.getString(11));
+                    paciente.setResultado(rs_2.getString(12));
+                    paciente.setObservacion(rs_2.getString(13));
+                    paciente.setOcupacion(rs_2.getString(14));
+                    paciente.setTelefono(rs_2.getInt(15));
+                    paciente.setEmail(rs_2.getString(16));
+                }
+
+                Cita_Paciente cp = new Cita_Paciente(cita, paciente);
+
+                lista.add(cp);
+                rs_2.close();
+                sentencia_2.close();
+            }
+
+            rs.close();
+            sentencia.close();
+            
+            
+        } catch (Exception e) {
+            
+            System.out.println("Error al buscar por fecha.");
+            System.out.println("Error: " + e);
+            
+        }
+        
+        return lista;
+    }
 }
