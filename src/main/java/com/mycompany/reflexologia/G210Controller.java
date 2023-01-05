@@ -18,9 +18,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,19 +27,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 import modelo.Cita_Paciente;
 
 /**
@@ -137,6 +131,14 @@ public class G210Controller implements Initializable {
 
         cmOpciones.getItems().addAll(miEditar, miEliminar);
 
+        miEditar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                
+            }
+
+        });
+
         miEliminar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
@@ -214,9 +216,9 @@ public class G210Controller implements Initializable {
 
     @FXML
     void btnConsultarCitas(ActionEvent event) {
-        
+
         if (dpFecha.getValue() != null) {
-            
+
             String dateString = dpFecha.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             List<Cita_Paciente> fecha = cita_pacienteDAO.buscarPorFecha(dateString);
             ObservableList<Cita_Paciente> datos = FXCollections.observableArrayList(fecha);
@@ -262,6 +264,6 @@ public class G210Controller implements Initializable {
         cbAnio.setValue("Año");
         cbMes.setValue("Mes");
         btnConsultarCitas(event);
-        
+
     }
 }
