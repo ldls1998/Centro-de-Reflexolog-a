@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -80,6 +80,7 @@ public class Cita_Paciente {
     }
 
     public void setRegistro(int registro) {
+        this.cita.setRegistro(registro);
         this.registro = registro;
     }
 
@@ -88,6 +89,7 @@ public class Cita_Paciente {
     }
 
     public void setNombre(String nombre) {
+        this.paciente.setNombre(nombre);
         this.nombre = nombre;
     }
 
@@ -96,6 +98,7 @@ public class Cita_Paciente {
     }
 
     public void setCodigo_paciente(int codigo_paciente) {
+        this.paciente.setCodigo(codigo_paciente);
         this.codigo_paciente = codigo_paciente;
     }
 
@@ -104,6 +107,7 @@ public class Cita_Paciente {
     }
 
     public void setFecha_cita(Date fecha_cita) {
+        this.cita.setFecha_cita(fecha_cita);
         this.fecha_cita = fecha_cita;
     }
 
@@ -112,6 +116,7 @@ public class Cita_Paciente {
     }
 
     public void setImporte(float importe) {
+        this.cita.setImporte(importe);
         this.importe = importe;
     }
 
@@ -120,6 +125,7 @@ public class Cita_Paciente {
     }
 
     public void setDNICE(int DNICE) {
+        this.paciente.setDNICE(DNICE);
         this.DNICE = DNICE;
     }
 
@@ -128,6 +134,7 @@ public class Cita_Paciente {
     }
 
     public void setFecha_nacimiento(Date fecha_nacimiento) {
+        this.paciente.setFecha_nacimiento(fecha_nacimiento);
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
@@ -136,6 +143,7 @@ public class Cita_Paciente {
     }
 
     public void setSexo(String sexo) {
+        this.paciente.setSexo(sexo);
         this.sexo = sexo;
     }
 
@@ -144,6 +152,7 @@ public class Cita_Paciente {
     }
 
     public void setDireccion(String direccion) {
+        this.paciente.setDireccion(direccion);
         this.direccion = direccion;
     }
 
@@ -152,6 +161,7 @@ public class Cita_Paciente {
     }
 
     public void setProv(String prov) {
+        this.paciente.setProv(prov);
         this.prov = prov;
     }
 
@@ -160,6 +170,7 @@ public class Cita_Paciente {
     }
 
     public void setDpto(String dpto) {
+        this.paciente.setDpto(dpto);
         this.dpto = dpto;
     }
 
@@ -168,6 +179,7 @@ public class Cita_Paciente {
     }
 
     public void setDist(String dist) {
+        this.paciente.setDist(dist);        
         this.dist = dist;
     }
 
@@ -176,6 +188,7 @@ public class Cita_Paciente {
     }
 
     public void setTestimonio(String testimonio) {
+        this.paciente.setTestimonio(testimonio);
         this.testimonio = testimonio;
     }
 
@@ -184,6 +197,7 @@ public class Cita_Paciente {
     }
 
     public void setResultado(String resultado) {
+        this.paciente.setResultado(resultado);
         this.resultado = resultado;
     }
 
@@ -192,6 +206,7 @@ public class Cita_Paciente {
     }
 
     public void setObservacion(String observacion) {
+        this.paciente.setObservacion(observacion);
         this.observacion = observacion;
     }
 
@@ -200,6 +215,7 @@ public class Cita_Paciente {
     }
 
     public void setOcupacion(String ocupacion) {
+        this.paciente.setOcupacion(ocupacion);
         this.ocupacion = ocupacion;
     }
 
@@ -208,6 +224,7 @@ public class Cita_Paciente {
     }
 
     public void setTelefono(int telefono) {
+        this.paciente.setTelefono(telefono);
         this.telefono = telefono;
     }
 
@@ -216,6 +233,7 @@ public class Cita_Paciente {
     }
 
     public void setEmail(String email) {
+        this.paciente.setEmail(email);
         this.email = email;
     }
 
@@ -224,7 +242,8 @@ public class Cita_Paciente {
     }
 
     public void setEspecial(Boolean especial) {
+        this.paciente.setEspecial(especial);
         this.especial = especial;
     }
-
+    
 }

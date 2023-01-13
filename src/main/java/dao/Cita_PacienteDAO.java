@@ -136,6 +136,59 @@ public class Cita_PacienteDAO {
         }
     }
     
+    public boolean editar(Cita cita, String nombre) {
+        
+        int codigo = 0;
+        try {
+            String SQL = "SELECT codigo FROM paciente "
+                    + "WHERE nombre = ?;";
+            
+            Connection conexion = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = conexion.prepareStatement(SQL);
+            
+            sentencia.setString(1, nombre);
+            
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+                codigo = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.err.println("Error al editar pacientes.");
+            System.err.println("Error: " + e);
+            return false;
+        }
+            
+
+        try {
+            
+            String SQL = "UPDATE citas SET fecha_cita = ?, importe = ?, pacienteID = ? "
+                    + "WHERE registro = ?;";
+            
+            Connection conexion = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = conexion.prepareStatement(SQL);
+            
+            sentencia.setDate(1, cita.getFecha_cita());
+            sentencia.setFloat(2, cita.getImporte());
+            sentencia.setInt(3, codigo);
+            sentencia.setInt(4, cita.getRegistro());
+            
+            sentencia.executeUpdate();
+            
+            sentencia.close();
+            
+            return true;
+
+        } catch (Exception e) {
+
+            System.err.println("Error al editar pacientes.");
+            System.err.println("Error: " + e);
+            return false;
+        }
+    }
+    
     public List<Cita_Paciente> buscarPorFecha(String fecha) {
         
         List<Cita_Paciente> lista = new ArrayList<>();

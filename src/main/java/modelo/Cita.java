@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -20,6 +20,13 @@ public class Cita {
     
 
     public Cita() {
+    }
+
+    public Cita(int registro, int codigo_paciente, Date fecha_cita, float importe) {
+        this.registro = registro;
+        this.codigo_paciente = codigo_paciente;
+        this.fecha_cita = fecha_cita;
+        this.importe = importe;
     }
 
     public int getRegistro() {
@@ -57,7 +64,8 @@ public class Cita {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Cita{registro=").append(registro);
+        sb.append("Cita{");
+        sb.append("registro=").append(registro);
         sb.append(", codigo_paciente=").append(codigo_paciente);
         sb.append(", fecha_cita=").append(fecha_cita);
         sb.append(", importe=").append(importe);

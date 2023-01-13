@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Paciente;
 
 /**
@@ -94,5 +96,35 @@ public class PacienteDAO {
             System.out.println("Error: " + e);
             return false;
         }
+    }
+    
+    public List<String> listarNombrePacientes() {
+
+        List<String> lista = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT nombre FROM paciente;";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+                lista.add(rs.getString(1));
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar la tabla.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return lista;
     }
 }

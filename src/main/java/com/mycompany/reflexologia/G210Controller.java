@@ -7,23 +7,30 @@ package com.mycompany.reflexologia;
 
 import dao.Cita_PacienteDAO;
 import dao.G210DAO;
+import java.io.IOException;
 import java.net.URL;
 import java.time.Month;
 import java.time.Year;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -35,9 +42,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import modelo.Cita;
 import modelo.Cita_Paciente;
+import modelo.DataSingleton;
+import modelo.Paciente;
 
 /**
  * FXML Controller class
@@ -94,6 +106,14 @@ public class G210Controller implements Initializable {
     }
     @FXML
     private Button btnLimpiarFechas;
+    @FXML
+    private AnchorPane rootPane;
+
+    public Cita cita;
+    public int registroCitaModificar;
+    public Date fechaCitaModificar;
+    public float importeCitaModificar;
+    public String nombreCitaModificar;
 
     /**
      * Initializes the controller class.
@@ -134,7 +154,35 @@ public class G210Controller implements Initializable {
         miEditar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                
+                String scene_name = "G210 - ModificarCita.fxml";
+                String titulo = "G210. - Modificar Citas";
+                try {
+                    Stage stage = (Stage) btnConsultarCitas.getScene().getWindow();
+                    
+                    int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
+                    int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
+                    Date fechaCitaModificar = tvCitasyPacientes.getItems().get(index).getFecha_cita();
+                    float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
+                    String nombreCitaModificar = tvCitasyPacientes.getItems().get(index).getNombre();
+                    int codigoPacienteModificar = tvCitasyPacientes.getItems().get(index).getCodigo_paciente();
+                    java.sql.Date sqlDate = new java.sql.Date(fechaCitaModificar.getTime());
+                    cita = new Cita(registroCitaModificar, codigoPacienteModificar, sqlDate, importeCitaModificar);
+                    Paciente paciente = new Paciente();
+                    paciente.setNombre(nombreCitaModificar);
+                    paciente.setCodigo(codigoPacienteModificar);
+                    Cita_Paciente cp = new Cita_Paciente(cita, paciente);
+                    DataSingleton.getInstance().setData(cp);
+                    
+                    AnchorPane pane = new FXMLLoader(getClass().getResource("G210 - ModificarCita.fxml")).load();
+                    rootPane.getChildren().setAll(pane);
+                    stage.setWidth(450);
+                    stage.setHeight(320);
+                    stage.setTitle(titulo);
+                    stage.centerOnScreen();
+
+                } catch (IOException ex) {
+                    System.err.println("Error al cargar.");
+                }
             }
 
         });
@@ -266,4 +314,10 @@ public class G210Controller implements Initializable {
         btnConsultarCitas(event);
 
     }
+
+    public void initDate(Cita cita, String nombreCitaModificar) {
+        this.cita = cita;
+        this.nombreCitaModificar = nombreCitaModificar;
+    }
+
 }

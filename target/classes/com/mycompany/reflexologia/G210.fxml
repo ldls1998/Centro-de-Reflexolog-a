@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G210Controller">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G210Controller">
    <children>
       <DatePicker fx:id="dpFecha" layoutX="50.0" layoutY="57.0" prefHeight="25.0" prefWidth="150.0" />
       <ComboBox fx:id="cbMes" layoutX="407.0" layoutY="57.0" prefWidth="150.0" />
