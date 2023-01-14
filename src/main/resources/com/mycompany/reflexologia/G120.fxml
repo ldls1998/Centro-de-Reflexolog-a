@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="1063.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G120Controller">
+<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="1063.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G120Controller">
    <children>
       <Text layoutX="58.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO:">
          <font>
@@ -60,26 +60,25 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <TextField layoutX="130.0" layoutY="56.0" prefHeight="26.0" prefWidth="149.0" />
-      <TextField layoutX="130.0" layoutY="87.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField layoutX="130.0" layoutY="179.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField layoutX="130.0" layoutY="208.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField layoutX="130.0" layoutY="239.0" prefHeight="25.0" prefWidth="199.0" />
-      <TextField layoutX="130.0" layoutY="271.0" prefHeight="25.0" prefWidth="199.0" />
-      <TextField layoutX="130.0" layoutY="302.0" />
-      <TextField layoutX="130.0" layoutY="333.0" />
-      <TextField layoutX="130.0" layoutY="367.0" prefHeight="25.0" prefWidth="352.0" />
-      <ChoiceBox layoutX="130.0" layoutY="148.0" prefWidth="150.0" />
-      <CheckBox layoutX="130.0" layoutY="402.0" mnemonicParsing="false" />
-      <TableView layoutX="516.0" layoutY="41.0" prefHeight="237.0" prefWidth="522.0">
-        <columns>
-          <TableColumn prefWidth="21.0" />
-          <TableColumn editable="false" prefWidth="77.0" text="Código" />
-            <TableColumn prefWidth="266.0" text="Nombre" />
-        </columns>
-      </TableView>
-      <ChoiceBox layoutX="516.0" layoutY="284.0" prefHeight="25.0" prefWidth="98.0" />
-      <TextField layoutX="621.0" layoutY="284.0" prefHeight="25.0" prefWidth="418.0" />
-      <DatePicker layoutX="130.0" layoutY="117.0" />
+      <TextField fx:id="tfNumero" layoutX="130.0" layoutY="56.0" prefHeight="26.0" prefWidth="149.0" />
+      <TextField fx:id="tfNombre" layoutX="130.0" layoutY="87.0" prefHeight="25.0" prefWidth="352.0" />
+      <DatePicker fx:id="dpFecha" layoutX="130.0" layoutY="117.0" />
+      <ComboBox fx:id="cbSexo" layoutX="130.0" layoutY="148.0" prefWidth="150.0" />
+      <TextField fx:id="tfDireccion" layoutX="130.0" layoutY="179.0" prefHeight="25.0" prefWidth="352.0" />
+      <TextField fx:id="tfDpto" layoutX="130.0" layoutY="208.0" prefHeight="25.0" prefWidth="352.0" />
+      <TextField fx:id="tfProv" layoutX="130.0" layoutY="239.0" prefHeight="25.0" prefWidth="199.0" />
+      <TextField fx:id="tfDist" layoutX="130.0" layoutY="271.0" prefHeight="25.0" prefWidth="199.0" />
+      <TextField fx:id="tfCarnet" layoutX="130.0" layoutY="302.0" />
+      <TextField fx:id="tfTelefono" layoutX="130.0" layoutY="333.0" />
+      <TextField fx:id="tfEmail" layoutX="130.0" layoutY="367.0" prefHeight="25.0" prefWidth="352.0" />
+      <CheckBox fx:id="chbPermanente" layoutX="130.0" layoutY="402.0" mnemonicParsing="false" />
+      <TableView fx:id="tvTerapeutas" layoutX="516.0" layoutY="41.0" prefHeight="237.0" prefWidth="522.0" />
+      <ComboBox fx:id="cbBuscarCodigo" layoutX="516.0" layoutY="284.0" prefHeight="25.0" prefWidth="97.0" />
+      <TextField fx:id="tfBuscarNombre" layoutX="621.0" layoutY="284.0" prefHeight="25.0" prefWidth="418.0" />
+      <Button fx:id="btnRegistrar" layoutX="245.0" layoutY="438.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" prefHeight="25.0" prefWidth="119.0" text="Registrar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

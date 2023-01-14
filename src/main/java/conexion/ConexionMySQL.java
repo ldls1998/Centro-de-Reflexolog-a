@@ -34,10 +34,6 @@ public class ConexionMySQL {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM paciente");
 
-            if (connection != null) {
-                System.out.println("CONEXIÓN CORRECTA.");
-            }
-
             // Close the connection
             
         } catch (ClassNotFoundException ex) {

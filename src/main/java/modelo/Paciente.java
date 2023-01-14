@@ -13,7 +13,6 @@ import java.sql.Date;
  */
 public class Paciente {
 
-    private int ID;
     private int codigo;
     private String nombre;
     private int DNICE;
@@ -32,14 +31,6 @@ public class Paciente {
     private Boolean especial;
 
     public Paciente() {
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public int getCodigo() {
@@ -172,7 +163,7 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return "G110{" + "ID=" + ID + ", codigo=" + codigo + ", nombre=" + nombre + ", DNICE=" + DNICE + ", fecha_nacimiento=" + fecha_nacimiento + ", sexo=" + sexo + ", direccion=" + direccion + ", prov=" + prov + ", dpto=" + dpto + ", dist=" + dist + ", testimonio=" + testimonio + ", resultado=" + resultado + ", observacion=" + observacion + ", ocupacion=" + ocupacion + ", telefono=" + telefono + ", email=" + email + ", especial=" + especial + '}';
+        return "G110{" + "Codigo="  + codigo + ", nombre=" + nombre + ", DNICE=" + DNICE + ", fecha_nacimiento=" + fecha_nacimiento + ", sexo=" + sexo + ", direccion=" + direccion + ", prov=" + prov + ", dpto=" + dpto + ", dist=" + dist + ", testimonio=" + testimonio + ", resultado=" + resultado + ", observacion=" + observacion + ", ocupacion=" + ocupacion + ", telefono=" + telefono + ", email=" + email + ", especial=" + especial + '}';
     }
 
 }
