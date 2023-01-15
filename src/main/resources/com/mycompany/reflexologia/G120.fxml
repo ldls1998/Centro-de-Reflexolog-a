@@ -80,5 +80,10 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Button fx:id="btnCancelar" disable="true" layoutX="402.0" layoutY="438.0" mnemonicParsing="false" onAction="#btnCancelarOnAction" text="Cancelar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

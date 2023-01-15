@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -69,18 +71,20 @@ public class G120Controller implements Initializable {
     private ComboBox<Integer> cbBuscarCodigo;
     @FXML
     private TextField tfBuscarNombre;
-    
+
     private ContextMenu cmOpciones;
-    
+
     private ConexionMySQL conexion;
     @FXML
     private TextField tfProv;
-    
+
     private TerapeutaDAO terapeutadao;
-    
+
     private Terapeuta terapeutaSelected;
     @FXML
     private Button btnRegistrar;
+    @FXML
+    private Button btnCancelar;
 
     /**
      * Initializes the controller class.
@@ -91,7 +95,6 @@ public class G120Controller implements Initializable {
         String[] opciones = {"Masculino", "Femenino"};
 
         // this.pacienteDAO = new PacienteDAO();
-        
         this.terapeutadao = new TerapeutaDAO();
 
         this.conexion = new ConexionMySQL();
@@ -102,7 +105,6 @@ public class G120Controller implements Initializable {
         cbSexo.setValue("Seleccione");
 
         // this.g110dao = new G110DAO();
-
         cargarTerapeutas();
 
         cmOpciones = new ContextMenu();
@@ -110,13 +112,15 @@ public class G120Controller implements Initializable {
         MenuItem miEditar = new MenuItem("Editar");
         MenuItem miEliminar = new MenuItem("Eliminar");
 
-        cmOpciones.getItems().addAll(miEditar);
-        
+        cmOpciones.getItems().addAll(miEditar, miEliminar);
+
         miEditar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
 
-                tfNombre.setDisable(true);
+                tfNumero.setDisable(true);
+                btnRegistrar.setText("Modificar");
+                btnCancelar.setDisable(false);
 
                 int index = tvTerapeutas.getSelectionModel().getSelectedIndex();
 
@@ -138,16 +142,60 @@ public class G120Controller implements Initializable {
                 tfProv.setText(terapeuta.getProv());
                 tfDist.setText(terapeuta.getDist());
                 tfCarnet.setText(terapeuta.getCarnet());
-                chbPermanente.setSelected(terapeuta.getPermanente()== true ? true : false);
+                chbPermanente.setSelected(terapeuta.getPermanente() == true ? true : false);
                 tfTelefono.setText(Integer.toString(terapeuta.getTelefono()));
                 tfEmail.setText(terapeuta.getEmail());
             }
 
         });
-        
+
+        miEliminar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                int index = tvTerapeutas.getSelectionModel().getSelectedIndex();
+
+                int numeroTerapeutaEliminar = tvTerapeutas.getItems().get(index).getNumero();
+
+                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+
+                alerta.setTitle("Confirmación");
+                alerta.setHeaderText(null);
+                alerta.setContentText("¿Realmente desea eliminar al terapeuta de número: " + numeroTerapeutaEliminar + "?");
+                alerta.initStyle(StageStyle.UTILITY);
+                alerta.initOwner(btnRegistrar.getScene().getWindow());
+
+                Optional<ButtonType> result = alerta.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+                    boolean rpta = terapeutadao.eliminar(numeroTerapeutaEliminar);
+
+                    if (rpta) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Exito");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Se eliminó la cita correctamente");
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.initOwner(btnRegistrar.getScene().getWindow());
+                        alert.showAndWait();
+                        cargarTerapeutas();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Hubo un error al eliminar.");
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.initOwner(btnRegistrar.getScene().getWindow());
+                        alert.showAndWait();
+                    }
+                }
+
+            }
+
+        });
+
         tvTerapeutas.setContextMenu(cmOpciones);
-    }    
-    
+    }
+
     @FXML
     void btnRegistrarOnAction(ActionEvent event) {
 
@@ -220,6 +268,7 @@ public class G120Controller implements Initializable {
                 cargarTerapeutas();
                 terapeutaSelected = null;
                 tfNumero.setDisable(false);
+                btnRegistrar.setText("Registrar");
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
 
@@ -234,7 +283,7 @@ public class G120Controller implements Initializable {
         }
 
     }
-    
+
     private void limpiarCampos() {
 
         tfBuscarNombre.setText("");
@@ -253,7 +302,7 @@ public class G120Controller implements Initializable {
         tfTelefono.setText("");
 
     }
-    
+
     public void cargarTerapeutas() {
 
         tvTerapeutas.getItems().clear();
@@ -273,5 +322,15 @@ public class G120Controller implements Initializable {
         tvTerapeutas.getColumns().addAll(numColumn, nombreColumn);
 
     }
-    
+
+    @FXML
+    private void btnCancelarOnAction(ActionEvent event) {
+
+        terapeutaSelected = null;
+        tfNumero.setDisable(false);
+        btnRegistrar.setText("Registrar");
+        btnCancelar.setDisable(true);
+        limpiarCampos();
+    }
+
 }

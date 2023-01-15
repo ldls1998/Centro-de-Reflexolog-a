@@ -32,7 +32,7 @@ public class TerapeutaDAO {
 
         try {
 
-            String select_all = "SELECT * FROM terapuetas WHERE codigo = ?;";
+            String select_all = "SELECT * FROM terapeutas WHERE numero = ?;";
             Connection conexion = this.conexion.getConnection();
 
             PreparedStatement sentencia = conexion.prepareStatement(select_all);
@@ -50,9 +50,10 @@ public class TerapeutaDAO {
                 terapeuta.setProv(rs.getString(6));
                 terapeuta.setDpto(rs.getString(7));
                 terapeuta.setDist(rs.getString(8));
-                terapeuta.setTelefono(rs.getInt(9));
-                terapeuta.setEmail(rs.getString(10));
-                terapeuta.setPermanente(rs.getBoolean(11));
+                terapeuta.setCarnet(rs.getString(9));
+                terapeuta.setTelefono(rs.getInt(10));
+                terapeuta.setEmail(rs.getString(11));
+                terapeuta.setPermanente(rs.getBoolean(12));
 
             }
 
@@ -73,7 +74,7 @@ public class TerapeutaDAO {
 
         try {
 
-            String SQL = "DELETE FROM terapeuta WHERE codigo = ?;";
+            String SQL = "DELETE FROM terapeutas WHERE numero = ?;";
 
             Connection conexion = this.conexion.getConnection();
 
@@ -176,9 +177,9 @@ public class TerapeutaDAO {
 
         try {
 
-            String SQL = "UPDATE terapeuta SET nombre = ?, fecha_nacimiento = ?, sexo = ?,\n"
+            String SQL = "UPDATE terapeutas SET nombre = ?, fecha_nacimiento = ?, sexo = ?,\n"
                     + "	direccion = ?, prov = ?, dpto = ?, dist = ?, carnet = ?, telefono = ?, \n"
-                    + " email = ?, permanente = ? WHERE codigo = ?;";
+                    + " email = ?, permanente = ? WHERE numero = ?;";
             
             Connection conexion = this.conexion.getConnection();
             

@@ -107,6 +107,8 @@ public class G110Controller implements Initializable {
     private ConexionMySQL conexion;
 
     private PacienteDAO pacienteDAO;
+    @FXML
+    private Button btnCancelar;
 
     /**
      * Initializes the controller class.
@@ -188,6 +190,8 @@ public class G110Controller implements Initializable {
             public void handle(ActionEvent t) {
 
                 txtCodigo.setDisable(true);
+                btnMarcarDisponible.setText("Modificar");
+                btnCancelar.setDisable(false);
 
                 int index = tvPacientes.getSelectionModel().getSelectedIndex();
 
@@ -357,6 +361,16 @@ public class G110Controller implements Initializable {
         tvPacientes.setItems(data);
         tvPacientes.getColumns().addAll(codColumn, nombreColumn);
 
+    }
+
+    @FXML
+    private void btnCancelarOnAction(ActionEvent event) {
+
+        pacienteSelected = null;
+        txtCodigo.setDisable(false);
+        btnMarcarDisponible.setText("Marcar Disponible");
+        btnCancelar.setDisable(true);
+        limpiarCampos();
     }
 
 }
