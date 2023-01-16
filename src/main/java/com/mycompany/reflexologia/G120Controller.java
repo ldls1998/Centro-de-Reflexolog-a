@@ -68,8 +68,7 @@ public class G120Controller implements Initializable {
     @FXML
     private TableView<Terapeuta> tvTerapeutas;
     @FXML
-    private ComboBox<Integer> cbBuscarCodigo;
-    @FXML
+    private ComboBox<String> cbBuscar;
     private TextField tfBuscarNombre;
 
     private ContextMenu cmOpciones;
@@ -85,6 +84,8 @@ public class G120Controller implements Initializable {
     private Button btnRegistrar;
     @FXML
     private Button btnCancelar;
+    @FXML
+    private TextField tfBuscar;
 
     /**
      * Initializes the controller class.
@@ -93,6 +94,7 @@ public class G120Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         String[] opciones = {"Masculino", "Femenino"};
+        String[] opciones_busqueda = {"Nombre", "Código"};
 
         // this.pacienteDAO = new PacienteDAO();
         this.terapeutadao = new TerapeutaDAO();
@@ -100,9 +102,12 @@ public class G120Controller implements Initializable {
         this.conexion = new ConexionMySQL();
 
         ObservableList<String> items = FXCollections.observableArrayList(opciones);
+        ObservableList<String> items_busqueda = FXCollections.observableArrayList(opciones_busqueda);
 
         cbSexo.setItems(items);
+        cbBuscar.setItems(items_busqueda);
         cbSexo.setValue("Seleccione");
+        cbBuscar.setValue("Nombre");
 
         // this.g110dao = new G110DAO();
         cargarTerapeutas();
@@ -287,7 +292,7 @@ public class G120Controller implements Initializable {
     private void limpiarCampos() {
 
         tfBuscarNombre.setText("");
-        cbBuscarCodigo.getSelectionModel().select(0);
+        cbBuscar.getSelectionModel().select(0);
         tfNumero.setText("");
         tfNombre.setText("");
         tfCarnet.setText("");
@@ -321,6 +326,36 @@ public class G120Controller implements Initializable {
         tvTerapeutas.setItems(data);
         tvTerapeutas.getColumns().addAll(numColumn, nombreColumn);
 
+    }
+    
+    @FXML
+    public void cargarTerapeutasBusqueda() {
+
+        if (tfBuscar.getText().equals("")) {
+            cargarTerapeutas();
+        } else {
+            tvTerapeutas.getItems().clear();
+            tvTerapeutas.getColumns().clear();
+
+            List<Terapeuta> terapeuta = null;
+
+            if ("Nombre".equals(cbBuscar.getSelectionModel().getSelectedItem())) {
+                terapeuta = this.terapeutadao.listarBusquedaNombre(tfBuscar.getText());
+            } else if ("Código".equals(cbBuscar.getSelectionModel().getSelectedItem())) {
+                terapeuta = this.terapeutadao.listarBusquedaCodigo(Integer.parseInt(tfBuscar.getText()));
+            }
+
+            ObservableList<Terapeuta> data = FXCollections.observableArrayList(terapeuta);
+
+            TableColumn codColumn = new TableColumn("Número");
+            codColumn.setCellValueFactory(new PropertyValueFactory("numero"));
+
+            TableColumn nombreColumn = new TableColumn("Nombre");
+            nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
+
+            tvTerapeutas.setItems(data);
+            tvTerapeutas.getColumns().addAll(codColumn, nombreColumn);
+        }
     }
 
     @FXML

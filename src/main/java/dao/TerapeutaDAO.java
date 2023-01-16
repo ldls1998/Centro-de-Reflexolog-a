@@ -132,6 +132,80 @@ public class TerapeutaDAO {
         return listaTerapeuta;
     }
     
+    public List<Terapeuta> listarBusquedaCodigo(int numero) {
+        List<Terapeuta> listaTerapeuta = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM terapeutas WHERE numero LIKE '" + numero + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            // sentencia.setInt(1, codigo);
+
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                Terapeuta terapeuta = new Terapeuta();
+
+                terapeuta.setNumero(rs.getInt(1));
+                terapeuta.setNombre(rs.getString(2));
+
+                listaTerapeuta.add(terapeuta);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar terapeutas.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaTerapeuta;
+    }
+    
+    public List<Terapeuta> listarBusquedaNombre(String nombre) {
+        List<Terapeuta> listaTerapeutas = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM terapeutas WHERE nombre LIKE '" + nombre + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            // sentencia.setString(1, nombre);
+
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                Terapeuta terapeuta=  new Terapeuta();
+
+                terapeuta.setNumero(rs.getInt(1));
+                terapeuta.setNombre(rs.getString(2));
+
+                listaTerapeutas.add(terapeuta);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar terapeutas.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaTerapeutas;
+    }
+    
     public boolean registrar(Terapeuta terapeuta) {
 
         try {

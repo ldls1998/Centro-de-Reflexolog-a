@@ -16,7 +16,7 @@
          </columns>
       </TableView>
       <ChoiceBox fx:id="chbCampo" layoutX="34.0" layoutY="422.0" prefHeight="25.0" prefWidth="94.0" />
-      <TextField fx:id="tfBuscar" layoutX="138.0" layoutY="422.0" prefHeight="25.0" prefWidth="418.0" />
+      <TextField fx:id="tfBuscar" layoutX="138.0" layoutY="422.0" onKeyTyped="#cargarDiagnosticosBusqueda" prefHeight="25.0" prefWidth="418.0" />
       <TextField fx:id="tfCod" layoutX="686.0" layoutY="67.0" />
       <Text layoutX="644.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COD:">
          <font>

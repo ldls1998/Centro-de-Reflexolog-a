@@ -49,40 +49,44 @@ public class G130Controller implements Initializable {
     private TextField tfDescripcion;
 
     private DiagnosticoDAO diagnosticodao;
-    
+
     private Diagnostico diagnosticoSelected;
-    
+
     private ContextMenu cmOpciones;
-    
+
     private ConexionMySQL conexion;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+
         this.diagnosticodao = new DiagnosticoDAO();
+        
+        String[] opciones_busqueda = {"Código", "Descripción"};
+        ObservableList<String> items_busqueda = FXCollections.observableArrayList(opciones_busqueda);
+        chbCampo.setItems(items_busqueda);
+        chbCampo.setValue("Código");
 
         this.conexion = new ConexionMySQL();
 
         cargarDiagnosticos();
-        
+
         cmOpciones = new ContextMenu();
 
         MenuItem miEditar = new MenuItem("Editar");
         MenuItem miEliminar = new MenuItem("Eliminar");
-        
+
         cmOpciones.getItems().addAll(miEditar, miEliminar);
-        
+
         miEditar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
 
                 // btnMarcarDisponible.setText("Modificar");
                 // btnCancelar.setDisable(false);
-
                 int index = tvDiagnosticos.getSelectionModel().getSelectedIndex();
 
                 diagnosticoSelected = tvDiagnosticos.getItems().get(index);
@@ -95,7 +99,7 @@ public class G130Controller implements Initializable {
             }
 
         });
-        
+
         miEliminar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
@@ -141,9 +145,9 @@ public class G130Controller implements Initializable {
         });
 
         tvDiagnosticos.setContextMenu(cmOpciones);
-        
-    }    
-    
+
+    }
+
     public void cargarDiagnosticos() {
 
         tvDiagnosticos.getItems().clear();
@@ -163,5 +167,35 @@ public class G130Controller implements Initializable {
         tvDiagnosticos.getColumns().addAll(codColumn, descripcionColumn);
 
     }
-    
+
+    @FXML
+    public void cargarDiagnosticosBusqueda() {
+
+        if (tfBuscar.getText().equals("")) {
+            cargarDiagnosticos();
+        } else {
+            tvDiagnosticos.getItems().clear();
+            tvDiagnosticos.getColumns().clear();
+
+            List<Diagnostico> diagnosticos = null;
+
+            if ("Código".equals(chbCampo.getSelectionModel().getSelectedItem())) {
+                diagnosticos = this.diagnosticodao.listarBusquedaCodigo(tfBuscar.getText());
+            } else if ("Descripción".equals(chbCampo.getSelectionModel().getSelectedItem())) {
+                diagnosticos = this.diagnosticodao.listarBusquedaDescripcion(tfBuscar.getText());
+            }
+
+            ObservableList<Diagnostico> data = FXCollections.observableArrayList(diagnosticos);
+
+            TableColumn codColumn = new TableColumn("Código");
+            codColumn.setCellValueFactory(new PropertyValueFactory("codigo"));
+
+            TableColumn descripcionColumn = new TableColumn("Descripcion");
+            descripcionColumn.setCellValueFactory(new PropertyValueFactory("descripcion"));
+
+            tvDiagnosticos.setItems(data);
+            tvDiagnosticos.getColumns().addAll(codColumn, descripcionColumn);
+        }
+    }
+
 }

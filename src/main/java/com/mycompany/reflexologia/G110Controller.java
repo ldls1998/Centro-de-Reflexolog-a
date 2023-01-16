@@ -25,6 +25,7 @@ import modelo.Paciente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
@@ -109,6 +110,10 @@ public class G110Controller implements Initializable {
     private PacienteDAO pacienteDAO;
     @FXML
     private Button btnCancelar;
+    @FXML
+    private ChoiceBox<String> chbBusqueda;
+    @FXML
+    private TextField tfBusqueda;
 
     /**
      * Initializes the controller class.
@@ -118,15 +123,19 @@ public class G110Controller implements Initializable {
         // TODO
 
         String[] opciones = {"Masculino", "Femenino"};
+        String[] opciones_busqueda = {"Nombre", "Código"};
 
         this.pacienteDAO = new PacienteDAO();
 
         this.conexion = new ConexionMySQL();
 
         ObservableList<String> items = FXCollections.observableArrayList(opciones);
+        ObservableList<String> items_busqueda = FXCollections.observableArrayList(opciones_busqueda);
 
         cbSexo.setItems(items);
+        chbBusqueda.setItems(items_busqueda);
         cbSexo.setValue("Seleccione");
+        chbBusqueda.setValue("Nombre");
 
         this.g110dao = new G110DAO();
 
@@ -184,7 +193,6 @@ public class G110Controller implements Initializable {
 //            }
 //
 //        });
-
         miEditar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
@@ -361,6 +369,36 @@ public class G110Controller implements Initializable {
         tvPacientes.setItems(data);
         tvPacientes.getColumns().addAll(codColumn, nombreColumn);
 
+    }
+
+    @FXML
+    public void cargarPacientesBusqueda() {
+
+        if (tfBusqueda.getText().equals("")) {
+            cargarPacientes();
+        } else {
+            tvPacientes.getItems().clear();
+            tvPacientes.getColumns().clear();
+
+            List<Paciente> pacientes = null;
+
+            if ("Nombre".equals(chbBusqueda.getSelectionModel().getSelectedItem())) {
+                pacientes = this.pacienteDAO.listarBusquedaNombre(tfBusqueda.getText());
+            } else if ("Código".equals(chbBusqueda.getSelectionModel().getSelectedItem())) {
+                pacientes = this.pacienteDAO.listarBusquedaCodigo(Integer.parseInt(tfBusqueda.getText()));
+            }
+
+            ObservableList<Paciente> data = FXCollections.observableArrayList(pacientes);
+
+            TableColumn codColumn = new TableColumn("Código");
+            codColumn.setCellValueFactory(new PropertyValueFactory("codigo"));
+
+            TableColumn nombreColumn = new TableColumn("Nombre");
+            nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
+
+            tvPacientes.setItems(data);
+            tvPacientes.getColumns().addAll(codColumn, nombreColumn);
+        }
     }
 
     @FXML

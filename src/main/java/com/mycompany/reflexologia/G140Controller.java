@@ -6,7 +6,6 @@
 package com.mycompany.reflexologia;
 
 import conexion.ConexionMySQL;
-import dao.DiagnosticoDAO;
 import dao.DiagnosticoMedicoDAO;
 import java.net.URL;
 import java.util.List;
@@ -27,7 +26,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
 import modelo.DiagnosticoMedico;
 
@@ -48,45 +46,49 @@ public class G140Controller implements Initializable {
     private TextField tfTipo;
 
     private DiagnosticoMedicoDAO diagnosticoMedicoDao;
-    
+
     private DiagnosticoMedico diagnosticoMedicoSelected;
-    
+
     private ContextMenu cmOpciones;
-    
+
     private ConexionMySQL conexion;
-    
+
     @FXML
     private ChoiceBox<String> chbCampo;
     @FXML
     private TextField tfBuscar;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
+        String[] opciones_busqueda = {"Código", "Nombre", "Tipo"};
+        ObservableList<String> items_busqueda = FXCollections.observableArrayList(opciones_busqueda);
+        chbCampo.setItems(items_busqueda);
+        chbCampo.setValue("Código");
         
         this.diagnosticoMedicoDao = new DiagnosticoMedicoDAO();
 
         this.conexion = new ConexionMySQL();
 
-        cargarDiagnosticos();
-        
+        cargarDiagnosticosMedicos();
+
         cmOpciones = new ContextMenu();
 
         MenuItem miEditar = new MenuItem("Editar");
         MenuItem miEliminar = new MenuItem("Eliminar");
-        
+
         cmOpciones.getItems().addAll(miEditar, miEliminar);
-        
+
         miEditar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
 
                 // btnMarcarDisponible.setText("Modificar");
                 // btnCancelar.setDisable(false);
-
                 int index = tvDiagnosticosMedicos.getSelectionModel().getSelectedIndex();
 
                 diagnosticoMedicoSelected = tvDiagnosticosMedicos.getItems().get(index);
@@ -96,12 +98,12 @@ public class G140Controller implements Initializable {
                 DiagnosticoMedico diagnosticoMedico = diagnosticoMedicoDao.buscar(diagnosticoMedicoSelected.getCodigo());
 
                 tfNombre.setText(diagnosticoMedico.getNombre());
-                
+
                 tfTipo.setText(diagnosticoMedico.getTipo());
             }
 
         });
-        
+
         miEliminar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
@@ -130,7 +132,7 @@ public class G140Controller implements Initializable {
                         alert.initStyle(StageStyle.UTILITY);
                         alert.initOwner(tvDiagnosticosMedicos.getScene().getWindow());
                         alert.showAndWait();
-                        cargarDiagnosticos();
+                        cargarDiagnosticosMedicos();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
@@ -147,10 +149,10 @@ public class G140Controller implements Initializable {
         });
 
         tvDiagnosticosMedicos.setContextMenu(cmOpciones);
-        
-    }    
-    
-    public void cargarDiagnosticos() {
+
+    }
+
+    public void cargarDiagnosticosMedicos() {
 
         tvDiagnosticosMedicos.getItems().clear();
         tvDiagnosticosMedicos.getColumns().clear();
@@ -164,7 +166,7 @@ public class G140Controller implements Initializable {
 
         TableColumn nombreColumn = new TableColumn("Nombre");
         nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
-        
+
         TableColumn tipoColumn = new TableColumn("Tipo");
         tipoColumn.setCellValueFactory(new PropertyValueFactory("tipo"));
 
@@ -172,5 +174,40 @@ public class G140Controller implements Initializable {
         tvDiagnosticosMedicos.getColumns().addAll(codColumn, nombreColumn, tipoColumn);
 
     }
-    
+
+    @FXML
+    public void cargarDiagnosticosBusqueda() {
+
+        if (tfBuscar.getText().equals("")) {
+            cargarDiagnosticosMedicos();
+        } else {
+            tvDiagnosticosMedicos.getItems().clear();
+            tvDiagnosticosMedicos.getColumns().clear();
+
+            List<DiagnosticoMedico> diagnosticos = null;
+
+            if ("Código".equals(chbCampo.getSelectionModel().getSelectedItem())) {
+                diagnosticos = this.diagnosticoMedicoDao.listarBusquedaCodigo(tfBuscar.getText());
+            } else if ("Nombre".equals(chbCampo.getSelectionModel().getSelectedItem())) {
+                diagnosticos = this.diagnosticoMedicoDao.listarBusquedaNombre(tfBuscar.getText());
+            } else if ("Tipo".equals(chbCampo.getSelectionModel().getSelectedItem())) {
+                diagnosticos = this.diagnosticoMedicoDao.listarBusquedaTipo(tfBuscar.getText());
+            }
+
+            ObservableList<DiagnosticoMedico> data = FXCollections.observableArrayList(diagnosticos);
+
+            TableColumn codColumn = new TableColumn("Código");
+            codColumn.setCellValueFactory(new PropertyValueFactory("codigo"));
+
+            TableColumn nombreColumn = new TableColumn("Nombre");
+            nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
+
+            TableColumn tipoColumn = new TableColumn("Tipo");
+            tipoColumn.setCellValueFactory(new PropertyValueFactory("tipo"));
+
+            tvDiagnosticosMedicos.setItems(data);
+            tvDiagnosticosMedicos.getColumns().addAll(codColumn, nombreColumn, tipoColumn);
+        }
+    }
+
 }
