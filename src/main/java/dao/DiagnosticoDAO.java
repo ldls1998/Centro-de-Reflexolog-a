@@ -119,6 +119,80 @@ public class DiagnosticoDAO {
 
         return listaDiagnostico;
     }
+    
+    public List<Diagnostico> listarBusquedaCodigo(String codigo) {
+        List<Diagnostico> listaDiagnostico = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM diagnosticos WHERE codigo LIKE '" + codigo + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            // sentencia.setInt(1, codigo);
+
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                Diagnostico terapeuta = new Diagnostico();
+
+                terapeuta.setCodigo(rs.getString(2));
+                terapeuta.setDescripcion(rs.getString(3));
+
+                listaDiagnostico.add(terapeuta);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar diagnosticos.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaDiagnostico;
+    }
+    
+    public List<Diagnostico> listarBusquedaDescripcion(String descripcion) {
+        List<Diagnostico> listaDiagnostico = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM diagnosticos WHERE descripcion LIKE '" + descripcion + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            // sentencia.setString(1, nombre);
+
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                Diagnostico terapeuta=  new Diagnostico();
+
+                terapeuta.setCodigo(rs.getString(2));
+                terapeuta.setDescripcion(rs.getString(3));
+
+                listaDiagnostico.add(terapeuta);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar diagnosticos.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaDiagnostico;
+    }
 
     public boolean registrar(Diagnostico diagnostico) {
 

@@ -71,6 +71,80 @@ public class PacienteDAO {
         return paciente;
     }
     
+    public List<Paciente> listarBusquedaCodigo(int codigo) {
+        List<Paciente> listaPaciente = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM paciente WHERE codigo LIKE '" + codigo + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            // sentencia.setInt(1, codigo);
+
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                Paciente paciente = new Paciente();
+
+                paciente.setCodigo(rs.getInt(1));
+                paciente.setNombre(rs.getString(2));
+
+                listaPaciente.add(paciente);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar pacientes.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaPaciente;
+    }
+    
+    public List<Paciente> listarBusquedaNombre(String nombre) {
+        List<Paciente> listaPaciente = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM paciente WHERE nombre LIKE '" + nombre + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            // sentencia.setString(1, nombre);
+
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                Paciente paciente = new Paciente();
+
+                paciente.setCodigo(rs.getInt(1));
+                paciente.setNombre(rs.getString(2));
+
+                listaPaciente.add(paciente);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar pacientes.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaPaciente;
+    }
+    
     public boolean eliminar(int codigo) {
         
         try {

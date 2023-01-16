@@ -104,8 +104,8 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <ChoiceBox layoutX="14.0" layoutY="402.0" prefHeight="25.0" prefWidth="98.0" />
-      <TextField layoutX="118.0" layoutY="402.0" prefHeight="25.0" prefWidth="418.0" />
+      <ChoiceBox fx:id="chbBusqueda" layoutX="14.0" layoutY="402.0" prefHeight="25.0" prefWidth="98.0" />
+      <TextField fx:id="tfBusqueda" layoutX="118.0" layoutY="402.0" onKeyTyped="#cargarPacientesBusqueda" prefHeight="25.0" prefWidth="418.0" />
       <Text layoutX="689.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TESTIMONIO:">
          <font>
             <Font name="System Bold" size="12.0" />

@@ -18,13 +18,13 @@ import modelo.DiagnosticoMedico;
  * @author Vlik35
  */
 public class DiagnosticoMedicoDAO {
-    
+
     private ConexionMySQL conexion;
 
     public DiagnosticoMedicoDAO() {
         this.conexion = new ConexionMySQL();
     }
-    
+
     public DiagnosticoMedico buscar(String codigo) {
         DiagnosticoMedico diagnosticoMedico = new DiagnosticoMedico();
 
@@ -58,7 +58,7 @@ public class DiagnosticoMedicoDAO {
 
         return diagnosticoMedico;
     }
-    
+
     public boolean eliminar(String codigo) {
 
         try {
@@ -84,7 +84,7 @@ public class DiagnosticoMedicoDAO {
             return false;
         }
     }
-    
+
     public List<DiagnosticoMedico> listar() {
 
         List<DiagnosticoMedico> listaDiagnosticoMedico = new ArrayList<>();
@@ -128,7 +128,7 @@ public class DiagnosticoMedicoDAO {
 
             String SQL = "INSERT INTO diagnosticos_medicos(codigo, descripcion, tipo"
                     + " values (?, ?, ?)";
-            
+
             Connection connection = this.conexion.getConnection();
 
             PreparedStatement sentencia = connection.prepareStatement(SQL);
@@ -136,7 +136,6 @@ public class DiagnosticoMedicoDAO {
             sentencia.setString(1, diagnosticoMedico.getCodigo());
             sentencia.setString(2, diagnosticoMedico.getNombre());
             sentencia.setString(3, diagnosticoMedico.getTipo());
-
 
             sentencia.executeUpdate();
             sentencia.close();
@@ -152,26 +151,26 @@ public class DiagnosticoMedicoDAO {
         }
 
     }
-    
+
     public boolean editar(DiagnosticoMedico diagnosticoMedico) {
 
         try {
 
             String SQL = "UPDATE diagnosticos_medicos SET codigo = ?, descipcion = ?, tipo = ? WHERE ID = ?;";
-            
+
             Connection conexion = this.conexion.getConnection();
-            
+
             PreparedStatement sentencia = conexion.prepareStatement(SQL);
-            
+
             sentencia.setString(1, diagnosticoMedico.getCodigo());
             sentencia.setString(2, diagnosticoMedico.getNombre());
             sentencia.setString(2, diagnosticoMedico.getTipo());
             sentencia.setInt(3, diagnosticoMedico.getID());
-            
+
             sentencia.executeUpdate();
-            
+
             sentencia.close();
-            
+
             return true;
 
         } catch (Exception e) {
@@ -181,5 +180,116 @@ public class DiagnosticoMedicoDAO {
             return false;
         }
     }
-    
+
+    public List<DiagnosticoMedico> listarBusquedaCodigo(String codigo) {
+        List<DiagnosticoMedico> listaDiagMedicos = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM diagnosticos_medicos WHERE codigo LIKE '" + codigo + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+
+            // sentencia.setInt(1, codigo);
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                DiagnosticoMedico diadMedicos = new DiagnosticoMedico();
+
+                diadMedicos.setCodigo(rs.getString(2));
+                diadMedicos.setNombre(rs.getString(3));
+                diadMedicos.setTipo(rs.getString(4));
+
+                listaDiagMedicos.add(diadMedicos);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar diagnosticos medicos.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaDiagMedicos;
+    }
+
+    public List<DiagnosticoMedico> listarBusquedaNombre(String nombre) {
+        List<DiagnosticoMedico> listaDiagMedicos = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM diagnosticos_medicos WHERE nombre LIKE '" + nombre + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+
+            // sentencia.setString(1, nombre);
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                DiagnosticoMedico diagMedicos = new DiagnosticoMedico();
+
+                diagMedicos.setCodigo(rs.getString(2));
+                diagMedicos.setNombre(rs.getString(3));
+                diagMedicos.setTipo(rs.getString(4));
+
+                listaDiagMedicos.add(diagMedicos);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar diagnosticos medicos.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaDiagMedicos;
+    }
+
+    public List<DiagnosticoMedico> listarBusquedaTipo(String tipo) {
+        List<DiagnosticoMedico> listaDiagMedicos = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM diagnosticos_medicos WHERE tipo LIKE '" + tipo + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+
+            // sentencia.setString(1, nombre);
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                DiagnosticoMedico diagMedicos = new DiagnosticoMedico();
+
+                diagMedicos.setCodigo(rs.getString(2));
+                diagMedicos.setNombre(rs.getString(3));
+                diagMedicos.setTipo(rs.getString(4));
+
+                listaDiagMedicos.add(diagMedicos);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar diagnosticos medicos.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaDiagMedicos;
+    }
+
 }
