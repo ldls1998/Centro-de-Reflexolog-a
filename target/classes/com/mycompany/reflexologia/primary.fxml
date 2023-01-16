@@ -15,8 +15,8 @@
                <items>
                   <MenuItem fx:id="miG110" mnemonicParsing="false" onAction="#cambiarAG110" text="G110. - Registro de Pacientes" />
                   <MenuItem fx:id="miG120" mnemonicParsing="false" onAction="#cambiarAG120" text="G120. - Registro de Terapeutas" />
-                  <MenuItem fx:id="miG130" mnemonicParsing="false" onAction="#cambiarAG130" text="G130. - Registro de Diagnótsicos" />
-                  <MenuItem fx:id="miG140" mnemonicParsing="false" onAction="#cambiarAG140" text="G140. - Diagnósticos Médicos" />
+                  <MenuItem fx:id="miG130" mnemonicParsing="false" text="G130. - Registro de Diagnótsicos" />
+                  <MenuItem fx:id="miG140" mnemonicParsing="false" text="G140. - Diagnósticos Médicos" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Movimientos-Caja1">
@@ -54,7 +54,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="594.0" prefWidth="1246.0" VBox.vgrow="ALWAYS">
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="594.0" prefWidth="1246.0" style="-fx-background-color: beige;" VBox.vgrow="ALWAYS">
          <children>
             <AnchorPane fx:id="apRootPane" layoutX="183.0" layoutY="79.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0" />
          </children>
