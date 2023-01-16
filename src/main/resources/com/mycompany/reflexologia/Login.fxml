@@ -13,7 +13,7 @@
    <children>
       <AnchorPane prefHeight="636.0" prefWidth="766.0" style="-fx-background-color: beige;">
          <children>
-            <ImageView fitHeight="162.0" fitWidth="420.0" layoutX="173.0" layoutY="64.0">
+            <ImageView fitHeight="162.0" fitWidth="454.0" layoutX="167.0" layoutY="64.0">
                <image>
                   <Image url="@../../../images/logo.gif" />
                </image>
