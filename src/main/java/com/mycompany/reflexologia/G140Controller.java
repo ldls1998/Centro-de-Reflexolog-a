@@ -7,6 +7,7 @@ package com.mycompany.reflexologia;
 
 import conexion.ConexionMySQL;
 import dao.DiagnosticoDAO;
+import dao.DiagnosticoMedicoDAO;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -26,35 +27,38 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
-import modelo.Diagnostico;
-import modelo.Paciente;
+import modelo.DiagnosticoMedico;
 
 /**
  * FXML Controller class
  *
  * @author Vlik35
  */
-public class G130Controller implements Initializable {
+public class G140Controller implements Initializable {
 
     @FXML
-    private TableView<Diagnostico> tvDiagnosticos;
+    private TableView<DiagnosticoMedico> tvDiagnosticosMedicos;
     @FXML
-    private ChoiceBox<String> chbCampo;
+    private TextField tfCod;
     @FXML
-    private TextField tfBuscar;
+    private TextField tfNombre;
     @FXML
-    private TextField tfAbrev;
-    @FXML
-    private TextField tfDescripcion;
+    private TextField tfTipo;
 
-    private DiagnosticoDAO diagnosticodao;
+    private DiagnosticoMedicoDAO diagnosticoMedicoDao;
     
-    private Diagnostico diagnosticoSelected;
+    private DiagnosticoMedico diagnosticoMedicoSelected;
     
     private ContextMenu cmOpciones;
     
     private ConexionMySQL conexion;
+    
+    @FXML
+    private ChoiceBox<String> chbCampo;
+    @FXML
+    private TextField tfBuscar;
     
     /**
      * Initializes the controller class.
@@ -63,7 +67,7 @@ public class G130Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-        this.diagnosticodao = new DiagnosticoDAO();
+        this.diagnosticoMedicoDao = new DiagnosticoMedicoDAO();
 
         this.conexion = new ConexionMySQL();
 
@@ -83,15 +87,17 @@ public class G130Controller implements Initializable {
                 // btnMarcarDisponible.setText("Modificar");
                 // btnCancelar.setDisable(false);
 
-                int index = tvDiagnosticos.getSelectionModel().getSelectedIndex();
+                int index = tvDiagnosticosMedicos.getSelectionModel().getSelectedIndex();
 
-                diagnosticoSelected = tvDiagnosticos.getItems().get(index);
+                diagnosticoMedicoSelected = tvDiagnosticosMedicos.getItems().get(index);
 
-                tfAbrev.setText(diagnosticoSelected.getCodigo());
+                tfCod.setText(diagnosticoMedicoSelected.getCodigo());
 
-                Diagnostico diagnostico = diagnosticodao.buscar(diagnosticoSelected.getCodigo());
+                DiagnosticoMedico diagnosticoMedico = diagnosticoMedicoDao.buscar(diagnosticoMedicoSelected.getCodigo());
 
-                tfDescripcion.setText(diagnostico.getDescripcion());
+                tfNombre.setText(diagnosticoMedico.getNombre());
+                
+                tfTipo.setText(diagnosticoMedico.getTipo());
             }
 
         });
@@ -99,9 +105,9 @@ public class G130Controller implements Initializable {
         miEliminar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                int index = tvDiagnosticos.getSelectionModel().getSelectedIndex();
+                int index = tvDiagnosticosMedicos.getSelectionModel().getSelectedIndex();
 
-                String registroCitaEliminar = tvDiagnosticos.getItems().get(index).getCodigo();
+                String registroCitaEliminar = tvDiagnosticosMedicos.getItems().get(index).getCodigo();
 
                 Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
 
@@ -109,12 +115,12 @@ public class G130Controller implements Initializable {
                 alerta.setHeaderText(null);
                 alerta.setContentText("¿Realmente desea eliminar la cita con número de registro: " + registroCitaEliminar + "?");
                 alerta.initStyle(StageStyle.UTILITY);
-                alerta.initOwner(tvDiagnosticos.getScene().getWindow());
+                alerta.initOwner(tvDiagnosticosMedicos.getScene().getWindow());
 
                 Optional<ButtonType> result = alerta.showAndWait();
 
                 if (result.get() == ButtonType.OK) {
-                    boolean rpta = diagnosticodao.eliminar(registroCitaEliminar);
+                    boolean rpta = diagnosticoMedicoDao.eliminar(registroCitaEliminar);
 
                     if (rpta) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -122,7 +128,7 @@ public class G130Controller implements Initializable {
                         alert.setHeaderText(null);
                         alert.setContentText("Se eliminó la cita correctamente");
                         alert.initStyle(StageStyle.UTILITY);
-                        alert.initOwner(tvDiagnosticos.getScene().getWindow());
+                        alert.initOwner(tvDiagnosticosMedicos.getScene().getWindow());
                         alert.showAndWait();
                         cargarDiagnosticos();
                     } else {
@@ -131,7 +137,7 @@ public class G130Controller implements Initializable {
                         alert.setHeaderText(null);
                         alert.setContentText("Hubo un error al eliminar.");
                         alert.initStyle(StageStyle.UTILITY);
-                        alert.initOwner(tvDiagnosticos.getScene().getWindow());
+                        alert.initOwner(tvDiagnosticosMedicos.getScene().getWindow());
                         alert.showAndWait();
                     }
                 }
@@ -140,27 +146,30 @@ public class G130Controller implements Initializable {
 
         });
 
-        tvDiagnosticos.setContextMenu(cmOpciones);
+        tvDiagnosticosMedicos.setContextMenu(cmOpciones);
         
     }    
     
     public void cargarDiagnosticos() {
 
-        tvDiagnosticos.getItems().clear();
-        tvDiagnosticos.getColumns().clear();
+        tvDiagnosticosMedicos.getItems().clear();
+        tvDiagnosticosMedicos.getColumns().clear();
 
-        List<Diagnostico> diagnosticos = this.diagnosticodao.listar();
+        List<DiagnosticoMedico> diagnosticos = this.diagnosticoMedicoDao.listar();
 
-        ObservableList<Diagnostico> data = FXCollections.observableArrayList(diagnosticos);
+        ObservableList<DiagnosticoMedico> data = FXCollections.observableArrayList(diagnosticos);
 
         TableColumn codColumn = new TableColumn("Código");
         codColumn.setCellValueFactory(new PropertyValueFactory("codigo"));
 
-        TableColumn descripcionColumn = new TableColumn("Descripcion");
-        descripcionColumn.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        TableColumn nombreColumn = new TableColumn("Nombre");
+        nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
+        
+        TableColumn tipoColumn = new TableColumn("Tipo");
+        tipoColumn.setCellValueFactory(new PropertyValueFactory("tipo"));
 
-        tvDiagnosticos.setItems(data);
-        tvDiagnosticos.getColumns().addAll(codColumn, descripcionColumn);
+        tvDiagnosticosMedicos.setItems(data);
+        tvDiagnosticosMedicos.getColumns().addAll(codColumn, nombreColumn, tipoColumn);
 
     }
     

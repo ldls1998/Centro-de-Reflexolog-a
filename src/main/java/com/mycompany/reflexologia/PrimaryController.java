@@ -77,6 +77,15 @@ public class PrimaryController {
         
         cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
     }
+    
+    @FXML
+    private void cambiarAG140(ActionEvent event) throws IOException {
+        
+        String scene_name = "G140.fxml";
+        String titulo = "G140. - Diagnósticos Médicos";
+        
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
+    }
 
     @FXML
     private void cambiarAG210(ActionEvent e) throws IOException {
