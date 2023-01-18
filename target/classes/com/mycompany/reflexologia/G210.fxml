@@ -5,11 +5,11 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G210Controller">
    <children>
@@ -26,27 +26,27 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="btnImprimirRecibo" layoutX="824.0" layoutY="48.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="206.0" text="IMPRIMIR RECIBO">
+      <Button fx:id="btnImprimirRecibo" layoutX="822.0" layoutY="33.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="206.0" text="IMPRIMIR RECIBO">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnConsultarCitas" layoutX="824.0" layoutY="109.0" mnemonicParsing="false" onAction="#btnConsultarCitas" text="CONSULTAR CITAS">
+      <Button fx:id="btnConsultarCitas" layoutX="822.0" layoutY="94.0" mnemonicParsing="false" onAction="#btnConsultarCitas" text="CONSULTAR CITAS">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnTerminarDia" layoutX="872.0" layoutY="169.0" mnemonicParsing="false" text="TERMINA DIA">
+      <Button fx:id="btnTerminarDia" layoutX="870.0" layoutY="154.0" mnemonicParsing="false" text="TERMINA DIA">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnLimpiarFechas" layoutX="842.0" layoutY="234.0" mnemonicParsing="false" onAction="#btnLimpiarFechas" text="LIMPIAR FECHAS">
+      <Button fx:id="btnLimpiarFechas" layoutX="840.0" layoutY="214.0" mnemonicParsing="false" onAction="#btnLimpiarFechas" text="LIMPIAR FECHAS">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnImprimirTicket" layoutX="836.0" layoutY="325.0" mnemonicParsing="false" text="IMPRIMIR TICKET">
+      <Button fx:id="btnImprimirTicket" layoutX="835.0" layoutY="274.0" mnemonicParsing="false" text="IMPRIMIR TICKET">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -61,17 +61,23 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TableView fx:id="tvCitasyPacientes" layoutX="50.0" layoutY="391.0" prefHeight="309.0" prefWidth="1180.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="391.0" />
-      <AnchorPane layoutX="236.0" layoutY="129.0" prefHeight="463.0" prefWidth="608.0" visible="false">
-         <children>
-            <Text layoutX="29.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar DNI" wrappingWidth="108.0" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="23.41796875">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Text>
-            <TextField fx:id="tfDNI" prefHeight="35.0" prefWidth="419.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
-            <TableView fx:id="tvPacientes" prefHeight="243.0" prefWidth="272.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
-         </children>
-      </AnchorPane>
+      <TableView fx:id="tvCitasyPacientes" layoutX="50.0" layoutY="391.0" prefHeight="311.0" prefWidth="980.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="391.0" />
+      <Button fx:id="btnNuevaCita" layoutX="883.0" layoutY="326.0" mnemonicParsing="false" onAction="#btnCrearCita" text="NUEVA CITA">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnGuardar" layoutX="1009.0" layoutY="531.0" mnemonicParsing="false" onAction="#btnGuardarCita" prefHeight="25.0" prefWidth="16.0" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../images/save-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

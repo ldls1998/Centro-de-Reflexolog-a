@@ -34,7 +34,37 @@ public class Cita_Paciente {
     private int telefono;
     private String email;
     private Boolean especial;
+    
+    public Cita_Paciente() {   
+    }
 
+    public Cita_Paciente(Cita cita) {
+        this.cita = cita;
+        this.registro = this.cita.getRegistro();
+        this.codigo_paciente = this.cita.getCodigo_paciente();
+        this.fecha_cita = this.cita.getFecha_cita();
+        this.importe = this.cita.getImporte();
+    }
+    
+    public Cita_Paciente(Paciente paciente) {
+        this.paciente = paciente;
+        this.nombre = this.paciente.getNombre();
+        this.DNICE = this.paciente.getDNICE();
+        this.fecha_nacimiento = this.paciente.getFecha_nacimiento();
+        this.sexo = this.paciente.getSexo();
+        this.direccion = this.paciente.getDireccion();
+        this.prov = this.paciente.getProv();
+        this.dpto = this.paciente.getDpto();
+        this.dist = this.paciente.getDist();
+        this.testimonio = this.paciente.getTestimonio();
+        this.resultado = this.paciente.getResultado();
+        this.observacion = this.paciente.getObservacion();
+        this.ocupacion = this.paciente.getOcupacion();
+        this.telefono = this.paciente.getTelefono();
+        this.email = this.paciente.getEmail();
+        this.especial = this.paciente.getEspecial();
+    }
+    
     public Cita_Paciente(Cita cita, Paciente paciente) {
         this.cita = cita;
         this.paciente = paciente;

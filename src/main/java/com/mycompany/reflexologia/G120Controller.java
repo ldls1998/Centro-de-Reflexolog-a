@@ -33,7 +33,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.StageStyle;
-import modelo.Paciente;
 import modelo.Terapeuta;
 
 /**
@@ -291,7 +290,7 @@ public class G120Controller implements Initializable {
 
     private void limpiarCampos() {
 
-        tfBuscarNombre.setText("");
+        tfBuscar.setText("");
         cbBuscar.getSelectionModel().select(0);
         tfNumero.setText("");
         tfNombre.setText("");

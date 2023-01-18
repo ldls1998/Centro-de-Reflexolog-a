@@ -211,7 +211,6 @@ public class G110Controller implements Initializable {
 
                 txtNombre.setText(paciente.getNombre());
                 txtDNICE.setText(Integer.toString(paciente.getDNICE()));
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String dateString = sdf.format(paciente.getFecha_nacimiento());
                 LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);

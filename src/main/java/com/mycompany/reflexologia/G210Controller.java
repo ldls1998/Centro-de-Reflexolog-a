@@ -9,6 +9,7 @@ import dao.Cita_PacienteDAO;
 import dao.G210DAO;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
@@ -37,12 +38,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.converter.DateStringConverter;
+import javafx.util.converter.FloatStringConverter;
 import modelo.Cita;
 import modelo.Cita_Paciente;
 import modelo.DataSingleton;
@@ -112,9 +115,12 @@ public class G210Controller implements Initializable {
     public float importeCitaModificar;
     public String nombreCitaModificar;
     @FXML
-    private TextField tfDNI;
+    private Button btnNuevaCita;
     @FXML
-    private TableView<?> tvPacientes;
+    private Button btnGuardar;
+    
+    Cita nueva_cita;
+    Cita_Paciente nueva_cita_paciente;
 
     /**
      * Initializes the controller class.
@@ -123,11 +129,17 @@ public class G210Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
+        tvCitasyPacientes.setEditable(true);
+
+        dpFecha.setValue(LocalDate.now());
+
         this.g210dao = new G210DAO();
         this.cita_pacienteDAO = new Cita_PacienteDAO();
-        List<Cita_Paciente> cita_paciente = this.g210dao.listar();
-        ObservableList<Cita_Paciente> data = FXCollections.observableArrayList(cita_paciente);
-        cargarTabla(data);
+
+        String dateString = dpFecha.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        List<Cita_Paciente> listaCitaPacienteporFecha = cita_pacienteDAO.buscarPorFecha(dateString);
+        ObservableList<Cita_Paciente> datos = FXCollections.observableArrayList(listaCitaPacienteporFecha);
+        cargarTabla(datos);
 
         ObservableList<String> anios = FXCollections.observableArrayList();
         for (int i = 2000; i <= Year.now().getValue(); i++) {
@@ -159,7 +171,7 @@ public class G210Controller implements Initializable {
                 String titulo = "G210. - Modificar Citas";
                 try {
                     Stage stage = (Stage) btnConsultarCitas.getScene().getWindow();
-                    
+
                     int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
                     int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
                     Date fechaCitaModificar = tvCitasyPacientes.getItems().get(index).getFecha_cita();
@@ -173,7 +185,7 @@ public class G210Controller implements Initializable {
                     paciente.setCodigo(codigoPacienteModificar);
                     Cita_Paciente cp = new Cita_Paciente(cita, paciente);
                     DataSingleton.getInstance().setData(cp);
-                    
+
                     AnchorPane pane = new FXMLLoader(getClass().getResource("G210 - ModificarCita.fxml")).load();
                     rootPane.getChildren().setAll(pane);
                     stage.setWidth(450);
@@ -251,12 +263,39 @@ public class G210Controller implements Initializable {
 
         TableColumn nombreColumn = new TableColumn("Nombre");
         nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
+        nombreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        nombreColumn.setOnEditStart(new EventHandler<TableColumn.CellEditEvent>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent event) {
+
+            }
+        });
 
         TableColumn fechaColumn = new TableColumn("Fecha");
+//        fechaColumn.setCellFactory(column -> {
+//            TableCell<Cita_Paciente, Date> cell = new TableCell<Cita_Paciente, Date>() {
+//                private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//
+//                @Override
+//                protected void updateItem(Date item, boolean empty) {
+//                    super.updateItem(item, empty);
+//                    if (empty) {
+//                        setText(null);
+//                    } else {
+//                        setText(format.format(item));
+//                    }
+//                }
+//            };
+//
+//            return cell;
+//        });
         fechaColumn.setCellValueFactory(new PropertyValueFactory("fecha_cita"));
+        fechaColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter("dd/MM/yyyy")));
 
         TableColumn importeColumn = new TableColumn("Imp");
         importeColumn.setCellValueFactory(new PropertyValueFactory("importe"));
+        importeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 
         tvCitasyPacientes.setItems(cita_paciente);
         tvCitasyPacientes.getColumns().addAll(registroColumn, codigoColumn, nombreColumn, fechaColumn, importeColumn);
@@ -316,9 +355,42 @@ public class G210Controller implements Initializable {
 
     }
 
-    public void initDate(Cita cita, String nombreCitaModificar) {
-        this.cita = cita;
-        this.nombreCitaModificar = nombreCitaModificar;
+    @FXML
+    private void btnCrearCita(ActionEvent event) {
+
+        if (dpFecha.getValue()== null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Ingrese una fecha para crear la cita.");
+            alert.initStyle(StageStyle.UTILITY);
+            alert.initOwner(btnImprimirRecibo.getScene().getWindow());
+            alert.showAndWait();
+        } else {
+            this.nueva_cita = new Cita();
+            this.nueva_cita_paciente = new Cita_Paciente(nueva_cita);
+            this.nueva_cita_paciente.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
+            String dateString = dpFecha.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            List<Cita_Paciente> listaCitaPacienteporFecha = cita_pacienteDAO.buscarPorFecha(dateString);
+            listaCitaPacienteporFecha.add(this.nueva_cita_paciente);
+            ObservableList<Cita_Paciente> datos = FXCollections.observableArrayList(listaCitaPacienteporFecha);
+            cargarTabla(datos);
+            btnGuardar.setVisible(true);
+        }
+
+    }
+
+    @FXML
+    private void btnGuardarCita(ActionEvent event) {
+        if (this.nueva_cita_paciente.getCodigo_paciente() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Complete los datos de la cita.");
+            alert.initStyle(StageStyle.UTILITY);
+            alert.initOwner(btnImprimirRecibo.getScene().getWindow());
+            alert.showAndWait();
+        }
     }
 
 }
