@@ -6,5 +6,6 @@ com\mycompany\reflexologia\G130Controller.class
 com\mycompany\reflexologia\G110Controller.class
 modelo\Administrador.class
 conexion\ConexionMySQL.class
+com\mycompany\reflexologia\G210ModificarCitaController.class
 com\mycompany\reflexologia\PrimaryController.class
 com\mycompany\reflexologia\G120Controller.class

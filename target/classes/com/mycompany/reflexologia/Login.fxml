@@ -13,7 +13,7 @@
    <children>
       <AnchorPane prefHeight="636.0" prefWidth="766.0" style="-fx-background-color: beige;">
          <children>
-            <ImageView fitHeight="162.0" fitWidth="420.0" layoutX="173.0" layoutY="64.0">
+            <ImageView fitHeight="162.0" fitWidth="454.0" layoutX="167.0" layoutY="64.0">
                <image>
                   <Image url="@../../../images/logo.gif" />
                </image>
@@ -33,13 +33,13 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsuario" layoutX="236.0" layoutY="318.0" prefHeight="42.0" prefWidth="314.0" promptText="usuario" />
+            <TextField fx:id="txtUsuario" layoutX="236.0" layoutY="318.0" onKeyPressed="#enterKey" prefHeight="42.0" prefWidth="314.0" promptText="usuario" />
             <Label layoutX="238.0" layoutY="369.0" text="Contraseña">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <PasswordField fx:id="psfContrasena" layoutX="237.0" layoutY="398.0" prefHeight="42.0" prefWidth="314.0" promptText="contraseña" />
+            <PasswordField fx:id="psfContrasena" layoutX="237.0" layoutY="398.0" onKeyPressed="#enterKey" prefHeight="42.0" prefWidth="314.0" promptText="contraseña" />
             <Button fx:id="btnIniciarSesion" layoutX="237.0" layoutY="462.0" mnemonicParsing="false" onAction="#loggin" prefHeight="52.0" prefWidth="314.0" style="-fx-background-color: orange;" text="Iniciar sesión" textFill="#eaeaea" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="215.0">
                <font>
                   <Font name="System Bold" size="21.0" />

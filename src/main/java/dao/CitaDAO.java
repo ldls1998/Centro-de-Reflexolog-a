@@ -7,6 +7,7 @@ package dao;
 
 import conexion.ConexionMySQL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,11 +21,11 @@ import modelo.Cita_Paciente;
  *
  * @author Vlik35
  */
-public class G210DAO {
+public class CitaDAO {
 
     private ConexionMySQL conexion;
 
-    public G210DAO() {
+    public CitaDAO() {
         this.conexion = new ConexionMySQL();
     }
 
@@ -99,4 +100,67 @@ public class G210DAO {
         return lista;
     }
 
+    public boolean editar(Cita cita) {
+
+        try {
+
+            String SQL = "UPDATE citas SET fecha_cita = ?, importe = ?, pacienteID = ? WHERE registro = ?;";
+
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(SQL);
+
+            sentencia.setDate(1, (Date) cita.getFecha_cita());
+            sentencia.setFloat(2, cita.getImporte());
+            sentencia.setInt(3, cita.getCodigo_paciente());
+            sentencia.setInt(4, cita.getRegistro());
+            
+            sentencia.executeUpdate();
+
+            sentencia.close();
+
+            return true;
+
+        } catch (Exception e) {
+
+            System.err.println("Error al editar cita.");
+            System.err.println("Error: " + e);
+            return false;
+        }
+    }
+    
+    public Cita buscar(int registro) {
+        Cita cita = new Cita();
+        
+        try {
+            
+            String select_all = "SELECT * FROM citas WHERE registro = ?;";
+            Connection conexion = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            sentencia.setInt(1, registro);
+            
+            ResultSet rs = sentencia.executeQuery();
+            
+            while (rs.next()) {
+                cita.setRegistro(rs.getInt(1));;
+                cita.setFecha_cita(rs.getDate(2));
+                cita.setImporte(rs.getFloat(3));
+                cita.setCodigo_paciente(rs.getInt(4));
+            }
+            
+            rs.close();
+            sentencia.close();
+            
+        } catch (SQLException e) {
+            
+            System.out.println("Error al buscar cita.");
+            System.out.println("Error: " + e);
+            
+        }
+        
+        return cita;
+    }
+    
 }

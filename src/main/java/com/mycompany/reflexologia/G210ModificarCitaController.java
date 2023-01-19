@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -29,10 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import modelo.Cita;
 import modelo.Cita_Paciente;
 import modelo.DataSingleton;
-import modelo.Paciente;
 
 /**
  * FXML Controller class

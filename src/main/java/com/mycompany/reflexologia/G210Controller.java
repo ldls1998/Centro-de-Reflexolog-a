@@ -6,7 +6,9 @@
 package com.mycompany.reflexologia;
 
 import dao.Cita_PacienteDAO;
-import dao.G210DAO;
+import dao.G110DAO;
+import dao.CitaDAO;
+import dao.PacienteDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -21,6 +23,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +32,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -37,9 +43,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -50,6 +58,7 @@ import modelo.Cita;
 import modelo.Cita_Paciente;
 import modelo.DataSingleton;
 import modelo.Paciente;
+import modelo.PacienteSingleton;
 
 /**
  * FXML Controller class
@@ -82,7 +91,7 @@ public class G210Controller implements Initializable {
     @FXML
     private ComboBox<String> cbAnio;
 
-    private G210DAO g210dao;
+    private CitaDAO citaDAO;
 
     private ContextMenu cmOpciones;
 
@@ -118,9 +127,13 @@ public class G210Controller implements Initializable {
     private Button btnNuevaCita;
     @FXML
     private Button btnGuardar;
-    
+
     Cita nueva_cita;
     Cita_Paciente nueva_cita_paciente;
+
+    Paciente paciente_modificar;
+    private G110DAO g110dao;
+    private PacienteDAO pacientedao;
 
     /**
      * Initializes the controller class.
@@ -132,9 +145,13 @@ public class G210Controller implements Initializable {
         tvCitasyPacientes.setEditable(true);
 
         dpFecha.setValue(LocalDate.now());
+        
+        this.nueva_cita_paciente = new Cita_Paciente();
 
-        this.g210dao = new G210DAO();
+        this.citaDAO = new CitaDAO();
+        this.g110dao = new G110DAO();
         this.cita_pacienteDAO = new Cita_PacienteDAO();
+        this.pacientedao = new PacienteDAO();
 
         String dateString = dpFecha.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         List<Cita_Paciente> listaCitaPacienteporFecha = cita_pacienteDAO.buscarPorFecha(dateString);
@@ -228,8 +245,8 @@ public class G210Controller implements Initializable {
                         alert.initStyle(StageStyle.UTILITY);
                         alert.initOwner(btnImprimirRecibo.getScene().getWindow());
                         alert.showAndWait();
-                        g210dao = new G210DAO();
-                        List<Cita_Paciente> lista = g210dao.listar();
+                        citaDAO = new CitaDAO();
+                        List<Cita_Paciente> lista = citaDAO.listar();
                         ObservableList<Cita_Paciente> data = FXCollections.observableArrayList(lista);
                         cargarTabla(data);
                     } else {
@@ -263,13 +280,31 @@ public class G210Controller implements Initializable {
 
         TableColumn nombreColumn = new TableColumn("Nombre");
         nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
-        nombreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        nombreColumn.setOnEditStart(new EventHandler<TableColumn.CellEditEvent>() {
+        nombreColumn.setOnEditStart(
+                new EventHandler<TableColumn.CellEditEvent>() {
             @Override
             public void handle(TableColumn.CellEditEvent event) {
-
+                String scene_name = "G210 - BuscarPaciente.fxml";
+                String titulo = "G210. - Buscar Paciente";
+                cargarScene cargar = new cargarScene();
+                try {
+                    cargar.loadScene(scene_name, 640, 480, titulo, false, true);
+                    rootPane.setDisable(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(G210Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        }
+        );
+
+        nombreColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, String>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, String> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setPaciente(PacienteSingleton.getInstance().getData());
+            }
+
         });
 
         TableColumn fechaColumn = new TableColumn("Fecha");
@@ -290,15 +325,27 @@ public class G210Controller implements Initializable {
 //
 //            return cell;
 //        });
-        fechaColumn.setCellValueFactory(new PropertyValueFactory("fecha_cita"));
-        fechaColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter("dd/MM/yyyy")));
+
+        fechaColumn.setCellValueFactory(
+                new PropertyValueFactory("fecha_cita"));
 
         TableColumn importeColumn = new TableColumn("Imp");
-        importeColumn.setCellValueFactory(new PropertyValueFactory("importe"));
+        importeColumn.setCellValueFactory(
+                new PropertyValueFactory("importe"));
         importeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+        importeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, Float>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, Float> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setImporte(event.getNewValue());
+            }
+
+        });
 
         tvCitasyPacientes.setItems(cita_paciente);
-        tvCitasyPacientes.getColumns().addAll(registroColumn, codigoColumn, nombreColumn, fechaColumn, importeColumn);
+
+        tvCitasyPacientes.getColumns()
+                .addAll(registroColumn, codigoColumn, nombreColumn, fechaColumn, importeColumn);
 
     }
 
@@ -338,7 +385,7 @@ public class G210Controller implements Initializable {
             cargarTabla(datos);
 
         } else {
-            List<Cita_Paciente> cita_paciente = this.g210dao.listar();
+            List<Cita_Paciente> cita_paciente = this.citaDAO.listar();
             ObservableList<Cita_Paciente> data = FXCollections.observableArrayList(cita_paciente);
             cargarTabla(data);
         }
@@ -358,7 +405,7 @@ public class G210Controller implements Initializable {
     @FXML
     private void btnCrearCita(ActionEvent event) {
 
-        if (dpFecha.getValue()== null) {
+        if (dpFecha.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -370,6 +417,7 @@ public class G210Controller implements Initializable {
             this.nueva_cita = new Cita();
             this.nueva_cita_paciente = new Cita_Paciente(nueva_cita);
             this.nueva_cita_paciente.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
+            this.nueva_cita_paciente.setNombre("Ingrese nombre");
             String dateString = dpFecha.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             List<Cita_Paciente> listaCitaPacienteporFecha = cita_pacienteDAO.buscarPorFecha(dateString);
             listaCitaPacienteporFecha.add(this.nueva_cita_paciente);
@@ -382,7 +430,13 @@ public class G210Controller implements Initializable {
 
     @FXML
     private void btnGuardarCita(ActionEvent event) {
-        if (this.nueva_cita_paciente.getCodigo_paciente() == 0) {
+
+        int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
+        
+        this.nueva_cita_paciente.setCita(this.citaDAO.buscar(tvCitasyPacientes.getItems().get(index).getRegistro()));
+        this.nueva_cita_paciente.setPaciente(this.pacientedao.buscar(tvCitasyPacientes.getItems().get(index).getCodigo_paciente()));
+
+        if (this.nueva_cita_paciente.getCodigo_paciente() == 0 || (tvCitasyPacientes.getItems().get(index).getCodigo_paciente() == 0)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -390,7 +444,18 @@ public class G210Controller implements Initializable {
             alert.initStyle(StageStyle.UTILITY);
             alert.initOwner(btnImprimirRecibo.getScene().getWindow());
             alert.showAndWait();
+            return;
         }
+
+        int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
+        float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
+
+        Cita citaModificar = this.citaDAO.buscar(registroCitaModificar);
+
+        citaModificar.setImporte(importeCitaModificar);
+
+        this.citaDAO.editar(citaModificar);
+
     }
 
 }

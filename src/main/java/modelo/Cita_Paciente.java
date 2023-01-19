@@ -35,10 +35,13 @@ public class Cita_Paciente {
     private String email;
     private Boolean especial;
     
-    public Cita_Paciente() {   
+    public Cita_Paciente() {
+        this.cita = new Cita();
+        this.paciente = new Paciente();
     }
 
     public Cita_Paciente(Cita cita) {
+        this.paciente = new Paciente();
         this.cita = cita;
         this.registro = this.cita.getRegistro();
         this.codigo_paciente = this.cita.getCodigo_paciente();
@@ -47,6 +50,7 @@ public class Cita_Paciente {
     }
     
     public Cita_Paciente(Paciente paciente) {
+        this.cita = new Cita();
         this.paciente = paciente;
         this.nombre = this.paciente.getNombre();
         this.DNICE = this.paciente.getDNICE();
@@ -95,6 +99,10 @@ public class Cita_Paciente {
 
     public void setCita(Cita cita) {
         this.cita = cita;
+        this.registro = this.cita.getRegistro();
+        this.codigo_paciente = this.cita.getCodigo_paciente();
+        this.fecha_cita = this.cita.getFecha_cita();
+        this.importe = this.cita.getImporte();
     }
 
     public Paciente getPaciente() {
@@ -103,6 +111,21 @@ public class Cita_Paciente {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+        this.nombre = this.paciente.getNombre();
+        this.DNICE = this.paciente.getDNICE();
+        this.fecha_nacimiento = this.paciente.getFecha_nacimiento();
+        this.sexo = this.paciente.getSexo();
+        this.direccion = this.paciente.getDireccion();
+        this.prov = this.paciente.getProv();
+        this.dpto = this.paciente.getDpto();
+        this.dist = this.paciente.getDist();
+        this.testimonio = this.paciente.getTestimonio();
+        this.resultado = this.paciente.getResultado();
+        this.observacion = this.paciente.getObservacion();
+        this.ocupacion = this.paciente.getOcupacion();
+        this.telefono = this.paciente.getTelefono();
+        this.email = this.paciente.getEmail();
+        this.especial = this.paciente.getEspecial();
     }
     
     public int getRegistro() {

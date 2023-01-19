@@ -67,7 +67,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnGuardar" layoutX="1009.0" layoutY="531.0" mnemonicParsing="false" onAction="#btnGuardarCita" prefHeight="25.0" prefWidth="16.0" visible="false">
+      <Button fx:id="btnGuardar" layoutX="1009.0" layoutY="531.0" mnemonicParsing="false" onAction="#btnGuardarCita" prefHeight="25.0" prefWidth="16.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

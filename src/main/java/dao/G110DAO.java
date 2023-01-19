@@ -90,6 +90,20 @@ public class G110DAO {
 
                 paciente.setCodigo(rs.getInt(1));
                 paciente.setNombre(rs.getString(2));
+                paciente.setDNICE(rs.getInt(3));
+                paciente.setFecha_nacimiento(rs.getDate(4));
+                paciente.setSexo(rs.getString(5));
+                paciente.setDireccion(rs.getString(6));
+                paciente.setDpto(rs.getString(7));
+                paciente.setProv(rs.getString(8));
+                paciente.setDist(rs.getString(9));
+                paciente.setEspecial(rs.getBoolean(10));
+                paciente.setTestimonio(rs.getString(11));
+                paciente.setResultado(rs.getString(12));
+                paciente.setObservacion(rs.getString(13));
+                paciente.setOcupacion(rs.getString(14));
+                paciente.setTelefono(rs.getInt(15));
+                paciente.setEmail(rs.getString(16));
 
                 listaPaciente.add(paciente);
             }
@@ -115,11 +129,11 @@ public class G110DAO {
                     + "	direccion = ?, dpto = ?, prov = ?, dist = ?, especial = ?, testimonio = ?, \n"
                     + "    resultado = ?, observacion = ?, ocupacion = ?, telefono = ?, email = ?\n"
                     + "    WHERE codigo = ?;";
-            
+
             Connection conexion = this.conexion.getConnection();
-            
+
             PreparedStatement sentencia = conexion.prepareStatement(SQL);
-            
+
             sentencia.setString(1, paciente.getNombre());
             sentencia.setInt(2, paciente.getDNICE());
             sentencia.setDate(3, (Date) paciente.getFecha_nacimiento());
@@ -136,11 +150,11 @@ public class G110DAO {
             sentencia.setInt(14, paciente.getTelefono());
             sentencia.setString(15, paciente.getEmail());
             sentencia.setInt(16, paciente.getCodigo());
-            
+
             sentencia.executeUpdate();
-            
+
             sentencia.close();
-            
+
             return true;
 
         } catch (Exception e) {

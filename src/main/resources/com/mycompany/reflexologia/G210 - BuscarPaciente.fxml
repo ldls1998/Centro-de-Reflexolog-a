@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +14,8 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="tfDNI" prefHeight="35.0" prefWidth="419.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
-      <TableView fx:id="tvPacientes" prefHeight="243.0" prefWidth="272.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+      <TextField fx:id="tfDNI" onKeyPressed="#enterKey" onKeyTyped="#cargarPacientesBusqueda" prefHeight="35.0" prefWidth="419.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
+      <TableView fx:id="tvPacientes" onMouseClicked="#elegirPaciente" prefHeight="243.0" prefWidth="272.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+      <Button fx:id="btnBoton" layoutX="83.0" layoutY="43.0" mnemonicParsing="false" text="Button" visible="false" />
    </children>
 </AnchorPane>

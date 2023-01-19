@@ -20,6 +20,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import modelo.Administrador;
 
@@ -93,6 +96,16 @@ public class LoginController implements Initializable {
     public void salir(ActionEvent e) {
         Stage stage = (Stage) btnSalir.getScene().getWindow();
         stage.close();
+    }
+    
+    @FXML
+    private void enterKey(KeyEvent event) throws IOException {
+
+        if (event.getCode() == KeyCode.ENTER) {
+            ActionEvent e = null;
+            loggin(e);
+        }
+
     }
 
 }

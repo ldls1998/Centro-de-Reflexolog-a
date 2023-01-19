@@ -108,6 +108,44 @@ public class PacienteDAO {
         return listaPaciente;
     }
     
+    public List<Paciente> listarBusquedaDNI(int dni) {
+        List<Paciente> listaPaciente = new ArrayList<>();
+
+        try {
+
+            String select_all = "SELECT * FROM paciente WHERE dnice LIKE '" + dni + "%';";
+            Connection conexion = this.conexion.getConnection();
+
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            // sentencia.setInt(1, codigo);
+
+            ResultSet rs = sentencia.executeQuery();
+
+            while (rs.next()) {
+
+                Paciente paciente = new Paciente();
+
+                paciente.setCodigo(rs.getInt(1));
+                paciente.setNombre(rs.getString(2));
+                paciente.setDNICE(rs.getInt(3));
+
+                listaPaciente.add(paciente);
+            }
+
+            rs.close();
+            sentencia.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al mostrar pacientes.");
+            System.out.println("Error: " + e);
+
+        }
+
+        return listaPaciente;
+    }
+    
     public List<Paciente> listarBusquedaNombre(String nombre) {
         List<Paciente> listaPaciente = new ArrayList<>();
 
