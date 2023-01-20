@@ -50,6 +50,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.converter.DateStringConverter;
@@ -123,6 +124,7 @@ public class G210Controller implements Initializable {
     public Date fechaCitaModificar;
     public float importeCitaModificar;
     public String nombreCitaModificar;
+
     @FXML
     private Button btnNuevaCita;
     @FXML
@@ -145,7 +147,7 @@ public class G210Controller implements Initializable {
         tvCitasyPacientes.setEditable(true);
 
         dpFecha.setValue(LocalDate.now());
-        
+
         this.nueva_cita_paciente = new Cita_Paciente();
 
         this.citaDAO = new CitaDAO();
@@ -288,9 +290,27 @@ public class G210Controller implements Initializable {
                 String scene_name = "G210 - BuscarPaciente.fxml";
                 String titulo = "G210. - Buscar Paciente";
                 cargarScene cargar = new cargarScene();
+                // 640 x 480
                 try {
-                    cargar.loadScene(scene_name, 640, 480, titulo, false, true);
-                    rootPane.setDisable(true);
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource(scene_name));
+
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = new Stage();
+                    stage.setTitle(titulo);
+                    stage.setScene(scene);
+                    stage.setWidth(640);
+                    stage.setHeight(480);
+                    stage.centerOnScreen();
+                    stage.setResizable(false);
+                    stage.setAlwaysOnTop(true);
+                    // stage.initModality(Modality.APPLICATION_MODAL);
+
+                    // Pasamos la lista al controlador usando el método implementado
+                    G210BuscarPacienteController controlador = (G210BuscarPacienteController) fxmlLoader.getController();
+                    controlador.setTablaPaciente(tvCitasyPacientes);
+
+                    stage.show();
                 } catch (IOException ex) {
                     Logger.getLogger(G210Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -432,7 +452,7 @@ public class G210Controller implements Initializable {
     private void btnGuardarCita(ActionEvent event) {
 
         int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
-        
+
         this.nueva_cita_paciente.setCita(this.citaDAO.buscar(tvCitasyPacientes.getItems().get(index).getRegistro()));
         this.nueva_cita_paciente.setPaciente(this.pacientedao.buscar(tvCitasyPacientes.getItems().get(index).getCodigo_paciente()));
 

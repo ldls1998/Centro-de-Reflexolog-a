@@ -111,6 +111,7 @@ public class Cita_Paciente {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+        this.codigo_paciente = this.paciente.getCodigo();
         this.nombre = this.paciente.getNombre();
         this.DNICE = this.paciente.getDNICE();
         this.fecha_nacimiento = this.paciente.getFecha_nacimiento();

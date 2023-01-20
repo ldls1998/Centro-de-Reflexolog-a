@@ -24,8 +24,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import modelo.Cita_Paciente;
 import modelo.Paciente;
-import modelo.PacienteSingleton;
 
 /**
  * FXML Controller class
@@ -47,14 +47,22 @@ public class G210BuscarPacienteController implements Initializable {
     @FXML
     private Button btnBoton;
 
+    private PacienteDAO pacientedao;
+
+    TableView<Cita_Paciente> tabla;
+
+    public void setTablaPaciente(TableView<Cita_Paciente> tvCitasyPacientes) {
+        this.tabla = tvCitasyPacientes;
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        pacienteDAO = new PacienteDAO();
-        g110dao = new G110DAO();
+        this.pacienteDAO = new PacienteDAO();
+        this.g110dao = new G110DAO();
         cargarPacientes();
     }
 
@@ -129,12 +137,21 @@ public class G210BuscarPacienteController implements Initializable {
         if (event.getClickCount() == 2) {
             Paciente selectedItem = tvPacientes.getSelectionModel().getSelectedItem();
             Paciente pacienteBusqueda = pacienteDAO.buscar(selectedItem.getCodigo());
-            PacienteSingleton.getInstance().setData(pacienteBusqueda);
+            // PacienteSingleton.getInstance().setData(pacienteBusqueda);
             Stage previeousStage = (Stage) Stage.getWindows().get(1);
+            Stage actualStage = (Stage) tfDNI.getScene().getWindow();
             Scene scene = previeousStage.getScene();
+
+            // Paciente p = PacienteSingleton.getInstance().getData();
+            int index = this.tabla.getSelectionModel().getSelectedIndex();
+
+            this.tabla.getItems().get(index).setPaciente(pacienteBusqueda);
+//            this.tabla.getItems().get(index).setCodigo_paciente(p.getCodigo());
+//            this.tabla.getItems().get(index).setNombre(p.getNombre());
+            this.tabla.refresh();
             AnchorPane anchorPane = (AnchorPane) scene.getRoot();
             anchorPane.setDisable(false);
-            Stage actualStage = (Stage) tfDNI.getScene().getWindow();
+
             actualStage.close();
         }
 
