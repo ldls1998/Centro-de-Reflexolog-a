@@ -163,4 +163,32 @@ public class CitaDAO {
         return cita;
     }
     
+    public Cita crear(Cita cita) {
+        
+        try {
+            
+            String select_all = "INSERT INTO citas (`fecha_cita`, `importe`, `pacienteID`) "
+                    + "VALUES (?, ?, ?);";
+            Connection conexion = this.conexion.getConnection();
+            
+            PreparedStatement sentencia = conexion.prepareStatement(select_all);
+            
+            sentencia.setDate(1, cita.getFecha_cita());
+            sentencia.setFloat(2, cita.getImporte());
+            sentencia.setInt(3, cita.getCodigo_paciente());
+            
+            sentencia.execute();
+
+            sentencia.close();
+            
+        } catch (SQLException e) {
+            
+            System.out.println("Error al crear cita.");
+            System.out.println("Error: " + e);
+            
+        }
+        
+        return cita;
+    }
+    
 }

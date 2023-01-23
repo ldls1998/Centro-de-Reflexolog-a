@@ -372,6 +372,8 @@ public class G210Controller implements Initializable {
     @FXML
     void btnConsultarCitas(ActionEvent event) {
 
+        PacienteSingleton.getInstance().setData(null);
+
         if (dpFecha.getValue() != null) {
 
             String dateString = dpFecha.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -425,6 +427,8 @@ public class G210Controller implements Initializable {
     @FXML
     private void btnCrearCita(ActionEvent event) {
 
+        PacienteSingleton.getInstance().setData(null);
+
         if (dpFecha.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -451,12 +455,12 @@ public class G210Controller implements Initializable {
     @FXML
     private void btnGuardarCita(ActionEvent event) {
 
-        int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
+        Paciente p = PacienteSingleton.getInstance().getData();
 
-        this.nueva_cita_paciente.setCita(this.citaDAO.buscar(tvCitasyPacientes.getItems().get(index).getRegistro()));
-        this.nueva_cita_paciente.setPaciente(this.pacientedao.buscar(tvCitasyPacientes.getItems().get(index).getCodigo_paciente()));
+        System.out.println(p.getNombre());
+        System.out.println(p.getCodigo());
 
-        if (this.nueva_cita_paciente.getCodigo_paciente() == 0 || (tvCitasyPacientes.getItems().get(index).getCodigo_paciente() == 0)) {
+        if (p == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -467,15 +471,48 @@ public class G210Controller implements Initializable {
             return;
         }
 
-        int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
+        int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
+        
         float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
+        
+        Cita cita = new Cita();
+        cita.setCodigo_paciente(p.getCodigo());
+        cita.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
+        cita.setImporte(importeCitaModificar);
 
-        Cita citaModificar = this.citaDAO.buscar(registroCitaModificar);
+        tvCitasyPacientes.getItems().get(index).setPaciente(p);
+        tvCitasyPacientes.getItems().get(index).setCodigo_paciente(p.getCodigo());
+        tvCitasyPacientes.getItems().get(index).setNombre(p.getNombre());
+        
 
-        citaModificar.setImporte(importeCitaModificar);
+        this.nueva_cita_paciente.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
+        this.nueva_cita_paciente.setCodigo_paciente(p.getCodigo());
+        this.nueva_cita_paciente.setImporte(importeCitaModificar);
 
-        this.citaDAO.editar(citaModificar);
+        this.nueva_cita_paciente.setPaciente(
+                this.pacientedao.buscar(p.getCodigo()));
 
+        tvCitasyPacientes.refresh();
+
+        int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
+
+        if (registroCitaModificar == 0) {
+            
+            this.citaDAO.crear(cita);
+            
+        } else {
+            
+            Cita citaModificar = this.citaDAO.buscar(registroCitaModificar);
+
+            citaModificar.setImporte(importeCitaModificar);
+            
+            citaModificar.setCodigo_paciente(tvCitasyPacientes.getItems().get(index).getCodigo_paciente());
+            
+            citaModificar.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
+
+            this.citaDAO.editar(citaModificar);
+            
+        }
     }
 
 }

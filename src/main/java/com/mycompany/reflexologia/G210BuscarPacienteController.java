@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import modelo.Cita_Paciente;
 import modelo.Paciente;
+import modelo.PacienteSingleton;
 
 /**
  * FXML Controller class
@@ -143,11 +144,12 @@ public class G210BuscarPacienteController implements Initializable {
             Scene scene = previeousStage.getScene();
 
             // Paciente p = PacienteSingleton.getInstance().getData();
+            PacienteSingleton.getInstance().setData(pacienteBusqueda);
             int index = this.tabla.getSelectionModel().getSelectedIndex();
 
             this.tabla.getItems().get(index).setPaciente(pacienteBusqueda);
-//            this.tabla.getItems().get(index).setCodigo_paciente(p.getCodigo());
-//            this.tabla.getItems().get(index).setNombre(p.getNombre());
+            this.tabla.getItems().get(index).setCodigo_paciente(pacienteBusqueda.getCodigo());
+            this.tabla.getItems().get(index).setNombre(pacienteBusqueda.getNombre());
             this.tabla.refresh();
             AnchorPane anchorPane = (AnchorPane) scene.getRoot();
             anchorPane.setDisable(false);
