@@ -457,9 +457,6 @@ public class G210Controller implements Initializable {
 
         Paciente p = PacienteSingleton.getInstance().getData();
 
-        System.out.println(p.getNombre());
-        System.out.println(p.getCodigo());
-
         if (p == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -472,9 +469,9 @@ public class G210Controller implements Initializable {
         }
 
         int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
-        
+
         float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
-        
+
         Cita cita = new Cita();
         cita.setCodigo_paciente(p.getCodigo());
         cita.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
@@ -483,7 +480,6 @@ public class G210Controller implements Initializable {
         tvCitasyPacientes.getItems().get(index).setPaciente(p);
         tvCitasyPacientes.getItems().get(index).setCodigo_paciente(p.getCodigo());
         tvCitasyPacientes.getItems().get(index).setNombre(p.getNombre());
-        
 
         this.nueva_cita_paciente.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
         this.nueva_cita_paciente.setCodigo_paciente(p.getCodigo());
@@ -497,22 +493,42 @@ public class G210Controller implements Initializable {
         int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
 
         if (registroCitaModificar == 0) {
-            
+
             this.citaDAO.crear(cita);
-            
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("Se ha creado la cita correctamente.");
+            alert.initStyle(StageStyle.UTILITY);
+            alert.initOwner(btnImprimirRecibo.getScene().getWindow());
+            alert.showAndWait();
+            tvCitasyPacientes.refresh();
+            return;
+
         } else {
-            
+
             Cita citaModificar = this.citaDAO.buscar(registroCitaModificar);
 
             citaModificar.setImporte(importeCitaModificar);
-            
+
             citaModificar.setCodigo_paciente(tvCitasyPacientes.getItems().get(index).getCodigo_paciente());
-            
+
             citaModificar.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
 
             this.citaDAO.editar(citaModificar);
-            
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("Se ha guardado la cita correctamente.");
+            alert.initStyle(StageStyle.UTILITY);
+            alert.initOwner(btnImprimirRecibo.getScene().getWindow());
+            alert.showAndWait();
+            tvCitasyPacientes.refresh();
+
         }
+
     }
 
 }
