@@ -237,6 +237,17 @@ public class G110Controller implements Initializable {
     @FXML
     void btnRegistrarOnAction(ActionEvent event) {
 
+        if (!"".equals(validar())) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error");
+            alerta.setHeaderText(null);
+            alerta.setContentText(validar());
+            alerta.initStyle(StageStyle.UTILITY);
+            alerta.initOwner(btnDatosVisita.getScene().getWindow());
+            alerta.showAndWait();
+            return;
+        }
+
         if (pacienteSelected == null) {
             Paciente paciente = new Paciente();
 
@@ -408,6 +419,121 @@ public class G110Controller implements Initializable {
         btnMarcarDisponible.setText("Marcar Disponible");
         btnCancelar.setDisable(true);
         limpiarCampos();
+    }
+
+    private String validar() {
+
+        if ("".equals(txtCodigo.getText())) {
+            return "El código no puede estar vacío";
+        }
+
+        if (Integer.parseInt(txtCodigo.getText()) <= 0) {
+            return "El código no puede ser un valor negativo";
+        }
+
+        if (!isNumeric(txtCodigo.getText())) {
+            return "El código tiene que ser un número";
+        }
+
+        Paciente paciente = this.pacienteDAO.buscar(Integer.parseInt(txtCodigo.getText()));
+        
+        System.out.println(paciente.getCodigo());
+
+        if ( paciente.getCodigo() != 0) {
+            return "Paciente ya existe";
+        }
+
+        if (txtNombre.getText().length() >= 50 || txtNombre.getText().length() <= 0) {
+            return "Error en el nombre";
+        }
+
+        if (!isNumeric(txtDNICE.getText())) {
+            return "El DNI no puede estar vacío";
+        }
+
+        if (txtDNICE.getText().length() != 8) {
+            return "El DNI debe tener 8 dígitos";
+        }
+
+        if (dpFecNac.getValue() == null) {
+            return "Ingrese la fecha";
+        }
+
+        LocalDate startDate = LocalDate.of(1900, 1, 1);
+        LocalDate endDate = LocalDate.of(2100, 12, 31);
+        if (dpFecNac.getValue().isBefore(startDate) || dpFecNac.getValue().isAfter(endDate)) {
+            return "La fecha no se encuentra en un rango aceptable";
+        }
+
+        if ("Seleccione".equals(cbSexo.getValue())) {
+            return "Seleccione el sexo";
+        }
+
+        if (txtDireccion.getText().length() > 100) {
+            return "La dirección no puede tener más de 100 caracteres";
+        }
+
+        if (txtDpto.getText().length() > 100) {
+            return "El departamento no puede tener más de 100 caracteres";
+        }
+
+        if (txtProv.getText().length() > 100) {
+            return "La provincia no puede tener más de 100 caracteres";
+        }
+
+        if (txtDist.getText().length() > 100) {
+            return "El distrito no puede tener más de 100 caracteres";
+        }
+
+        if (txtTestimonio.getText().length() > 50) {
+            return "El testimonio no puede tener más de 50 caracteres";
+        }
+
+        if (txtResultado.getText().length() > 100) {
+            return "El resultado no puede tener más de 100 caracteres";
+        }
+
+        if (txtObservacion.getText().length() > 500) {
+            return "La observación no puede tener más de 500 caracteres";
+        }
+
+        if (txtOcupacion.getText().length() > 50) {
+            return "La ocupación no puede tener más de 50 caracteres";
+        }
+
+        if (!isNumeric(txtTelefono.getText())) {
+            return "El teléfono no puede contener letras";
+        }
+
+        if (txtTelefono.getText().length() != 9) {
+            return "El teléfono debe tener 9 dígitos";
+        }
+
+        if (txtEmail.getText().length() > 64) {
+            return "La dirección email no puede tener más de 64 caracteres";
+        }
+
+        return "";
+
+    }
+
+    public static boolean isNumeric(String string) {
+        int intValue;
+
+        System.out.println(String.format("Parsing string: \"%s\"", string));
+
+        if (string == null || string.equals("")) {
+            System.out.println("String cannot be parsed, it is null or empty.");
+            return false;
+        }
+
+        try {
+            intValue = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("Input String cannot be parsed to Integer.");
+        }
+        return false;
     }
 
 }
