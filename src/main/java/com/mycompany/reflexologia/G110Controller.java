@@ -281,6 +281,9 @@ public class G110Controller implements Initializable {
                 alerta.showAndWait();
                 limpiarCampos();
                 cargarPacientes();
+                pacienteSelected = null;
+                txtCodigo.setDisable(false);
+                btnMarcarDisponible.setText("Marcar Disponible");
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
 
@@ -321,10 +324,12 @@ public class G110Controller implements Initializable {
                 alerta.initStyle(StageStyle.UTILITY);
                 alerta.initOwner(btnDatosVisita.getScene().getWindow());
                 alerta.showAndWait();
-                limpiarCampos();
-                cargarPacientes();
                 pacienteSelected = null;
                 txtCodigo.setDisable(false);
+                btnMarcarDisponible.setText("Marcar Disponible");
+                btnCancelar.setDisable(true);
+                limpiarCampos();
+                cargarPacientes();
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
 
@@ -423,24 +428,26 @@ public class G110Controller implements Initializable {
 
     private String validar() {
 
-        if ("".equals(txtCodigo.getText())) {
-            return "El código no puede estar vacío";
-        }
-
-        if (Integer.parseInt(txtCodigo.getText()) <= 0) {
-            return "El código no puede ser un valor negativo";
-        }
-
-        if (!isNumeric(txtCodigo.getText())) {
-            return "El código tiene que ser un número";
-        }
-
         Paciente paciente = this.pacienteDAO.buscar(Integer.parseInt(txtCodigo.getText()));
-        
-        System.out.println(paciente.getCodigo());
 
-        if ( paciente.getCodigo() != 0) {
-            return "Paciente ya existe";
+        if (!btnMarcarDisponible.getText().equals("Modificar")) {
+
+            if ("".equals(txtCodigo.getText())) {
+                return "El código no puede estar vacío";
+            }
+
+            if (Integer.parseInt(txtCodigo.getText()) <= 0) {
+                return "El código no puede ser un valor negativo";
+            }
+
+            if (!isNumeric(txtCodigo.getText())) {
+                return "El código tiene que ser un número";
+            }
+
+            if (paciente.getCodigo() != 0) {
+                return "Paciente ya existe";
+            }
+
         }
 
         if (txtNombre.getText().length() >= 50 || txtNombre.getText().length() <= 0) {
@@ -520,10 +527,7 @@ public class G110Controller implements Initializable {
     public static boolean isNumeric(String string) {
         int intValue;
 
-        System.out.println(String.format("Parsing string: \"%s\"", string));
-
         if (string == null || string.equals("")) {
-            System.out.println("String cannot be parsed, it is null or empty.");
             return false;
         }
 
@@ -531,7 +535,6 @@ public class G110Controller implements Initializable {
             intValue = Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
-            System.out.println("Input String cannot be parsed to Integer.");
         }
         return false;
     }

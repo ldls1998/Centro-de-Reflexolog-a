@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -203,6 +204,17 @@ public class G120Controller implements Initializable {
     @FXML
     void btnRegistrarOnAction(ActionEvent event) {
 
+        if (!"".equals(validar())) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error");
+            alerta.setHeaderText(null);
+            alerta.setContentText(validar());
+            alerta.initStyle(StageStyle.UTILITY);
+            alerta.initOwner(btnRegistrar.getScene().getWindow());
+            alerta.showAndWait();
+            return;
+        }
+
         if (terapeutaSelected == null) {
             Terapeuta terapeuta = new Terapeuta();
 
@@ -267,12 +279,12 @@ public class G120Controller implements Initializable {
                 alerta.setContentText("Se editó el paciente correctamente");
                 alerta.initStyle(StageStyle.UTILITY);
                 alerta.initOwner(btnRegistrar.getScene().getWindow());
-                alerta.showAndWait();
-                limpiarCampos();
-                cargarTerapeutas();
                 terapeutaSelected = null;
                 tfNumero.setDisable(false);
                 btnRegistrar.setText("Registrar");
+                btnCancelar.setDisable(true);
+                limpiarCampos();
+                cargarTerapeutas();
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
 
@@ -326,7 +338,7 @@ public class G120Controller implements Initializable {
         tvTerapeutas.getColumns().addAll(numColumn, nombreColumn);
 
     }
-    
+
     @FXML
     public void cargarTerapeutasBusqueda() {
 
@@ -365,6 +377,97 @@ public class G120Controller implements Initializable {
         btnRegistrar.setText("Registrar");
         btnCancelar.setDisable(true);
         limpiarCampos();
+    }
+
+    private String validar() {
+
+        Terapeuta terapeuta = this.terapeutadao.buscar(Integer.parseInt(tfNumero.getText()));
+
+        if (!btnRegistrar.getText().equals("Modificar")) {
+            if ("".equals(tfNumero.getText())) {
+                return "El código no puede estar vacío";
+            }
+
+            if (Integer.parseInt(tfNumero.getText()) <= 0) {
+                return "El código no puede ser un valor negativo";
+            }
+
+            if (!isNumeric(tfNumero.getText())) {
+                return "El código tiene que ser un número";
+            }
+
+            if (terapeuta.getNumero() != 0) {
+                return "Paciente ya existe";
+            }
+        }
+
+        if (tfNombre.getText().length() >= 100 || tfNombre.getText().length() <= 0) {
+            return "Error en el nombre";
+        }
+
+        if (dpFecha.getValue() == null) {
+            return "Ingrese la fecha";
+        }
+
+        LocalDate startDate = LocalDate.of(1950, 1, 1);
+        LocalDate endDate = LocalDate.now();
+        if (dpFecha.getValue().isBefore(startDate) || dpFecha.getValue().isAfter(endDate)) {
+            return "La fecha no se encuentra en un rango aceptable";
+        }
+
+        if ("Seleccione".equals(cbSexo.getValue())) {
+            return "Seleccione el sexo";
+        }
+
+        if (tfDireccion.getText().length() > 100) {
+            return "La dirección no puede tener más de 100 caracteres";
+        }
+
+        if (tfDpto.getText().length() > 25) {
+            return "El departamento no puede tener más de 100 caracteres";
+        }
+
+        if (tfProv.getText().length() > 25) {
+            return "La provincia no puede tener más de 100 caracteres";
+        }
+
+        if (tfDist.getText().length() > 25) {
+            return "El distrito no puede tener más de 100 caracteres";
+        }
+
+        if (!isNumeric(tfCarnet.getText())) {
+            return "El carnet no puede estar vacío ni contener letras";
+        }
+
+        if (!isNumeric(tfTelefono.getText())) {
+            return "El teléfono no puede contener letras ni estar vacío";
+        }
+
+        if (tfTelefono.getText().length() != 9) {
+            return "El teléfono debe tener 9 dígitos";
+        }
+
+        if (tfEmail.getText() != null && tfEmail.getText().length() > 64) {
+            return "La dirección email no puede tener más de 64 caracteres";
+        }
+
+        return "";
+
+    }
+
+    public static boolean isNumeric(String string) {
+        int intValue;
+
+        if (string == null || string.equals("")) {
+            return false;
+        }
+
+        try {
+            intValue = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+        }
+        return false;
     }
 
 }
