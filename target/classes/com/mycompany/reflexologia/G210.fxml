@@ -41,12 +41,12 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnLimpiarFechas" layoutX="840.0" layoutY="214.0" mnemonicParsing="false" onAction="#btnLimpiarFechas" text="VER TODAS LAS CITAS">
+      <Button fx:id="btnLimpiarFechas" layoutX="791.0" layoutY="212.0" mnemonicParsing="false" onAction="#btnLimpiarFechas" text="VER TODAS LAS CITAS">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnImprimirTicket" layoutX="835.0" layoutY="274.0" mnemonicParsing="false" text="IMPRIMIR TICKET">
+      <Button fx:id="btnImprimirTicket" layoutX="834.0" layoutY="269.0" mnemonicParsing="false" text="IMPRIMIR TICKET">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
