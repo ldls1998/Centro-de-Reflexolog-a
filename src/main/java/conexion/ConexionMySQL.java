@@ -27,7 +27,7 @@ public class ConexionMySQL {
             // Establish a connection to the database
             String url = "jdbc:mysql://localhost:3306/reflexologia";
             String username = "root";
-            String password = "admin";
+            String password = "123456";
             connection = DriverManager.getConnection(url, username, password);
 
             // Do something with the connection here, such as executing a query

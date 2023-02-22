@@ -11,11 +11,14 @@ import dao.CitaDAO;
 import dao.PacienteDAO;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -474,6 +477,20 @@ public class G210Controller implements Initializable {
 
         Cita cita = new Cita();
         cita.setCodigo_paciente(p.getCodigo());
+
+        if (dpFecha.getValue() == null) {
+
+            if (tvCitasyPacientes.getItems().get(index).getFecha_cita() == null) {
+                dpFecha.setValue(LocalDate.now());
+            } else {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String dateString = sdf.format(tvCitasyPacientes.getItems().get(index).getFecha_cita());
+                LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
+                dpFecha.setValue(localDate);
+            }
+
+        }
+
         cita.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
         cita.setImporte(importeCitaModificar);
 
@@ -529,6 +546,12 @@ public class G210Controller implements Initializable {
 
         }
 
+    }
+
+    public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 
 }
