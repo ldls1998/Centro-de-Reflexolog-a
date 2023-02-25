@@ -198,8 +198,7 @@ public class DiagnosticoDAO {
 
         try {
 
-            String SQL = "INSERT INTO diagnosticos(codigo, descripcion"
-                    + " values (?, ?)";
+            String SQL = "INSERT INTO diagnosticos(codigo, descripcion) values (?, ?)";
             
             Connection connection = this.conexion.getConnection();
 
@@ -228,11 +227,13 @@ public class DiagnosticoDAO {
 
         try {
 
-            String SQL = "UPDATE diagnosticos SET codigo = ?, descipcion = ? WHERE ID = ?;";
+            String SQL = "UPDATE diagnosticos SET codigo = ?, descripcion = ? WHERE ID = ?;";
             
             Connection conexion = this.conexion.getConnection();
             
             PreparedStatement sentencia = conexion.prepareStatement(SQL);
+            
+            System.out.println(diagnostico.getID());
             
             sentencia.setString(1, diagnostico.getCodigo());
             sentencia.setString(2, diagnostico.getDescripcion());

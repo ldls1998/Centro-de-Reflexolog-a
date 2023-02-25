@@ -7,6 +7,7 @@ package com.mycompany.reflexologia;
 
 import conexion.ConexionMySQL;
 import dao.TerapeutaDAO;
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import modelo.Terapeuta;
 
@@ -86,6 +88,14 @@ public class G120Controller implements Initializable {
     private Button btnCancelar;
     @FXML
     private TextField tfBuscar;
+    @FXML
+    private Button btnAtras;
+    @FXML
+    private Button btnSiguiente;
+    @FXML
+    private Button btnNuevo;
+    @FXML
+    private Button btnBuscar;
 
     /**
      * Initializes the controller class.
@@ -125,6 +135,7 @@ public class G120Controller implements Initializable {
 
                 tfNumero.setDisable(true);
                 btnRegistrar.setText("Modificar");
+                btnNuevo.setText("Modificar");
                 btnCancelar.setDisable(false);
 
                 int index = tvTerapeutas.getSelectionModel().getSelectedIndex();
@@ -282,6 +293,7 @@ public class G120Controller implements Initializable {
                 terapeutaSelected = null;
                 tfNumero.setDisable(false);
                 btnRegistrar.setText("Registrar");
+                btnNuevo.setText("Nuevo");
                 btnCancelar.setDisable(true);
                 limpiarCampos();
                 cargarTerapeutas();
@@ -375,15 +387,20 @@ public class G120Controller implements Initializable {
         terapeutaSelected = null;
         tfNumero.setDisable(false);
         btnRegistrar.setText("Registrar");
+        btnNuevo.setText("Nuevo");
         btnCancelar.setDisable(true);
         limpiarCampos();
     }
 
     private String validar() {
 
+        if ("".equals(tfNumero.getText())) {
+            return "El código no puede estar vacío";
+        }
+
         Terapeuta terapeuta = this.terapeutadao.buscar(Integer.parseInt(tfNumero.getText()));
 
-        if (!btnRegistrar.getText().equals("Modificar")) {
+        if (!btnNuevo.getText().equals("Modificar")) {
             if ("".equals(tfNumero.getText())) {
                 return "El código no puede estar vacío";
             }
@@ -468,6 +485,44 @@ public class G120Controller implements Initializable {
         } catch (NumberFormatException e) {
         }
         return false;
+    }
+
+    @FXML
+    private void irAtras(ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) btnSiguiente.getScene().getWindow();
+        stage.close();
+
+        cargarScene cargarScene = new cargarScene();
+
+        String scene_name = "G110.fxml";
+        String titulo = "G110. - Registro de Pacientes";
+
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
+
+    }
+
+    @FXML
+    private void irAdelante(ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) btnSiguiente.getScene().getWindow();
+        stage.close();
+
+        cargarScene cargarScene = new cargarScene();
+
+        String scene_name = "G130.fxml";
+        String titulo = "G130. - Diagnósticos";
+
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
+
+    }
+
+    @FXML
+    private void nuevo(ActionEvent event) {
+    }
+
+    @FXML
+    private void buscar(ActionEvent event) {
     }
 
 }

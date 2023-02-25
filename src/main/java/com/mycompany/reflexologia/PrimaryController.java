@@ -84,7 +84,7 @@ public class PrimaryController {
         String scene_name = "G140.fxml";
         String titulo = "G140. - Diagnósticos Médicos";
         
-        cargarScene.loadScene(scene_name, 1080, 720, titulo, false, true);
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
     }
 
     @FXML
@@ -93,7 +93,7 @@ public class PrimaryController {
         String scene_name = "G210.fxml";
         String titulo = "G210. - Recepción y Cobranza Caja 1";
         
-        cargarScene.loadScene(scene_name, 1100, 620, titulo, false, true);
+        cargarScene.loadScene(scene_name, 1080, 650, titulo, false, true);
     }
 
     @FXML

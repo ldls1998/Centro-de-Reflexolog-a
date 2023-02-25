@@ -72,8 +72,6 @@ import modelo.PacienteSingleton;
 public class G210Controller implements Initializable {
 
     @FXML
-    private VBox vbCalendario;
-    @FXML
     private DatePicker dpFecha;
     @FXML
     private Button btnImprimirRecibo;
@@ -139,6 +137,14 @@ public class G210Controller implements Initializable {
     Paciente paciente_modificar;
     private G110DAO g110dao;
     private PacienteDAO pacientedao;
+    @FXML
+    private Button btnAtras;
+    @FXML
+    private Button btnSiguiente;
+    @FXML
+    private Button btnNuevo;
+    @FXML
+    private Button btnBuscar;
 
     /**
      * Initializes the controller class.
@@ -552,6 +558,36 @@ public class G210Controller implements Initializable {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
+    }
+
+    @FXML
+    private void irAtras(ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) btnSiguiente.getScene().getWindow();
+        stage.close();
+
+        cargarScene cargarScene = new cargarScene();
+
+        String scene_name = "G140.fxml";
+        String titulo = "G140. - Diagnósticos Médicos";
+        
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
+
+    }
+
+    @FXML
+    private void irAdelante(ActionEvent event) throws IOException {
+
+        
+
+    }
+
+    @FXML
+    private void nuevo(ActionEvent event) {
+    }
+
+    @FXML
+    private void buscar(ActionEvent event) {
     }
 
 }

@@ -7,10 +7,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="1063.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G120Controller">
+<AnchorPane id="AnchorPane" prefHeight="574.0" prefWidth="1063.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G120Controller">
    <children>
       <Text layoutX="58.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO:">
          <font>
@@ -85,5 +86,14 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Line endX="951.0" layoutX="112.0" layoutY="476.0" startX="-100.0" />
+      <Button fx:id="btnAtras" layoutX="32.0" layoutY="520.0" mnemonicParsing="false" onAction="#irAtras" text="Atrás" />
+      <Button fx:id="btnSiguiente" layoutX="87.0" layoutY="520.0" mnemonicParsing="false" onAction="#irAdelante" text="Siguiente" />
+      <Button fx:id="btnNuevo" layoutX="159.0" layoutY="520.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" text="Nuevo" />
+      <Button layoutX="222.0" layoutY="520.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
+      <Button layoutX="287.0" layoutY="520.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="--" />
+      <Button fx:id="btnBuscar" layoutX="349.0" layoutY="520.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
+      <Button layoutX="412.0" layoutY="520.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
+      <Button layoutX="476.0" layoutY="520.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
    </children>
 </AnchorPane>

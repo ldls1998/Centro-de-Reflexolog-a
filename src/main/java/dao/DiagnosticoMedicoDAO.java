@@ -156,7 +156,7 @@ public class DiagnosticoMedicoDAO {
 
         try {
 
-            String SQL = "UPDATE diagnosticos_medicos SET codigo = ?, descipcion = ?, tipo = ? WHERE ID = ?;";
+            String SQL = "UPDATE diagnosticos_medicos SET codigo = ?, nombre = ?, tipo = ? WHERE ID = ?;";
 
             Connection conexion = this.conexion.getConnection();
 
@@ -164,8 +164,8 @@ public class DiagnosticoMedicoDAO {
 
             sentencia.setString(1, diagnosticoMedico.getCodigo());
             sentencia.setString(2, diagnosticoMedico.getNombre());
-            sentencia.setString(2, diagnosticoMedico.getTipo());
-            sentencia.setInt(3, diagnosticoMedico.getID());
+            sentencia.setString(3, diagnosticoMedico.getTipo());
+            sentencia.setInt(4, diagnosticoMedico.getID());
 
             sentencia.executeUpdate();
 

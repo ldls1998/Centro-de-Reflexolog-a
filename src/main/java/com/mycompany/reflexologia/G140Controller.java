@@ -7,6 +7,7 @@ package com.mycompany.reflexologia;
 
 import conexion.ConexionMySQL;
 import dao.DiagnosticoMedicoDAO;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
@@ -26,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import modelo.DiagnosticoMedico;
 
@@ -57,6 +60,14 @@ public class G140Controller implements Initializable {
     private ChoiceBox<String> chbCampo;
     @FXML
     private TextField tfBuscar;
+    @FXML
+    private Button btnAtras;
+    @FXML
+    private Button btnSiguiente;
+    @FXML
+    private Button btnNuevo;
+    @FXML
+    private Button btnBuscar;
 
     /**
      * Initializes the controller class.
@@ -69,7 +80,7 @@ public class G140Controller implements Initializable {
         ObservableList<String> items_busqueda = FXCollections.observableArrayList(opciones_busqueda);
         chbCampo.setItems(items_busqueda);
         chbCampo.setValue("Código");
-        
+
         this.diagnosticoMedicoDao = new DiagnosticoMedicoDAO();
 
         this.conexion = new ConexionMySQL();
@@ -89,6 +100,8 @@ public class G140Controller implements Initializable {
 
                 // btnMarcarDisponible.setText("Modificar");
                 // btnCancelar.setDisable(false);
+                tfCod.setDisable(true);
+                btnNuevo.setText("Modificar");
                 int index = tvDiagnosticosMedicos.getSelectionModel().getSelectedIndex();
 
                 diagnosticoMedicoSelected = tvDiagnosticosMedicos.getItems().get(index);
@@ -208,6 +221,185 @@ public class G140Controller implements Initializable {
             tvDiagnosticosMedicos.setItems(data);
             tvDiagnosticosMedicos.getColumns().addAll(codColumn, nombreColumn, tipoColumn);
         }
+    }
+
+    @FXML
+    private void irAtras(ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) btnSiguiente.getScene().getWindow();
+        stage.close();
+
+        cargarScene cargarScene = new cargarScene();
+
+        String scene_name = "G130.fxml";
+        String titulo = "G130. - Diagnósticos";
+
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
+
+    }
+
+    @FXML
+    private void irAdelante(ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) btnSiguiente.getScene().getWindow();
+        stage.close();
+
+        cargarScene cargarScene = new cargarScene();
+
+        String scene_name = "G210.fxml";
+        String titulo = "G210. - Recepción y Cobranza Caja 1";
+
+        cargarScene.loadScene(scene_name, 1080, 650, titulo, false, true);
+
+    }
+
+    @FXML
+    private void nuevo(ActionEvent event) {
+    }
+
+    @FXML
+    private void buscar(ActionEvent event) {
+    }
+
+    private void limpiarCampos() {
+
+        tfBuscar.setText("");
+        tfCod.setText("");
+        tfNombre.setText("");
+        tfTipo.setText("");
+    }
+
+    @FXML
+    void btnRegistrarOnAction(ActionEvent event) {
+
+        String validacion = validar();
+
+        if (!"".equals(validacion)) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error");
+            alerta.setHeaderText(null);
+            alerta.setContentText(validacion);
+            alerta.initStyle(StageStyle.UTILITY);
+            alerta.initOwner(btnNuevo.getScene().getWindow());
+            alerta.showAndWait();
+            return;
+        }
+
+        if (diagnosticoMedicoSelected == null) {
+            DiagnosticoMedico diagnosticoMedico = new DiagnosticoMedico();
+
+            diagnosticoMedico.setCodigo(tfCod.getText());
+            diagnosticoMedico.setNombre(tfNombre.getText());
+            diagnosticoMedico.setTipo(tfTipo.getText());
+
+            boolean rpta = this.diagnosticoMedicoDao.registrar(diagnosticoMedico);
+
+            if (rpta) {
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+
+                alerta.setTitle("Exito");
+                alerta.setHeaderText(null);
+                alerta.setContentText("Se registró el diagnóstico médico correctamente");
+                alerta.initStyle(StageStyle.UTILITY);
+                alerta.initOwner(btnNuevo.getScene().getWindow());
+                alerta.showAndWait();
+                limpiarCampos();
+                cargarDiagnosticosMedicos();
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+
+                alerta.setTitle("Error");
+                alerta.setHeaderText(null);
+                alerta.setContentText("Hubo un error al registrar.");
+                alerta.initStyle(StageStyle.UTILITY);
+                alerta.initOwner(btnNuevo.getScene().getWindow());
+                alerta.showAndWait();
+            }
+        } else {
+
+            this.diagnosticoMedicoSelected = this.diagnosticoMedicoDao.buscar(tfCod.getText());
+            this.diagnosticoMedicoSelected.setNombre(tfNombre.getText());
+            this.diagnosticoMedicoSelected.setTipo(tfTipo.getText());
+
+            boolean rpta = this.diagnosticoMedicoDao.editar(diagnosticoMedicoSelected);
+            System.out.println(rpta);
+            
+            if (rpta) {
+                System.out.println(rpta);
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+
+                alerta.setTitle("Exito");
+                alerta.setHeaderText(null);
+                alerta.setContentText("Se registró el diagnóstico médico correctamente");
+                alerta.initStyle(StageStyle.UTILITY);
+                alerta.initOwner(btnNuevo.getScene().getWindow());
+                alerta.showAndWait();
+                
+                diagnosticoMedicoSelected = null;
+                tfCod.setDisable(false);
+                btnNuevo.setText("Nuevo");
+                //btnCancelar.setDisable(true);
+                limpiarCampos();
+                cargarDiagnosticosMedicos();
+                
+            } else {
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+
+                alerta.setTitle("Error");
+                alerta.setHeaderText(null);
+                alerta.setContentText("Hubo un error al editar.");
+                alerta.initStyle(StageStyle.UTILITY);
+                alerta.initOwner(btnNuevo.getScene().getWindow());
+                alerta.showAndWait();
+            }
+
+        }
+
+    }
+
+    public static boolean isNumeric(String string) {
+        int intValue;
+
+        if (string == null || string.equals("")) {
+            return false;
+        }
+
+        try {
+            intValue = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+        }
+        return false;
+    }
+
+    private String validar() {
+
+        if ("".equals(tfCod.getText())) {
+            return "El código no puede estar vacío";
+        }
+
+        DiagnosticoMedico diagnosticomedico = this.diagnosticoMedicoDao.buscar(tfCod.getText());
+
+        if (!btnNuevo.getText().equals("Modificar")) {
+            if ("".equals(tfCod.getText())) {
+                return "El código no puede estar vacío";
+            }
+
+            if (diagnosticomedico.getID() != 0) {
+                return "Paciente ya existe";
+            }
+        }
+
+        if (tfNombre.getText().length() >= 100 || tfNombre.getText().length() <= 0) {
+            return "Error en la descripción";
+        }
+
+        if (tfTipo.getText().length() >= 100 || tfTipo.getText().length() <= 0) {
+            return "Error en la descripción";
+        }
+
+        return "";
+
     }
 
 }

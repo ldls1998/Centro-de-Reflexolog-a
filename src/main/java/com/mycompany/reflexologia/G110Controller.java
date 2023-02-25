@@ -8,6 +8,7 @@ package com.mycompany.reflexologia;
 import conexion.ConexionMySQL;
 import dao.G110DAO;
 import dao.PacienteDAO;
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -34,6 +35,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -114,6 +117,16 @@ public class G110Controller implements Initializable {
     private ChoiceBox<String> chbBusqueda;
     @FXML
     private TextField tfBusqueda;
+    @FXML
+    private AnchorPane apFooter;
+    @FXML
+    private Button btnAtras;
+    @FXML
+    private Button btnSiguiente;
+    @FXML
+    private Button btnNuevo;
+    @FXML
+    private Button btnBuscar;
 
     /**
      * Initializes the controller class.
@@ -199,6 +212,7 @@ public class G110Controller implements Initializable {
 
                 txtCodigo.setDisable(true);
                 btnMarcarDisponible.setText("Modificar");
+                btnNuevo.setText("Modificar");
                 btnCancelar.setDisable(false);
 
                 int index = tvPacientes.getSelectionModel().getSelectedIndex();
@@ -284,6 +298,7 @@ public class G110Controller implements Initializable {
                 pacienteSelected = null;
                 txtCodigo.setDisable(false);
                 btnMarcarDisponible.setText("Marcar Disponible");
+                btnNuevo.setText("Nuevo");
             } else {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
 
@@ -327,6 +342,7 @@ public class G110Controller implements Initializable {
                 pacienteSelected = null;
                 txtCodigo.setDisable(false);
                 btnMarcarDisponible.setText("Marcar Disponible");
+                btnNuevo.setText("Nuevo");
                 btnCancelar.setDisable(true);
                 limpiarCampos();
                 cargarPacientes();
@@ -422,15 +438,21 @@ public class G110Controller implements Initializable {
         pacienteSelected = null;
         txtCodigo.setDisable(false);
         btnMarcarDisponible.setText("Marcar Disponible");
+        btnNuevo.setText("Nuevo");
         btnCancelar.setDisable(true);
         limpiarCampos();
     }
 
     private String validar() {
+        
+        if ("".equals(txtCodigo.getText())) {
+            return "El código no puede estar vacío";
+        }
 
         Paciente paciente = this.pacienteDAO.buscar(Integer.parseInt(txtCodigo.getText()));
+        
 
-        if (!btnMarcarDisponible.getText().equals("Modificar")) {
+        if (!btnNuevo.getText().equals("Modificar")) {
 
             if ("".equals(txtCodigo.getText())) {
                 return "El código no puede estar vacío";
@@ -537,6 +559,31 @@ public class G110Controller implements Initializable {
         } catch (NumberFormatException e) {
         }
         return false;
+    }
+
+    @FXML
+    private void irAtras(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void irAdelante(ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) btnSiguiente.getScene().getWindow();
+        stage.close();
+
+        cargarScene cargarScene = new cargarScene();
+
+        String scene_name = "G120.fxml";
+        String titulo = "G120. - Relación de Terapeutas";
+
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
+
+    }
+
+    @FXML
+    private void buscar(ActionEvent event) {
+
     }
 
 }
