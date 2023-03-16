@@ -31,9 +31,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -95,10 +97,7 @@ public class G110Controller implements Initializable {
 
     @FXML
     private Button btnMarcarDisponible;
-
-    @FXML
-    private ComboBox<String> cbSexo;
-
+    
     @FXML
     private TableView<Paciente> tvPacientes;
 
@@ -127,6 +126,12 @@ public class G110Controller implements Initializable {
     private Button btnNuevo;
     @FXML
     private Button btnBuscar;
+    @FXML
+    private RadioButton rbMasculino;
+    @FXML
+    private RadioButton rbFemenino;
+
+    ToggleGroup tgSexo;
 
     /**
      * Initializes the controller class.
@@ -135,19 +140,19 @@ public class G110Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        String[] opciones = {"Masculino", "Femenino"};
+        this.tgSexo = new ToggleGroup();
+        rbFemenino.setToggleGroup(tgSexo);
+        rbMasculino.setToggleGroup(tgSexo);
+
         String[] opciones_busqueda = {"Nombre", "Código"};
 
         this.pacienteDAO = new PacienteDAO();
 
         this.conexion = new ConexionMySQL();
 
-        ObservableList<String> items = FXCollections.observableArrayList(opciones);
         ObservableList<String> items_busqueda = FXCollections.observableArrayList(opciones_busqueda);
 
-        cbSexo.setItems(items);
         chbBusqueda.setItems(items_busqueda);
-        cbSexo.setValue("Seleccione");
         chbBusqueda.setValue("Nombre");
 
         this.g110dao = new G110DAO();
@@ -229,7 +234,14 @@ public class G110Controller implements Initializable {
                 String dateString = sdf.format(paciente.getFecha_nacimiento());
                 LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
                 dpFecNac.setValue(localDate);
-                cbSexo.getSelectionModel().select("F".equals(paciente.getSexo()) ? "Femenino" : "Masculino");
+                
+                if ("F".equals(paciente.getSexo())) {
+                    tgSexo.selectToggle(rbFemenino);
+                            
+                } else {
+                    tgSexo.selectToggle(rbMasculino);
+                }
+                
                 txtDireccion.setText(paciente.getDireccion());
                 txtDpto.setText(paciente.getDpto());
                 txtProv.setText(paciente.getProv());
@@ -269,7 +281,8 @@ public class G110Controller implements Initializable {
             paciente.setCodigo(Integer.parseInt(txtCodigo.getText()));
             paciente.setDNICE(Integer.parseInt(txtDNICE.getText()));
             paciente.setFecha_nacimiento(java.sql.Date.valueOf(dpFecNac.getValue()));
-            paciente.setSexo(cbSexo.getSelectionModel().getSelectedItem());
+            RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
+            paciente.setSexo(selectedRadio.getText());
             paciente.setDireccion(txtDireccion.getText());
             paciente.setDpto(txtDpto.getText());
             paciente.setProv(txtProv.getText());
@@ -315,7 +328,9 @@ public class G110Controller implements Initializable {
             pacienteSelected.setNombre(txtNombre.getText());
             pacienteSelected.setDNICE(Integer.parseInt(txtDNICE.getText()));
             pacienteSelected.setFecha_nacimiento(java.sql.Date.valueOf(dpFecNac.getValue()));
-            pacienteSelected.setSexo(cbSexo.getSelectionModel().getSelectedItem());
+            RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
+            System.out.println(selectedRadio.getText());
+            pacienteSelected.setSexo(selectedRadio.getText());
             pacienteSelected.setDireccion(txtDireccion.getText());
             pacienteSelected.setDpto(txtDpto.getText());
             pacienteSelected.setProv(txtProv.getText());
@@ -367,7 +382,7 @@ public class G110Controller implements Initializable {
         txtCodigo.setText("");
         txtDNICE.setText("");
         dpFecNac.setValue(null);
-        cbSexo.getSelectionModel().select("Seleccione");
+        tgSexo.selectToggle(null);
         txtDireccion.setText("");
         txtDpto.setText("");
         txtProv.setText("");
@@ -444,13 +459,12 @@ public class G110Controller implements Initializable {
     }
 
     private String validar() {
-        
+
         if ("".equals(txtCodigo.getText())) {
             return "El código no puede estar vacío";
         }
 
         Paciente paciente = this.pacienteDAO.buscar(Integer.parseInt(txtCodigo.getText()));
-        
 
         if (!btnNuevo.getText().equals("Modificar")) {
 
@@ -494,7 +508,7 @@ public class G110Controller implements Initializable {
             return "La fecha no se encuentra en un rango aceptable";
         }
 
-        if ("Seleccione".equals(cbSexo.getValue())) {
+        if (tgSexo.getSelectedToggle() == null) {
             return "Seleccione el sexo";
         }
 

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -64,7 +65,6 @@
       <TextField fx:id="tfNumero" layoutX="130.0" layoutY="56.0" prefHeight="26.0" prefWidth="149.0" />
       <TextField fx:id="tfNombre" layoutX="130.0" layoutY="87.0" prefHeight="25.0" prefWidth="352.0" />
       <DatePicker fx:id="dpFecha" layoutX="130.0" layoutY="117.0" />
-      <ComboBox fx:id="cbSexo" layoutX="130.0" layoutY="148.0" prefWidth="150.0" />
       <TextField fx:id="tfDireccion" layoutX="130.0" layoutY="179.0" prefHeight="25.0" prefWidth="352.0" />
       <TextField fx:id="tfDpto" layoutX="130.0" layoutY="208.0" prefHeight="25.0" prefWidth="352.0" />
       <TextField fx:id="tfProv" layoutX="130.0" layoutY="239.0" prefHeight="25.0" prefWidth="199.0" />
@@ -95,5 +95,15 @@
       <Button fx:id="btnBuscar" layoutX="349.0" layoutY="520.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
       <Button layoutX="412.0" layoutY="520.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
       <Button layoutX="476.0" layoutY="520.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
+      <RadioButton fx:id="rbMasculino" layoutX="130.0" layoutY="149.0" mnemonicParsing="false" text="Masculino">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="rbFemenino" layoutX="248.0" layoutY="149.0" mnemonicParsing="false" text="Femenino">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>

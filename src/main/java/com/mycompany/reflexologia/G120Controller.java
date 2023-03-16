@@ -30,9 +30,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -51,8 +53,6 @@ public class G120Controller implements Initializable {
     private TextField tfNombre;
     @FXML
     private DatePicker dpFecha;
-    @FXML
-    private ComboBox<String> cbSexo;
     @FXML
     private TextField tfDireccion;
     @FXML
@@ -96,6 +96,12 @@ public class G120Controller implements Initializable {
     private Button btnNuevo;
     @FXML
     private Button btnBuscar;
+    @FXML
+    private RadioButton rbMasculino;
+    @FXML
+    private RadioButton rbFemenino;
+
+    ToggleGroup tgSexo;
 
     /**
      * Initializes the controller class.
@@ -103,7 +109,10 @@ public class G120Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        String[] opciones = {"Masculino", "Femenino"};
+
+        this.tgSexo = new ToggleGroup();
+        rbFemenino.setToggleGroup(tgSexo);
+        rbMasculino.setToggleGroup(tgSexo);
         String[] opciones_busqueda = {"Nombre", "Código"};
 
         // this.pacienteDAO = new PacienteDAO();
@@ -111,12 +120,9 @@ public class G120Controller implements Initializable {
 
         this.conexion = new ConexionMySQL();
 
-        ObservableList<String> items = FXCollections.observableArrayList(opciones);
         ObservableList<String> items_busqueda = FXCollections.observableArrayList(opciones_busqueda);
 
-        cbSexo.setItems(items);
         cbBuscar.setItems(items_busqueda);
-        cbSexo.setValue("Seleccione");
         cbBuscar.setValue("Nombre");
 
         // this.g110dao = new G110DAO();
@@ -152,7 +158,12 @@ public class G120Controller implements Initializable {
                 String dateString = sdf.format(terapeuta.getFecha_nacimiento());
                 LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
                 dpFecha.setValue(localDate);
-                cbSexo.getSelectionModel().select("F".equals(terapeuta.getSexo()) ? "Femenino" : "Masculino");
+                if ("F".equals(terapeuta.getSexo())) {
+                    tgSexo.selectToggle(rbFemenino);
+
+                } else {
+                    tgSexo.selectToggle(rbMasculino);
+                }
                 tfDireccion.setText(terapeuta.getDireccion());
                 tfDpto.setText(terapeuta.getDpto());
                 tfProv.setText(terapeuta.getProv());
@@ -232,7 +243,8 @@ public class G120Controller implements Initializable {
             terapeuta.setNombre(tfNombre.getText());
             terapeuta.setNumero(Integer.parseInt(tfNumero.getText()));
             terapeuta.setFecha_nacimiento(java.sql.Date.valueOf(dpFecha.getValue()));
-            terapeuta.setSexo(cbSexo.getSelectionModel().getSelectedItem());
+            RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
+            terapeuta.setSexo(selectedRadio.getText());
             terapeuta.setDireccion(tfDireccion.getText());
             terapeuta.setDpto(tfDpto.getText());
             terapeuta.setProv(tfProv.getText());
@@ -270,7 +282,8 @@ public class G120Controller implements Initializable {
             terapeutaSelected.setNumero(terapeutaSelected.getNumero());
             terapeutaSelected.setNombre(tfNombre.getText());
             terapeutaSelected.setFecha_nacimiento(java.sql.Date.valueOf(dpFecha.getValue()));
-            terapeutaSelected.setSexo(cbSexo.getSelectionModel().getSelectedItem());
+            RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
+            terapeutaSelected.setSexo(selectedRadio.getText());
             terapeutaSelected.setDireccion(tfDireccion.getText());
             terapeutaSelected.setDpto(tfDpto.getText());
             terapeutaSelected.setProv(tfProv.getText());
@@ -287,9 +300,10 @@ public class G120Controller implements Initializable {
 
                 alerta.setTitle("Exito");
                 alerta.setHeaderText(null);
-                alerta.setContentText("Se editó el paciente correctamente");
+                alerta.setContentText("Se editó el terapeuta correctamente");
                 alerta.initStyle(StageStyle.UTILITY);
-                alerta.initOwner(btnRegistrar.getScene().getWindow());
+                alerta.initOwner(btnBuscar.getScene().getWindow());
+                alerta.showAndWait();
                 terapeutaSelected = null;
                 tfNumero.setDisable(false);
                 btnRegistrar.setText("Registrar");
@@ -321,7 +335,7 @@ public class G120Controller implements Initializable {
         tfCarnet.setText("");
         tfDireccion.setText("");
         dpFecha.setValue(null);
-        cbSexo.getSelectionModel().select("Seleccione");
+        tgSexo.selectToggle(null);
         tfDist.setText("");
         tfDpto.setText("");
         tfEmail.setText("");
@@ -432,7 +446,7 @@ public class G120Controller implements Initializable {
             return "La fecha no se encuentra en un rango aceptable";
         }
 
-        if ("Seleccione".equals(cbSexo.getValue())) {
+        if (tgSexo.getSelectedToggle() == null) {
             return "Seleccione el sexo";
         }
 
@@ -515,10 +529,6 @@ public class G120Controller implements Initializable {
 
         cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
 
-    }
-
-    @FXML
-    private void nuevo(ActionEvent event) {
     }
 
     @FXML
