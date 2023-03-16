@@ -33,30 +33,29 @@ public class Cita_PacienteDAO {
         
         try {
             
-            String SQL = "INSERT INTO paciente(codigo, nombre, dnice, fecha_nacimiento, "
+            String SQL = "INSERT INTO paciente(codigo, nombre, fecha_nacimiento, "
                     + "sexo, direccion, dpto, prov, dist,"
                     + "especial, testimonio, resultado, observacion, ocupacion, telefono, email)"
-                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             Connection connection = this.conexion.getConnection();
             
             PreparedStatement sentencia = connection.prepareStatement(SQL);
             
             sentencia.setInt(1, paciente.getCodigo());
             sentencia.setString(2, paciente.getNombre());
-            sentencia.setInt(3, paciente.getDNICE());
-            sentencia.setDate(4, (Date) paciente.getFecha_nacimiento());
-            sentencia.setString(5, String.valueOf(paciente.getSexo().charAt(0)));
-            sentencia.setString(6, paciente.getDireccion());
-            sentencia.setString(7, paciente.getDpto());
-            sentencia.setString(8, paciente.getProv());
-            sentencia.setString(9, paciente.getDist());
-            sentencia.setBoolean(10, paciente.getEspecial());
-            sentencia.setString(11, paciente.getTestimonio());
-            sentencia.setString(12, paciente.getResultado());
-            sentencia.setString(13, paciente.getObservacion());
-            sentencia.setString(14, paciente.getOcupacion());
-            sentencia.setInt(15, paciente.getTelefono());
-            sentencia.setString(16, paciente.getEmail());
+            sentencia.setDate(3, (Date) paciente.getFecha_nacimiento());
+            sentencia.setString(4, String.valueOf(paciente.getSexo().charAt(0)));
+            sentencia.setString(5, paciente.getDireccion());
+            sentencia.setString(6, paciente.getDpto());
+            sentencia.setString(7, paciente.getProv());
+            sentencia.setString(8, paciente.getDist());
+            sentencia.setBoolean(9, paciente.getEspecial());
+            sentencia.setString(10, paciente.getTestimonio());
+            sentencia.setString(11, paciente.getResultado());
+            sentencia.setString(12, paciente.getObservacion());
+            sentencia.setString(13, paciente.getOcupacion());
+            sentencia.setInt(14, paciente.getTelefono());
+            sentencia.setString(15, paciente.getEmail());
             
             sentencia.executeUpdate();
             sentencia.close();
@@ -226,20 +225,19 @@ public class Cita_PacienteDAO {
                 while (rs_2.next()) {
                     paciente.setCodigo(rs_2.getInt(1));
                     paciente.setNombre(rs_2.getString(2));
-                    paciente.setDNICE(rs_2.getInt(3));
-                    paciente.setFecha_nacimiento(rs_2.getDate(4));
-                    paciente.setSexo(rs_2.getString(5));
-                    paciente.setDireccion(rs_2.getString(6));
-                    paciente.setDpto(rs_2.getString(7));
-                    paciente.setProv(rs_2.getString(8));
-                    paciente.setDist(rs_2.getString(9));
-                    paciente.setEspecial(rs_2.getBoolean(10));
-                    paciente.setTestimonio(rs_2.getString(11));
-                    paciente.setResultado(rs_2.getString(12));
-                    paciente.setObservacion(rs_2.getString(13));
-                    paciente.setOcupacion(rs_2.getString(14));
-                    paciente.setTelefono(rs_2.getInt(15));
-                    paciente.setEmail(rs_2.getString(16));
+                    paciente.setFecha_nacimiento(rs_2.getDate(3));
+                    paciente.setSexo(rs_2.getString(4));
+                    paciente.setDireccion(rs_2.getString(5));
+                    paciente.setDpto(rs_2.getString(6));
+                    paciente.setProv(rs_2.getString(7));
+                    paciente.setDist(rs_2.getString(8));
+                    paciente.setEspecial(rs_2.getBoolean(9));
+                    paciente.setTestimonio(rs_2.getString(10));
+                    paciente.setResultado(rs_2.getString(11));
+                    paciente.setObservacion(rs_2.getString(12));
+                    paciente.setOcupacion(rs_2.getString(13));
+                    paciente.setTelefono(rs_2.getInt(14));
+                    paciente.setEmail(rs_2.getString(15));
                 }
 
                 Cita_Paciente cp = new Cita_Paciente(cita, paciente);
@@ -300,20 +298,19 @@ public class Cita_PacienteDAO {
                 while (rs_2.next()) {
                     paciente.setCodigo(rs_2.getInt(1));
                     paciente.setNombre(rs_2.getString(2));
-                    paciente.setDNICE(rs_2.getInt(3));
-                    paciente.setFecha_nacimiento(rs_2.getDate(4));
-                    paciente.setSexo(rs_2.getString(5));
-                    paciente.setDireccion(rs_2.getString(6));
-                    paciente.setDpto(rs_2.getString(7));
-                    paciente.setProv(rs_2.getString(8));
-                    paciente.setDist(rs_2.getString(9));
-                    paciente.setEspecial(rs_2.getBoolean(10));
-                    paciente.setTestimonio(rs_2.getString(11));
-                    paciente.setResultado(rs_2.getString(12));
-                    paciente.setObservacion(rs_2.getString(13));
-                    paciente.setOcupacion(rs_2.getString(14));
-                    paciente.setTelefono(rs_2.getInt(15));
-                    paciente.setEmail(rs_2.getString(16));
+                    paciente.setFecha_nacimiento(rs_2.getDate(3));
+                    paciente.setSexo(rs_2.getString(4));
+                    paciente.setDireccion(rs_2.getString(5));
+                    paciente.setDpto(rs_2.getString(6));
+                    paciente.setProv(rs_2.getString(7));
+                    paciente.setDist(rs_2.getString(8));
+                    paciente.setEspecial(rs_2.getBoolean(9));
+                    paciente.setTestimonio(rs_2.getString(10));
+                    paciente.setResultado(rs_2.getString(11));
+                    paciente.setObservacion(rs_2.getString(12));
+                    paciente.setOcupacion(rs_2.getString(13));
+                    paciente.setTelefono(rs_2.getInt(14));
+                    paciente.setEmail(rs_2.getString(15));
                 }
 
                 Cita_Paciente cp = new Cita_Paciente(cita, paciente);
@@ -374,20 +371,19 @@ public class Cita_PacienteDAO {
                 while (rs_2.next()) {
                     paciente.setCodigo(rs_2.getInt(1));
                     paciente.setNombre(rs_2.getString(2));
-                    paciente.setDNICE(rs_2.getInt(3));
-                    paciente.setFecha_nacimiento(rs_2.getDate(4));
-                    paciente.setSexo(rs_2.getString(5));
-                    paciente.setDireccion(rs_2.getString(6));
-                    paciente.setDpto(rs_2.getString(7));
-                    paciente.setProv(rs_2.getString(8));
-                    paciente.setDist(rs_2.getString(9));
-                    paciente.setEspecial(rs_2.getBoolean(10));
-                    paciente.setTestimonio(rs_2.getString(11));
-                    paciente.setResultado(rs_2.getString(12));
-                    paciente.setObservacion(rs_2.getString(13));
-                    paciente.setOcupacion(rs_2.getString(14));
-                    paciente.setTelefono(rs_2.getInt(15));
-                    paciente.setEmail(rs_2.getString(16));
+                    paciente.setFecha_nacimiento(rs_2.getDate(3));
+                    paciente.setSexo(rs_2.getString(4));
+                    paciente.setDireccion(rs_2.getString(5));
+                    paciente.setDpto(rs_2.getString(6));
+                    paciente.setProv(rs_2.getString(7));
+                    paciente.setDist(rs_2.getString(8));
+                    paciente.setEspecial(rs_2.getBoolean(9));
+                    paciente.setTestimonio(rs_2.getString(10));
+                    paciente.setResultado(rs_2.getString(11));
+                    paciente.setObservacion(rs_2.getString(12));
+                    paciente.setOcupacion(rs_2.getString(13));
+                    paciente.setTelefono(rs_2.getInt(14));
+                    paciente.setEmail(rs_2.getString(15));
                 }
 
                 Cita_Paciente cp = new Cita_Paciente(cita, paciente);
@@ -448,20 +444,19 @@ public class Cita_PacienteDAO {
                 while (rs_2.next()) {
                     paciente.setCodigo(rs_2.getInt(1));
                     paciente.setNombre(rs_2.getString(2));
-                    paciente.setDNICE(rs_2.getInt(3));
-                    paciente.setFecha_nacimiento(rs_2.getDate(4));
-                    paciente.setSexo(rs_2.getString(5));
-                    paciente.setDireccion(rs_2.getString(6));
-                    paciente.setDpto(rs_2.getString(7));
-                    paciente.setProv(rs_2.getString(8));
-                    paciente.setDist(rs_2.getString(9));
-                    paciente.setEspecial(rs_2.getBoolean(10));
-                    paciente.setTestimonio(rs_2.getString(11));
-                    paciente.setResultado(rs_2.getString(12));
-                    paciente.setObservacion(rs_2.getString(13));
-                    paciente.setOcupacion(rs_2.getString(14));
-                    paciente.setTelefono(rs_2.getInt(15));
-                    paciente.setEmail(rs_2.getString(16));
+                    paciente.setFecha_nacimiento(rs_2.getDate(3));
+                    paciente.setSexo(rs_2.getString(4));
+                    paciente.setDireccion(rs_2.getString(5));
+                    paciente.setDpto(rs_2.getString(6));
+                    paciente.setProv(rs_2.getString(7));
+                    paciente.setDist(rs_2.getString(8));
+                    paciente.setEspecial(rs_2.getBoolean(9));
+                    paciente.setTestimonio(rs_2.getString(10));
+                    paciente.setResultado(rs_2.getString(11));
+                    paciente.setObservacion(rs_2.getString(12));
+                    paciente.setOcupacion(rs_2.getString(13));
+                    paciente.setTelefono(rs_2.getInt(14));
+                    paciente.setEmail(rs_2.getString(15));
                 }
 
                 Cita_Paciente cp = new Cita_Paciente(cita, paciente);

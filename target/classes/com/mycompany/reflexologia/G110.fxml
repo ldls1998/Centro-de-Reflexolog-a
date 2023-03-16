@@ -14,86 +14,80 @@
 
 <AnchorPane id="AnchorPane" prefHeight="549.0" prefWidth="1063.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G110Controller">
    <children>
-      <Text layoutX="564.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CÓDIGO:">
+      <Text layoutX="571.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DNI/CE:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="562.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE:">
+      <Text layoutX="561.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="571.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DNI/CE:">
+      <Text layoutX="559.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FEC. NAC.:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="557.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FEC. NAC.:">
+      <Text layoutX="583.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="581.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO:">
+      <Text layoutX="551.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIRECCION:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="549.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIRECCION:">
+      <Text layoutX="581.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DPTO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="579.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DPTO:">
+      <Text layoutX="581.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROV:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="579.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROV:">
+      <Text layoutX="585.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIST:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="583.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIST:">
+      <Text layoutX="564.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ESPECIAL:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="562.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ESPECIAL:">
+      <Text layoutX="546.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OCUPACIÓN:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="544.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OCUPACIÓN:">
+      <Text layoutX="834.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TELEFONO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="832.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TELEFONO:">
+      <Text layoutX="580.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMAIL:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="578.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMAIL:">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Text>
-      <TextField fx:id="txtCodigo" layoutX="634.0" layoutY="14.0" prefHeight="26.0" prefWidth="149.0" />
-      <TextField fx:id="txtNombre" layoutX="634.0" layoutY="45.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField fx:id="txtDNICE" layoutX="634.0" layoutY="77.0" prefHeight="25.0" prefWidth="150.0" />
-      <DatePicker fx:id="dpFecNac" layoutX="634.0" layoutY="110.0" promptText="DD/MM/AA" />
-      <TextField fx:id="txtDireccion" layoutX="635.0" layoutY="172.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField fx:id="txtDpto" layoutX="634.0" layoutY="202.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField fx:id="txtProv" layoutX="634.0" layoutY="233.0" prefHeight="25.0" prefWidth="199.0" />
-      <TextField fx:id="txtDist" layoutX="634.0" layoutY="265.0" prefHeight="25.0" prefWidth="199.0" />
-      <CheckBox fx:id="cbEspecial" layoutX="634.0" layoutY="300.0" mnemonicParsing="false" />
-      <TextField fx:id="txtTestimonio" layoutX="778.0" layoutY="296.0" prefHeight="25.0" prefWidth="30.0" />
-      <TextField fx:id="txtResultado" layoutX="906.0" layoutY="296.0" prefHeight="25.0" prefWidth="121.0" />
-      <TextField fx:id="txtObservacion" layoutX="777.0" layoutY="332.0" prefHeight="25.0" prefWidth="250.0" />
-      <TextField fx:id="txtOcupacion" layoutX="634.0" layoutY="363.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField fx:id="txtTelefono" layoutX="907.0" layoutY="363.0" prefHeight="25.0" prefWidth="134.0" />
-      <TextField fx:id="txtEmail" layoutX="634.0" layoutY="402.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtDNICE" layoutX="634.0" layoutY="14.0" prefHeight="26.0" prefWidth="149.0" />
+      <TextField fx:id="txtNombre" layoutX="634.0" layoutY="48.0" prefHeight="25.0" prefWidth="352.0" />
+      <DatePicker fx:id="dpFecNac" layoutX="636.0" layoutY="85.0" promptText="DD/MM/AA" />
+      <TextField fx:id="txtDireccion" layoutX="637.0" layoutY="147.0" prefHeight="25.0" prefWidth="352.0" />
+      <TextField fx:id="txtDpto" layoutX="636.0" layoutY="177.0" prefHeight="25.0" prefWidth="352.0" />
+      <TextField fx:id="txtProv" layoutX="636.0" layoutY="208.0" prefHeight="25.0" prefWidth="199.0" />
+      <TextField fx:id="txtDist" layoutX="636.0" layoutY="240.0" prefHeight="25.0" prefWidth="199.0" />
+      <CheckBox fx:id="cbEspecial" layoutX="636.0" layoutY="275.0" mnemonicParsing="false" />
+      <TextField fx:id="txtTestimonio" layoutX="780.0" layoutY="271.0" prefHeight="25.0" prefWidth="30.0" />
+      <TextField fx:id="txtResultado" layoutX="908.0" layoutY="271.0" prefHeight="25.0" prefWidth="121.0" />
+      <TextField fx:id="txtObservacion" layoutX="779.0" layoutY="307.0" prefHeight="25.0" prefWidth="250.0" />
+      <TextField fx:id="txtOcupacion" layoutX="636.0" layoutY="338.0" prefHeight="25.0" prefWidth="187.0" />
+      <TextField fx:id="txtTelefono" layoutX="909.0" layoutY="338.0" prefHeight="25.0" prefWidth="134.0" />
+      <TextField fx:id="txtEmail" layoutX="636.0" layoutY="377.0" prefHeight="25.0" prefWidth="187.0" />
       <Button fx:id="btnDatosVisita" layoutX="872.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="DATOS DE VISITA">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -106,17 +100,17 @@
       </Button>
       <ChoiceBox fx:id="chbBusqueda" layoutX="14.0" layoutY="402.0" prefHeight="25.0" prefWidth="98.0" />
       <TextField fx:id="tfBusqueda" layoutX="118.0" layoutY="402.0" onKeyTyped="#cargarPacientesBusqueda" prefHeight="25.0" prefWidth="418.0" />
-      <Text layoutX="689.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TESTIMONIO:">
+      <Text layoutX="691.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TESTIMONIO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="825.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESULTADO:">
+      <Text layoutX="827.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESULTADO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="678.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OBSERVACIÓN:">
+      <Text layoutX="680.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OBSERVACIÓN:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -140,12 +134,12 @@
             <Button layoutX="458.0" layoutY="44.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
          </children>
       </AnchorPane>
-      <RadioButton fx:id="rbMasculino" layoutX="631.0" layoutY="144.0" mnemonicParsing="false" text="Masculino">
+      <RadioButton fx:id="rbMasculino" layoutX="633.0" layoutY="119.0" mnemonicParsing="false" text="Masculino">
          <font>
             <Font size="15.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbFemenino" layoutX="747.0" layoutY="144.0" mnemonicParsing="false" text="Femenino">
+      <RadioButton fx:id="rbFemenino" layoutX="749.0" layoutY="119.0" mnemonicParsing="false" text="Femenino">
          <font>
             <Font size="15.0" />
          </font>

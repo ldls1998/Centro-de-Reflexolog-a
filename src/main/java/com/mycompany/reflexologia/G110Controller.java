@@ -27,7 +27,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
@@ -46,9 +45,6 @@ import javafx.stage.Stage;
  * @author Vlik35
  */
 public class G110Controller implements Initializable {
-
-    @FXML
-    private TextField txtCodigo;
 
     @FXML
     private TextField txtNombre;
@@ -97,7 +93,7 @@ public class G110Controller implements Initializable {
 
     @FXML
     private Button btnMarcarDisponible;
-    
+
     @FXML
     private TableView<Paciente> tvPacientes;
 
@@ -144,7 +140,7 @@ public class G110Controller implements Initializable {
         rbFemenino.setToggleGroup(tgSexo);
         rbMasculino.setToggleGroup(tgSexo);
 
-        String[] opciones_busqueda = {"Nombre", "Código"};
+        String[] opciones_busqueda = {"Nombre", "DNI/CE"};
 
         this.pacienteDAO = new PacienteDAO();
 
@@ -215,7 +211,7 @@ public class G110Controller implements Initializable {
             @Override
             public void handle(ActionEvent t) {
 
-                txtCodigo.setDisable(true);
+                txtDNICE.setDisable(true);
                 btnMarcarDisponible.setText("Modificar");
                 btnNuevo.setText("Modificar");
                 btnCancelar.setDisable(false);
@@ -224,24 +220,24 @@ public class G110Controller implements Initializable {
 
                 pacienteSelected = tvPacientes.getItems().get(index);
 
-                txtCodigo.setText(Integer.toString(pacienteSelected.getCodigo()));
+                txtDNICE.setText(Integer.toString(pacienteSelected.getCodigo()));
 
                 Paciente paciente = pacienteDAO.buscar(pacienteSelected.getCodigo());
 
                 txtNombre.setText(paciente.getNombre());
-                txtDNICE.setText(Integer.toString(paciente.getDNICE()));
+                
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String dateString = sdf.format(paciente.getFecha_nacimiento());
                 LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
                 dpFecNac.setValue(localDate);
-                
+
                 if ("F".equals(paciente.getSexo())) {
                     tgSexo.selectToggle(rbFemenino);
-                            
+
                 } else {
                     tgSexo.selectToggle(rbMasculino);
                 }
-                
+
                 txtDireccion.setText(paciente.getDireccion());
                 txtDpto.setText(paciente.getDpto());
                 txtProv.setText(paciente.getProv());
@@ -278,8 +274,8 @@ public class G110Controller implements Initializable {
             Paciente paciente = new Paciente();
 
             paciente.setNombre(txtNombre.getText());
-            paciente.setCodigo(Integer.parseInt(txtCodigo.getText()));
-            paciente.setDNICE(Integer.parseInt(txtDNICE.getText()));
+            paciente.setCodigo(Integer.parseInt(txtDNICE.getText()));
+            
             paciente.setFecha_nacimiento(java.sql.Date.valueOf(dpFecNac.getValue()));
             RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
             paciente.setSexo(selectedRadio.getText());
@@ -309,7 +305,7 @@ public class G110Controller implements Initializable {
                 limpiarCampos();
                 cargarPacientes();
                 pacienteSelected = null;
-                txtCodigo.setDisable(false);
+                txtDNICE.setDisable(false);
                 btnMarcarDisponible.setText("Marcar Disponible");
                 btnNuevo.setText("Nuevo");
             } else {
@@ -326,7 +322,7 @@ public class G110Controller implements Initializable {
 
             pacienteSelected.setCodigo(pacienteSelected.getCodigo());
             pacienteSelected.setNombre(txtNombre.getText());
-            pacienteSelected.setDNICE(Integer.parseInt(txtDNICE.getText()));
+            
             pacienteSelected.setFecha_nacimiento(java.sql.Date.valueOf(dpFecNac.getValue()));
             RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
             System.out.println(selectedRadio.getText());
@@ -355,7 +351,7 @@ public class G110Controller implements Initializable {
                 alerta.initOwner(btnDatosVisita.getScene().getWindow());
                 alerta.showAndWait();
                 pacienteSelected = null;
-                txtCodigo.setDisable(false);
+                txtDNICE.setDisable(false);
                 btnMarcarDisponible.setText("Marcar Disponible");
                 btnNuevo.setText("Nuevo");
                 btnCancelar.setDisable(true);
@@ -379,7 +375,6 @@ public class G110Controller implements Initializable {
     private void limpiarCampos() {
 
         txtNombre.setText("");
-        txtCodigo.setText("");
         txtDNICE.setText("");
         dpFecNac.setValue(null);
         tgSexo.selectToggle(null);
@@ -430,13 +425,13 @@ public class G110Controller implements Initializable {
 
             if ("Nombre".equals(chbBusqueda.getSelectionModel().getSelectedItem())) {
                 pacientes = this.pacienteDAO.listarBusquedaNombre(tfBusqueda.getText());
-            } else if ("Código".equals(chbBusqueda.getSelectionModel().getSelectedItem())) {
+            } else if ("DNI/CE".equals(chbBusqueda.getSelectionModel().getSelectedItem())) {
                 pacientes = this.pacienteDAO.listarBusquedaCodigo(Integer.parseInt(tfBusqueda.getText()));
             }
 
             ObservableList<Paciente> data = FXCollections.observableArrayList(pacientes);
 
-            TableColumn codColumn = new TableColumn("Código");
+            TableColumn codColumn = new TableColumn("DNI/CE");
             codColumn.setCellValueFactory(new PropertyValueFactory("codigo"));
 
             TableColumn nombreColumn = new TableColumn("Nombre");
@@ -451,7 +446,7 @@ public class G110Controller implements Initializable {
     private void btnCancelarOnAction(ActionEvent event) {
 
         pacienteSelected = null;
-        txtCodigo.setDisable(false);
+        txtDNICE.setDisable(false);
         btnMarcarDisponible.setText("Marcar Disponible");
         btnNuevo.setText("Nuevo");
         btnCancelar.setDisable(true);
@@ -460,42 +455,38 @@ public class G110Controller implements Initializable {
 
     private String validar() {
 
-        if ("".equals(txtCodigo.getText())) {
+        if ("".equals(txtDNICE.getText())) {
             return "El código no puede estar vacío";
         }
 
-        Paciente paciente = this.pacienteDAO.buscar(Integer.parseInt(txtCodigo.getText()));
+        Paciente paciente = this.pacienteDAO.buscar(Integer.parseInt(txtDNICE.getText()));
 
         if (!btnNuevo.getText().equals("Modificar")) {
 
-            if ("".equals(txtCodigo.getText())) {
-                return "El código no puede estar vacío";
+            if ("".equals(txtDNICE.getText())) {
+                return "El código (DNI/CE) no puede estar vacío";
             }
 
-            if (Integer.parseInt(txtCodigo.getText()) <= 0) {
-                return "El código no puede ser un valor negativo";
+            if (Integer.parseInt(txtDNICE.getText()) <= 0) {
+                return "El código (DNI/CE) no puede ser un valor negativo";
             }
 
-            if (!isNumeric(txtCodigo.getText())) {
-                return "El código tiene que ser un número";
+            if (!isNumeric(txtDNICE.getText())) {
+                return "El código (DNI/CE) tiene que ser un número";
             }
 
             if (paciente.getCodigo() != 0) {
                 return "Paciente ya existe";
             }
 
+            if (txtDNICE.getText().length() != 8) {
+                return "El código (DNI/CE) debe tener 8 dígitos";
+            }
+
         }
 
         if (txtNombre.getText().length() >= 50 || txtNombre.getText().length() <= 0) {
             return "Error en el nombre";
-        }
-
-        if (!isNumeric(txtDNICE.getText())) {
-            return "El DNI no puede estar vacío";
-        }
-
-        if (txtDNICE.getText().length() != 8) {
-            return "El DNI debe tener 8 dígitos";
         }
 
         if (dpFecNac.getValue() == null) {

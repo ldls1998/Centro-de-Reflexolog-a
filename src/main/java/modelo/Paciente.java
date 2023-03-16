@@ -15,7 +15,6 @@ public class Paciente {
 
     private int codigo;
     private String nombre;
-    private int DNICE;
     private Date fecha_nacimiento;
     private String sexo;
     private String direccion;
@@ -55,14 +54,6 @@ public class Paciente {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
-    }
-    
-    public int getDNICE() {
-        return DNICE;
-    }
-
-    public void setDNICE(int DNICE) {
-        this.DNICE = DNICE;
     }
 
     public Date getFecha_nacimiento() {
@@ -163,7 +154,7 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return "G110{" + "Codigo="  + codigo + ", nombre=" + nombre + ", DNICE=" + DNICE + ", fecha_nacimiento=" + fecha_nacimiento + ", sexo=" + sexo + ", direccion=" + direccion + ", prov=" + prov + ", dpto=" + dpto + ", dist=" + dist + ", testimonio=" + testimonio + ", resultado=" + resultado + ", observacion=" + observacion + ", ocupacion=" + ocupacion + ", telefono=" + telefono + ", email=" + email + ", especial=" + especial + '}';
+        return "G110{" + "Codigo="  + codigo + ", nombre=" + nombre + ", fecha_nacimiento=" + fecha_nacimiento + ", sexo=" + sexo + ", direccion=" + direccion + ", prov=" + prov + ", dpto=" + dpto + ", dist=" + dist + ", testimonio=" + testimonio + ", resultado=" + resultado + ", observacion=" + observacion + ", ocupacion=" + ocupacion + ", telefono=" + telefono + ", email=" + email + ", especial=" + especial + '}';
     }
 
 }

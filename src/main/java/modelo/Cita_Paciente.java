@@ -53,7 +53,6 @@ public class Cita_Paciente {
         this.cita = new Cita();
         this.paciente = paciente;
         this.nombre = this.paciente.getNombre();
-        this.DNICE = this.paciente.getDNICE();
         this.fecha_nacimiento = this.paciente.getFecha_nacimiento();
         this.sexo = this.paciente.getSexo();
         this.direccion = this.paciente.getDireccion();
@@ -77,7 +76,6 @@ public class Cita_Paciente {
         this.codigo_paciente = this.cita.getCodigo_paciente();
         this.fecha_cita = this.cita.getFecha_cita();
         this.importe = this.cita.getImporte();
-        this.DNICE = this.paciente.getDNICE();
         this.fecha_nacimiento = this.paciente.getFecha_nacimiento();
         this.sexo = this.paciente.getSexo();
         this.direccion = this.paciente.getDireccion();
@@ -113,7 +111,6 @@ public class Cita_Paciente {
         this.paciente = paciente;
         this.codigo_paciente = this.paciente.getCodigo();
         this.nombre = this.paciente.getNombre();
-        this.DNICE = this.paciente.getDNICE();
         this.fecha_nacimiento = this.paciente.getFecha_nacimiento();
         this.sexo = this.paciente.getSexo();
         this.direccion = this.paciente.getDireccion();
@@ -176,11 +173,6 @@ public class Cita_Paciente {
 
     public int getDNICE() {
         return DNICE;
-    }
-
-    public void setDNICE(int DNICE) {
-        this.paciente.setDNICE(DNICE);
-        this.DNICE = DNICE;
     }
 
     public Date getFecha_nacimiento() {

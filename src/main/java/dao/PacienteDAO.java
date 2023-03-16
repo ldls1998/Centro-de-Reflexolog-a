@@ -42,20 +42,19 @@ public class PacienteDAO {
             while (rs.next()) {
                 paciente.setCodigo(rs.getInt(1));
                 paciente.setNombre(rs.getString(2));
-                paciente.setDNICE(rs.getInt(3));
-                paciente.setFecha_nacimiento(rs.getDate(4));
-                paciente.setSexo(rs.getString(5));
-                paciente.setDireccion(rs.getString(6));
-                paciente.setDpto(rs.getString(7));
-                paciente.setProv(rs.getString(8));
-                paciente.setDist(rs.getString(9));
-                paciente.setEspecial(rs.getBoolean(10));
-                paciente.setTestimonio(rs.getString(11));
-                paciente.setResultado(rs.getString(12));
-                paciente.setObservacion(rs.getString(13));
-                paciente.setOcupacion(rs.getString(14));
-                paciente.setTelefono(rs.getInt(15));
-                paciente.setEmail(rs.getString(16));
+                paciente.setFecha_nacimiento(rs.getDate(3));
+                paciente.setSexo(rs.getString(4));
+                paciente.setDireccion(rs.getString(5));
+                paciente.setDpto(rs.getString(6));
+                paciente.setProv(rs.getString(7));
+                paciente.setDist(rs.getString(8));
+                paciente.setEspecial(rs.getBoolean(9));
+                paciente.setTestimonio(rs.getString(10));
+                paciente.setResultado(rs.getString(11));
+                paciente.setObservacion(rs.getString(12));
+                paciente.setOcupacion(rs.getString(13));
+                paciente.setTelefono(rs.getInt(14));
+                paciente.setEmail(rs.getString(15));
             }
             
             rs.close();
@@ -108,12 +107,12 @@ public class PacienteDAO {
         return listaPaciente;
     }
     
-    public List<Paciente> listarBusquedaDNI(int dni) {
+    public List<Paciente> listarBusquedaDNI(int codigo) {
         List<Paciente> listaPaciente = new ArrayList<>();
 
         try {
 
-            String select_all = "SELECT * FROM paciente WHERE dnice LIKE '" + dni + "%';";
+            String select_all = "SELECT * FROM paciente WHERE codigo LIKE '" + codigo + "%';";
             Connection conexion = this.conexion.getConnection();
 
             PreparedStatement sentencia = conexion.prepareStatement(select_all);
@@ -128,7 +127,6 @@ public class PacienteDAO {
 
                 paciente.setCodigo(rs.getInt(1));
                 paciente.setNombre(rs.getString(2));
-                paciente.setDNICE(rs.getInt(3));
 
                 listaPaciente.add(paciente);
             }
