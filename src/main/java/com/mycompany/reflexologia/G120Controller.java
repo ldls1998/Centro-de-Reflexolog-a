@@ -7,11 +7,13 @@ package com.mycompany.reflexologia;
 
 import conexion.ConexionMySQL;
 import dao.TerapeutaDAO;
+import dao.UbicacionDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -26,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
@@ -56,12 +59,6 @@ public class G120Controller implements Initializable {
     @FXML
     private TextField tfDireccion;
     @FXML
-    private TextField tfDpto;
-    @FXML
-    private TextField tfDist;
-    @FXML
-    private TextField tfCarnet;
-    @FXML
     private TextField tfTelefono;
     @FXML
     private TextField tfEmail;
@@ -76,8 +73,6 @@ public class G120Controller implements Initializable {
     private ContextMenu cmOpciones;
 
     private ConexionMySQL conexion;
-    @FXML
-    private TextField tfProv;
 
     private TerapeutaDAO terapeutadao;
 
@@ -102,6 +97,14 @@ public class G120Controller implements Initializable {
     private RadioButton rbFemenino;
 
     ToggleGroup tgSexo;
+    @FXML
+    private ChoiceBox<String> chbDpto;
+    @FXML
+    private ChoiceBox<String> chbProv;
+    @FXML
+    private ChoiceBox<String> chbDist;
+
+    UbicacionDAO ubicacionDAO;
 
     /**
      * Initializes the controller class.
@@ -109,6 +112,51 @@ public class G120Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.ubicacionDAO = new UbicacionDAO();
+
+        List<String> departamentos = new ArrayList<>();
+
+        departamentos = ubicacionDAO.listarDepartamentos();
+
+        for (int i = 0; i < departamentos.size(); i++) {
+            chbDpto.getItems().add(departamentos.get(i));
+        }
+
+        // Desabilitamos los 2 últimos choicebox
+        chbProv.setDisable(true);
+        chbDist.setDisable(true);
+
+        chbDpto.setOnAction(e -> {
+            if (chbDpto.getValue() != null) {
+                chbProv.setDisable(false);
+                List<String> provincias = new ArrayList<>();
+                provincias = ubicacionDAO.listarProvincias(chbDpto.getValue());
+                chbProv.getItems().clear();
+                for (int i = 0; i < provincias.size(); i++) {
+                    chbProv.getItems().add(provincias.get(i));
+                }
+            } else {
+                chbProv.getItems().clear();
+                chbProv.setDisable(true);
+                chbDist.getItems().clear();
+                chbDist.setDisable(true);
+            }
+        });
+
+        chbProv.setOnAction(e -> {
+            if (chbProv.getValue() != null) {
+                chbDist.setDisable(false);
+                List<String> distritos = new ArrayList<>();
+                distritos = ubicacionDAO.listarDistritos(chbDpto.getValue(), chbProv.getValue());
+                chbDist.getItems().clear();
+                for (int i = 0; i < distritos.size(); i++) {
+                    chbDist.getItems().add(distritos.get(i));
+                }
+            } else {
+                chbDist.getItems().clear();
+                chbDist.setDisable(true);
+            }
+        });
 
         this.tgSexo = new ToggleGroup();
         rbFemenino.setToggleGroup(tgSexo);
@@ -165,10 +213,16 @@ public class G120Controller implements Initializable {
                     tgSexo.selectToggle(rbMasculino);
                 }
                 tfDireccion.setText(terapeuta.getDireccion());
-                tfDpto.setText(terapeuta.getDpto());
-                tfProv.setText(terapeuta.getProv());
-                tfDist.setText(terapeuta.getDist());
-                tfCarnet.setText(terapeuta.getCarnet());
+                String dpto = terapeuta.getDpto();
+                List<String> departamentos = new ArrayList<>();
+                departamentos = ubicacionDAO.listarDepartamentos();
+                chbDpto.getItems().clear();
+                for (int i = 0; i < departamentos.size(); i++) {
+                    chbDpto.getItems().add(departamentos.get(i));
+                }
+                chbDpto.setValue(dpto);
+                chbProv.setValue(terapeuta.getProv());
+                chbDist.setValue(terapeuta.getDist());
                 chbPermanente.setSelected(terapeuta.getPermanente() == true ? true : false);
                 tfTelefono.setText(Integer.toString(terapeuta.getTelefono()));
                 tfEmail.setText(terapeuta.getEmail());
@@ -246,10 +300,9 @@ public class G120Controller implements Initializable {
             RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
             terapeuta.setSexo(selectedRadio.getText());
             terapeuta.setDireccion(tfDireccion.getText());
-            terapeuta.setDpto(tfDpto.getText());
-            terapeuta.setProv(tfProv.getText());
-            terapeuta.setDist(tfDist.getText());
-            terapeuta.setCarnet(tfCarnet.getText());
+            terapeuta.setDpto(chbDpto.getValue());
+            terapeuta.setProv(chbProv.getValue());
+            terapeuta.setDist(chbDist.getValue());
             terapeuta.setPermanente(chbPermanente.isSelected() ? true : false);
             terapeuta.setTelefono(Integer.parseInt(tfTelefono.getText()));
             terapeuta.setEmail(tfEmail.getText());
@@ -285,10 +338,9 @@ public class G120Controller implements Initializable {
             RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
             terapeutaSelected.setSexo(selectedRadio.getText());
             terapeutaSelected.setDireccion(tfDireccion.getText());
-            terapeutaSelected.setDpto(tfDpto.getText());
-            terapeutaSelected.setProv(tfProv.getText());
-            terapeutaSelected.setDist(tfDist.getText());
-            terapeutaSelected.setCarnet(tfCarnet.getText());
+            terapeutaSelected.setDpto(chbDpto.getValue());
+            terapeutaSelected.setProv(chbProv.getValue());
+            terapeutaSelected.setDist(chbDist.getValue());
             terapeutaSelected.setPermanente(chbPermanente.isSelected() ? true : false);
             terapeutaSelected.setTelefono(Integer.parseInt(tfTelefono.getText()));
             terapeutaSelected.setEmail(tfEmail.getText());
@@ -332,15 +384,16 @@ public class G120Controller implements Initializable {
         cbBuscar.getSelectionModel().select(0);
         tfNumero.setText("");
         tfNombre.setText("");
-        tfCarnet.setText("");
         tfDireccion.setText("");
         dpFecha.setValue(null);
         tgSexo.selectToggle(null);
-        tfDist.setText("");
-        tfDpto.setText("");
+        chbDpto.setValue(null);
+        chbProv.getItems().clear();
+        chbProv.setValue(null);
+        chbDist.getItems().clear();
+        chbDist.setValue(null);
         tfEmail.setText("");
         chbPermanente.setSelected(false);
-        tfProv.setText("");
         tfTelefono.setText("");
 
     }
@@ -354,7 +407,7 @@ public class G120Controller implements Initializable {
 
         ObservableList<Terapeuta> data = FXCollections.observableArrayList(terapeutas);
 
-        TableColumn numColumn = new TableColumn("Número");
+        TableColumn numColumn = new TableColumn("Código");
         numColumn.setCellValueFactory(new PropertyValueFactory("numero"));
 
         TableColumn nombreColumn = new TableColumn("Nombre");
@@ -384,7 +437,7 @@ public class G120Controller implements Initializable {
 
             ObservableList<Terapeuta> data = FXCollections.observableArrayList(terapeuta);
 
-            TableColumn codColumn = new TableColumn("Número");
+            TableColumn codColumn = new TableColumn("Código");
             codColumn.setCellValueFactory(new PropertyValueFactory("numero"));
 
             TableColumn nombreColumn = new TableColumn("Nombre");
@@ -430,6 +483,10 @@ public class G120Controller implements Initializable {
             if (terapeuta.getNumero() != 0) {
                 return "Paciente ya existe";
             }
+            
+            if (tfNumero.getText().length() != 8) {
+                return "El código (DNI/CE) debe tener 8 dígitos";
+            }
         }
 
         if (tfNombre.getText().length() >= 100 || tfNombre.getText().length() <= 0) {
@@ -454,20 +511,16 @@ public class G120Controller implements Initializable {
             return "La dirección no puede tener más de 100 caracteres";
         }
 
-        if (tfDpto.getText().length() > 25) {
-            return "El departamento no puede tener más de 100 caracteres";
+        if (chbDpto.getValue() == null) {
+            return "Seleccione departamento";
         }
 
-        if (tfProv.getText().length() > 25) {
-            return "La provincia no puede tener más de 100 caracteres";
+        if (chbProv.getValue() == null) {
+            return "Seleccione provincia";
         }
 
-        if (tfDist.getText().length() > 25) {
-            return "El distrito no puede tener más de 100 caracteres";
-        }
-
-        if (!isNumeric(tfCarnet.getText())) {
-            return "El carnet no puede estar vacío ni contener letras";
+        if (chbDist.getValue() == null) {
+            return "Seleccione distrito";
         }
 
         if (!isNumeric(tfTelefono.getText())) {

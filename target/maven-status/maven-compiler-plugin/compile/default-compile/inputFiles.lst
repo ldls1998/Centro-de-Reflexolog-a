@@ -1,5 +1,6 @@
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\G110Controller.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\dao\DiagnosticoMedicoDAO.java
+C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\modelo\Departamento.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\cargarScene.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\G210BuscarPacienteController.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\module-info.java
@@ -9,6 +10,7 @@ C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\modelo\Administrado
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\PrimaryController.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\App.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\LoginController.java
+C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\modelo\Provincia.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\dao\DiagnosticoDAO.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\modelo\Terapeuta.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\G210ModificarCitaController.java
@@ -20,7 +22,9 @@ C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\dao\TerapeutaDAO.ja
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\dao\Cita_PacienteDAO.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\G120Controller.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\dao\LoginDAO.java
+C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\modelo\Distrito.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\modelo\Diagnostico.java
+C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\dao\UbicacionDAO.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\modelo\Paciente.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\modelo\PacienteSingleton.java
 C:\Users\LOAIZA\Desktop\Centro-de-Reflexolog-a\src\main\java\com\mycompany\reflexologia\G130Controller.java

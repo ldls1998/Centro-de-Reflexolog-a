@@ -32,7 +32,7 @@ public class TerapeutaDAO {
 
         try {
 
-            String select_all = "SELECT * FROM terapeutas WHERE numero = ?;";
+            String select_all = "SELECT * FROM terapeutas WHERE codigo = ?;";
             Connection conexion = this.conexion.getConnection();
 
             PreparedStatement sentencia = conexion.prepareStatement(select_all);
@@ -50,10 +50,9 @@ public class TerapeutaDAO {
                 terapeuta.setProv(rs.getString(6));
                 terapeuta.setDpto(rs.getString(7));
                 terapeuta.setDist(rs.getString(8));
-                terapeuta.setCarnet(rs.getString(9));
-                terapeuta.setTelefono(rs.getInt(10));
-                terapeuta.setEmail(rs.getString(11));
-                terapeuta.setPermanente(rs.getBoolean(12));
+                terapeuta.setTelefono(rs.getInt(9));
+                terapeuta.setEmail(rs.getString(10));
+                terapeuta.setPermanente(rs.getBoolean(11));
 
             }
 
@@ -74,7 +73,7 @@ public class TerapeutaDAO {
 
         try {
 
-            String SQL = "DELETE FROM terapeutas WHERE numero = ?;";
+            String SQL = "DELETE FROM terapeutas WHERE codigo = ?;";
 
             Connection conexion = this.conexion.getConnection();
 
@@ -137,7 +136,7 @@ public class TerapeutaDAO {
 
         try {
 
-            String select_all = "SELECT * FROM terapeutas WHERE numero LIKE '" + numero + "%';";
+            String select_all = "SELECT * FROM terapeutas WHERE codigo LIKE '" + numero + "%';";
             Connection conexion = this.conexion.getConnection();
 
             PreparedStatement sentencia = conexion.prepareStatement(select_all);
@@ -210,10 +209,10 @@ public class TerapeutaDAO {
 
         try {
 
-            String SQL = "INSERT INTO terapeutas(numero, nombre, fecha_nacimiento, "
-                    + "sexo, direccion, prov, dpto, dist, carnet, "
+            String SQL = "INSERT INTO terapeutas(codigo, nombre, fecha_nacimiento, "
+                    + "sexo, direccion, prov, dpto, dist, "
                     + "telefono, email, permanente)"
-                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             Connection connection = this.conexion.getConnection();
 
             PreparedStatement sentencia = connection.prepareStatement(SQL);
@@ -226,10 +225,9 @@ public class TerapeutaDAO {
             sentencia.setString(6, terapeuta.getProv());
             sentencia.setString(7, terapeuta.getDpto());
             sentencia.setString(8, terapeuta.getDist());
-            sentencia.setString(9, terapeuta.getCarnet());
-            sentencia.setInt(10, terapeuta.getTelefono());
-            sentencia.setString(11, terapeuta.getEmail());
-            sentencia.setBoolean(12, terapeuta.getPermanente());
+            sentencia.setInt(9, terapeuta.getTelefono());
+            sentencia.setString(10, terapeuta.getEmail());
+            sentencia.setBoolean(11, terapeuta.getPermanente());
 
 
             sentencia.executeUpdate();
@@ -252,8 +250,8 @@ public class TerapeutaDAO {
         try {
 
             String SQL = "UPDATE terapeutas SET nombre = ?, fecha_nacimiento = ?, sexo = ?,\n"
-                    + "	direccion = ?, prov = ?, dpto = ?, dist = ?, carnet = ?, telefono = ?, \n"
-                    + " email = ?, permanente = ? WHERE numero = ?;";
+                    + "	direccion = ?, prov = ?, dpto = ?, dist = ?, telefono = ?, \n"
+                    + " email = ?, permanente = ? WHERE codigo = ?;";
             
             Connection conexion = this.conexion.getConnection();
             
@@ -266,11 +264,10 @@ public class TerapeutaDAO {
             sentencia.setString(5, terapeuta.getProv());
             sentencia.setString(6, terapeuta.getDpto());
             sentencia.setString(7, terapeuta.getDist());
-            sentencia.setString(8, terapeuta.getCarnet());
-            sentencia.setInt(9, terapeuta.getTelefono());
-            sentencia.setString(10, terapeuta.getEmail());
-            sentencia.setBoolean(11, terapeuta.getPermanente());
-            sentencia.setInt(12, terapeuta.getNumero());
+            sentencia.setInt(8, terapeuta.getTelefono());
+            sentencia.setString(9, terapeuta.getEmail());
+            sentencia.setBoolean(10, terapeuta.getPermanente());
+            sentencia.setInt(11, terapeuta.getNumero());
             
             sentencia.executeUpdate();
             
@@ -280,7 +277,7 @@ public class TerapeutaDAO {
 
         } catch (Exception e) {
 
-            System.err.println("Error al editar pacientes.");
+            System.err.println("Error al editar terapeutas.");
             System.err.println("Error: " + e);
             return false;
         }

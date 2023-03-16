@@ -12,7 +12,6 @@ import java.sql.Date;
  */
 public class Terapeuta {
     
-    private int numero;
     private String nombre;
     private String sexo;
     private Date fecha_nacimiento;
@@ -20,7 +19,7 @@ public class Terapeuta {
     private String prov;
     private String dpto;
     private String dist;
-    private String carnet;
+    private int numero;
     private int telefono;
     private String email;
     private Boolean permanente;
@@ -92,14 +91,6 @@ public class Terapeuta {
         this.dist = dist;
     }
 
-    public String getCarnet() {
-        return carnet;
-    }
-
-    public void setCarnet(String carnet) {
-        this.carnet = carnet;
-    }
-
     public int getTelefono() {
         return telefono;
     }
@@ -136,7 +127,6 @@ public class Terapeuta {
         sb.append(", prov=").append(prov);
         sb.append(", dpto=").append(dpto);
         sb.append(", dist=").append(dist);
-        sb.append(", carnet=").append(carnet);
         sb.append(", telefono=").append(telefono);
         sb.append(", email=").append(email);
         sb.append(", permanente=").append(permanente);

@@ -78,9 +78,6 @@
       <TextField fx:id="txtNombre" layoutX="634.0" layoutY="48.0" prefHeight="25.0" prefWidth="352.0" />
       <DatePicker fx:id="dpFecNac" layoutX="636.0" layoutY="85.0" promptText="DD/MM/AA" />
       <TextField fx:id="txtDireccion" layoutX="637.0" layoutY="147.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField fx:id="txtDpto" layoutX="636.0" layoutY="177.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField fx:id="txtProv" layoutX="636.0" layoutY="208.0" prefHeight="25.0" prefWidth="199.0" />
-      <TextField fx:id="txtDist" layoutX="636.0" layoutY="240.0" prefHeight="25.0" prefWidth="199.0" />
       <CheckBox fx:id="cbEspecial" layoutX="636.0" layoutY="275.0" mnemonicParsing="false" />
       <TextField fx:id="txtTestimonio" layoutX="780.0" layoutY="271.0" prefHeight="25.0" prefWidth="30.0" />
       <TextField fx:id="txtResultado" layoutX="908.0" layoutY="271.0" prefHeight="25.0" prefWidth="121.0" />
@@ -144,5 +141,8 @@
             <Font size="15.0" />
          </font>
       </RadioButton>
+      <ChoiceBox fx:id="chbDpto" layoutX="637.0" layoutY="177.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="chbProv" layoutX="637.0" layoutY="208.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="chbDist" layoutX="637.0" layoutY="240.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

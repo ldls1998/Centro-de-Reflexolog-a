@@ -8,11 +8,13 @@ package com.mycompany.reflexologia;
 import conexion.ConexionMySQL;
 import dao.G110DAO;
 import dao.PacienteDAO;
+import dao.UbicacionDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -51,15 +53,6 @@ public class G110Controller implements Initializable {
 
     @FXML
     private TextField txtDireccion;
-
-    @FXML
-    private TextField txtDpto;
-
-    @FXML
-    private TextField txtProv;
-
-    @FXML
-    private TextField txtDist;
 
     @FXML
     private TextField txtOcupacion;
@@ -128,6 +121,14 @@ public class G110Controller implements Initializable {
     private RadioButton rbFemenino;
 
     ToggleGroup tgSexo;
+    @FXML
+    private ChoiceBox<String> chbDpto;
+
+    private UbicacionDAO ubicacionDAO;
+    @FXML
+    private ChoiceBox<String> chbProv;
+    @FXML
+    private ChoiceBox<String> chbDist;
 
     /**
      * Initializes the controller class.
@@ -135,6 +136,51 @@ public class G110Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.ubicacionDAO = new UbicacionDAO();
+
+        List<String> departamentos = new ArrayList<>();
+
+        departamentos = ubicacionDAO.listarDepartamentos();
+
+        for (int i = 0; i < departamentos.size(); i++) {
+            chbDpto.getItems().add(departamentos.get(i));
+        }
+
+        // Desabilitamos los 2 últimos choicebox
+        chbProv.setDisable(true);
+        chbDist.setDisable(true);
+
+        chbDpto.setOnAction(e -> {
+            if (chbDpto.getValue() != null) {
+                chbProv.setDisable(false);
+                List<String> provincias = new ArrayList<>();
+                provincias = ubicacionDAO.listarProvincias(chbDpto.getValue());
+                chbProv.getItems().clear();
+                for (int i = 0; i < provincias.size(); i++) {
+                    chbProv.getItems().add(provincias.get(i));
+                }
+            } else {
+                chbProv.getItems().clear();
+                chbProv.setDisable(true);
+                chbDist.getItems().clear();
+                chbDist.setDisable(true);
+            }
+        });
+
+        chbProv.setOnAction(e -> {
+            if (chbProv.getValue() != null) {
+                chbDist.setDisable(false);
+                List<String> distritos = new ArrayList<>();
+                distritos = ubicacionDAO.listarDistritos(chbDpto.getValue(), chbProv.getValue());
+                chbDist.getItems().clear();
+                for (int i = 0; i < distritos.size(); i++) {
+                    chbDist.getItems().add(distritos.get(i));
+                }
+            } else {
+                chbDist.getItems().clear();
+                chbDist.setDisable(true);
+            }
+        });
 
         this.tgSexo = new ToggleGroup();
         rbFemenino.setToggleGroup(tgSexo);
@@ -225,7 +271,7 @@ public class G110Controller implements Initializable {
                 Paciente paciente = pacienteDAO.buscar(pacienteSelected.getCodigo());
 
                 txtNombre.setText(paciente.getNombre());
-                
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String dateString = sdf.format(paciente.getFecha_nacimiento());
                 LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
@@ -239,9 +285,16 @@ public class G110Controller implements Initializable {
                 }
 
                 txtDireccion.setText(paciente.getDireccion());
-                txtDpto.setText(paciente.getDpto());
-                txtProv.setText(paciente.getProv());
-                txtDist.setText(paciente.getDist());
+                String dpto = paciente.getDpto();
+                List<String> departamentos = new ArrayList<>();
+                departamentos = ubicacionDAO.listarDepartamentos();
+                chbDpto.getItems().clear();
+                for (int i = 0; i < departamentos.size(); i++) {
+                    chbDpto.getItems().add(departamentos.get(i));
+                }
+                chbDpto.setValue(dpto);
+                chbProv.setValue(paciente.getProv());
+                chbDist.setValue(paciente.getDist());
                 cbEspecial.setSelected(paciente.getEspecial() == true ? true : false);
                 txtTestimonio.setText(paciente.getTestimonio());
                 txtResultado.setText(paciente.getResultado());
@@ -275,14 +328,14 @@ public class G110Controller implements Initializable {
 
             paciente.setNombre(txtNombre.getText());
             paciente.setCodigo(Integer.parseInt(txtDNICE.getText()));
-            
+
             paciente.setFecha_nacimiento(java.sql.Date.valueOf(dpFecNac.getValue()));
             RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
             paciente.setSexo(selectedRadio.getText());
             paciente.setDireccion(txtDireccion.getText());
-            paciente.setDpto(txtDpto.getText());
-            paciente.setProv(txtProv.getText());
-            paciente.setDist(txtDist.getText());
+            paciente.setDpto(chbDpto.getValue());
+            paciente.setProv(chbProv.getValue());
+            paciente.setDist(chbDist.getValue());
             paciente.setEspecial(cbEspecial.isSelected() ? true : false);
             paciente.setTestimonio(txtTestimonio.getText());
             paciente.setResultado(txtResultado.getText());
@@ -322,15 +375,15 @@ public class G110Controller implements Initializable {
 
             pacienteSelected.setCodigo(pacienteSelected.getCodigo());
             pacienteSelected.setNombre(txtNombre.getText());
-            
+
             pacienteSelected.setFecha_nacimiento(java.sql.Date.valueOf(dpFecNac.getValue()));
             RadioButton selectedRadio = (RadioButton) tgSexo.getSelectedToggle();
             System.out.println(selectedRadio.getText());
             pacienteSelected.setSexo(selectedRadio.getText());
             pacienteSelected.setDireccion(txtDireccion.getText());
-            pacienteSelected.setDpto(txtDpto.getText());
-            pacienteSelected.setProv(txtProv.getText());
-            pacienteSelected.setDist(txtDist.getText());
+            pacienteSelected.setDpto(chbDpto.getValue());
+            pacienteSelected.setProv(chbProv.getValue());
+            pacienteSelected.setDist(chbDist.getValue());
             pacienteSelected.setEspecial(cbEspecial.isSelected() ? true : false);
             pacienteSelected.setTestimonio(txtTestimonio.getText());
             pacienteSelected.setResultado(txtResultado.getText());
@@ -379,9 +432,11 @@ public class G110Controller implements Initializable {
         dpFecNac.setValue(null);
         tgSexo.selectToggle(null);
         txtDireccion.setText("");
-        txtDpto.setText("");
-        txtProv.setText("");
-        txtDist.setText("");
+        chbDpto.setValue(null);
+        chbProv.getItems().clear();
+        chbProv.setValue(null);
+        chbDist.getItems().clear();
+        chbDist.setValue(null);
         cbEspecial.setSelected(false);
         txtTestimonio.setText("");
         txtResultado.setText("");
@@ -507,16 +562,16 @@ public class G110Controller implements Initializable {
             return "La dirección no puede tener más de 100 caracteres";
         }
 
-        if (txtDpto.getText().length() > 100) {
-            return "El departamento no puede tener más de 100 caracteres";
+        if (chbDpto.getValue() == null) {
+            return "Seleccione departamento";
         }
 
-        if (txtProv.getText().length() > 100) {
-            return "La provincia no puede tener más de 100 caracteres";
+        if (chbProv.getValue() == null) {
+            return "Seleccione provincia";
         }
 
-        if (txtDist.getText().length() > 100) {
-            return "El distrito no puede tener más de 100 caracteres";
+        if (chbDist.getValue() == null) {
+            return "Seleccione distrito";
         }
 
         if (txtTestimonio.getText().length() > 50) {
