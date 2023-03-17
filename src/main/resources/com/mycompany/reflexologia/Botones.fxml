@@ -1,19 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane id="AnchorPane" fx:id="apFooter" prefHeight="113.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" fx:id="apFooter" prefHeight="104.0" prefWidth="537.0" style="-fx-background-color: #98FB97;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Line endX="435.0" layoutX="101.0" startX="-100.0" />
-      <Button fx:id="btnAtras" layoutX="21.0" layoutY="44.0" mnemonicParsing="false" onAction="#irAtras" text="Atrás" />
-      <Button fx:id="btnSiguiente" layoutX="76.0" layoutY="44.0" mnemonicParsing="false" onAction="#irAdelante" text="Siguiente" />
-      <Button fx:id="btnNuevo" layoutX="148.0" layoutY="44.0" mnemonicParsing="false" onAction="#nuevo" text="Nuevo" />
-      <Button layoutX="211.0" layoutY="44.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
-      <Button layoutX="276.0" layoutY="44.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="--" />
-      <Button fx:id="btnBuscar" layoutX="338.0" layoutY="44.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
-      <Button layoutX="401.0" layoutY="44.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
-      <Button layoutX="465.0" layoutY="44.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
+      <Button fx:id="btnAtras" layoutX="21.0" layoutY="36.0" mnemonicParsing="false" onAction="#irAtras" prefHeight="40.0" prefWidth="44.0" />
+      <Button fx:id="btnSiguiente" layoutX="76.0" layoutY="36.0" mnemonicParsing="false" onAction="#irAdelante" prefHeight="40.0" prefWidth="44.0" />
+      <Button fx:id="btnNuevo" layoutX="148.0" layoutY="36.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="40.0" prefWidth="44.0" />
+      <Button layoutX="211.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="51.0" />
+      <Button layoutX="276.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="44.0" />
+      <Button fx:id="btnBuscar" layoutX="338.0" layoutY="36.0" mnemonicParsing="false" onAction="#buscar" prefHeight="40.0" prefWidth="44.0" />
+      <Button layoutX="401.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="51.0" />
+      <Button layoutX="465.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="51.0" />
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="31.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/flecha-izquierda.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="86.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/flecha-correcta.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="158.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/documento.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="224.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/hojas.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="348.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/buscar.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="478.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/3b704aed559f5e98d2174d240cae343d.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="286.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/3221897.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="414.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Downloads/4305624.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
