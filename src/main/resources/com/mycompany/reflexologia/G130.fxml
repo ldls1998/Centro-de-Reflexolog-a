@@ -5,6 +5,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -32,13 +34,53 @@
          </font>
       </Text>
       <Line endX="878.0" layoutX="101.0" layoutY="498.0" startX="-100.0" />
-      <Button fx:id="btnAtras" layoutX="21.0" layoutY="521.0" mnemonicParsing="false" onAction="#irAtras" text="Atrás" />
-      <Button fx:id="btnSiguiente" layoutX="76.0" layoutY="521.0" mnemonicParsing="false" onAction="#irAdelante" text="Siguiente" />
-      <Button fx:id="btnNuevo" layoutX="148.0" layoutY="521.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" text="Nuevo" />
-      <Button layoutX="211.0" layoutY="521.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
-      <Button layoutX="276.0" layoutY="521.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="--" />
-      <Button fx:id="btnBuscar" layoutX="338.0" layoutY="521.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
-      <Button layoutX="401.0" layoutY="521.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
-      <Button layoutX="465.0" layoutY="521.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="--" />
+      <Button fx:id="btnAtras" disable="true" layoutX="38.0" layoutY="510.0" mnemonicParsing="false" onAction="#irAtras" prefHeight="40.0" prefWidth="44.0" />
+      <Button fx:id="btnSiguiente" layoutX="85.0" layoutY="510.0" mnemonicParsing="false" onAction="#irAdelante" prefHeight="40.0" prefWidth="44.0" />
+      <Button fx:id="btnNuevo" layoutX="135.0" layoutY="510.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" prefHeight="40.0" prefWidth="36.0" />
+      <Button layoutX="173.0" layoutY="510.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="44.0" />
+      <Button layoutX="222.0" layoutY="510.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="39.0" />
+      <Button fx:id="btnBuscar" layoutX="266.0" layoutY="510.0" mnemonicParsing="false" onAction="#buscar" prefHeight="40.0" prefWidth="39.0" />
+      <Button layoutX="310.0" layoutY="511.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="51.0" />
+      <Button layoutX="366.0" layoutY="512.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="45.0" />
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="46.0" layoutY="518.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/flecha-izquierda.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="96.0" layoutY="518.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/flecha-correcta.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="141.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/documento.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="181.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/hojas.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="227.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/tacho.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="271.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/buscar.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="323.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/impresora.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="377.0" layoutY="519.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/cerrar.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
