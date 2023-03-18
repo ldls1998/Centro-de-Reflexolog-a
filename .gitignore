@@ -9,3 +9,4 @@ target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.l
 target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 target/Reflexologia-1.0-SNAPSHOT.jar
 src/main/java/conexion/ConexionMySQL.java
+src/main/java/conexion/ConexionMySQL.java

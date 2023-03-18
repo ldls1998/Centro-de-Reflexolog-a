@@ -23,7 +23,7 @@ public class ConexionMySQL {
 
             String url = "jdbc:mysql://localhost:3306/reflexologia";
             String username = "root";
-            String password = "puertanegra";
+            String password = "123456";
             connection = DriverManager.getConnection(url, username, password);
             
         } catch (ClassNotFoundException ex) {
