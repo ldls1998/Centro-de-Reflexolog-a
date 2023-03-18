@@ -8,3 +8,4 @@ target/classes/.netbeans_automatic_build
 target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 target/Reflexologia-1.0-SNAPSHOT.jar
+src/main/java/conexion/ConexionMySQL.java
