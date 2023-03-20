@@ -20,7 +20,6 @@ public class Cita_Paciente {
     private int codigo_paciente;
     private Date fecha_cita;
     private float importe;
-    private int DNICE;
     private Date fecha_nacimiento;
     private String sexo;
     private String direccion;
@@ -34,6 +33,16 @@ public class Cita_Paciente {
     private int telefono;
     private String email;
     private Boolean especial;
+    private boolean ctodo;
+    private boolean sde;
+    private String observa;
+    private boolean citaBool;
+    private String hora;
+    private boolean saldo;
+    private String op;
+    private int num;
+    
+    
     
     public Cita_Paciente() {
         this.cita = new Cita();
@@ -47,6 +56,14 @@ public class Cita_Paciente {
         this.codigo_paciente = this.cita.getCodigo_paciente();
         this.fecha_cita = this.cita.getFecha_cita();
         this.importe = this.cita.getImporte();
+        this.ctodo = this.cita.isCtodo();
+        this.sde = this.cita.isSde();
+        this.observa = this.cita.getObserva();
+        this.citaBool = this.cita.isCitaBool();
+        this.hora = this.cita.getHora();
+        this.saldo = this.cita.isSaldo();
+        this.op = this.cita.getOp();
+        this.num = this.cita.getNum();
     }
     
     public Cita_Paciente(Paciente paciente) {
@@ -89,6 +106,14 @@ public class Cita_Paciente {
         this.telefono = this.paciente.getTelefono();
         this.email = this.paciente.getEmail();
         this.especial = this.paciente.getEspecial();
+        this.ctodo = this.cita.isCtodo();
+        this.sde = this.cita.isSde();
+        this.observa = this.cita.getObserva();
+        this.citaBool = this.cita.isCitaBool();
+        this.hora = this.cita.getHora();
+        this.saldo = this.cita.isSaldo();
+        this.op = this.cita.getOp();
+        this.num = this.cita.getNum();
     }
 
     public Cita getCita() {
@@ -101,6 +126,14 @@ public class Cita_Paciente {
         this.codigo_paciente = this.cita.getCodigo_paciente();
         this.fecha_cita = this.cita.getFecha_cita();
         this.importe = this.cita.getImporte();
+        this.ctodo = this.cita.isCtodo();
+        this.sde = this.cita.isSde();
+        this.observa = this.cita.getObserva();
+        this.citaBool = this.cita.isCitaBool();
+        this.hora = this.cita.getHora();
+        this.saldo = this.cita.isSaldo();
+        this.op = this.cita.getOp();
+        this.num = this.cita.getNum();
     }
 
     public Paciente getPaciente() {
@@ -169,10 +202,6 @@ public class Cita_Paciente {
     public void setImporte(float importe) {
         this.cita.setImporte(importe);
         this.importe = importe;
-    }
-
-    public int getDNICE() {
-        return DNICE;
     }
 
     public Date getFecha_nacimiento() {
@@ -290,6 +319,78 @@ public class Cita_Paciente {
     public void setEspecial(Boolean especial) {
         this.paciente.setEspecial(especial);
         this.especial = especial;
+    }
+
+    public boolean isCtodo() {
+        return ctodo;
+    }
+
+    public void setCtodo(boolean ctodo) {
+        this.cita.setCtodo(ctodo);
+        this.ctodo = ctodo;
+    }
+
+    public boolean isSde() {
+        return sde;
+    }
+
+    public void setSde(boolean sde) {
+        this.cita.setSde(sde);
+        this.sde = sde;
+    }
+
+    public String getObserva() {
+        return observa;
+    }
+
+    public void setObserva(String observa) {
+        this.cita.setObserva(observa);
+        this.observa = observa;
+    }
+
+    public boolean isCitaBool() {
+        return citaBool;
+    }
+
+    public void setCitaBool(boolean citaBool) {
+        this.cita.setCitaBool(citaBool);
+        this.citaBool = citaBool;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.setHora(hora);
+        this.hora = hora;
+    }
+
+    public boolean isSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(boolean saldo) {
+        this.cita.setSaldo(saldo);
+        this.saldo = saldo;
+    }
+
+    public String getOp() {
+        return op;
+    }
+
+    public void setOp(String op) {
+        this.cita.setOp(op);
+        this.op = op;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.cita.setNum(num);
+        this.num = num;
     }
     
 }

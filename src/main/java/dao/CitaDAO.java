@@ -46,11 +46,21 @@ public class CitaDAO {
 
                 Cita cita = new Cita();
                 Paciente paciente = new Paciente();
-                
+
                 cita.setRegistro(rs.getInt(1));
                 cita.setFecha_cita(rs.getDate(2));
                 cita.setImporte(rs.getFloat(3));
                 cita.setCodigo_paciente(rs.getInt(4));
+                cita.setCtodo(rs.getBoolean(5));
+                cita.setSde(rs.getBoolean(6));
+                cita.setObserva(rs.getString(7));
+                cita.setCitaBool(rs.getBoolean(8));
+                cita.setHora(rs.getString(9));
+                cita.setSaldo(rs.getBoolean(10));
+                cita.setOp(rs.getString(11));
+                cita.setNum(rs.getInt(12));
+                
+                System.out.println(cita.toString());
 
                 String select_nombre = "SELECT * FROM paciente "
                         + "WHERE codigo = ?;";
@@ -103,7 +113,8 @@ public class CitaDAO {
 
         try {
 
-            String SQL = "UPDATE citas SET fecha_cita = ?, importe = ?, pacienteID = ? WHERE registro = ?;";
+            String SQL = "UPDATE citas SET fecha_cita = ?, importe = ?, pacienteID = ?, ctodo = ?, sde = ?, "
+                    + "observa = ?, citaBool = ?, hora = ?, saldo = ?, op = ?, num = ? WHERE registro = ?;";
 
             Connection conexion = this.conexion.getConnection();
 
@@ -112,8 +123,16 @@ public class CitaDAO {
             sentencia.setDate(1, (Date) cita.getFecha_cita());
             sentencia.setFloat(2, cita.getImporte());
             sentencia.setInt(3, cita.getCodigo_paciente());
-            sentencia.setInt(4, cita.getRegistro());
-            
+            sentencia.setBoolean(4, cita.isCtodo());
+            sentencia.setBoolean(5, cita.isSde());
+            sentencia.setString(6, cita.getObserva());
+            sentencia.setBoolean(7, cita.isCitaBool());
+            sentencia.setString(8, cita.getHora());
+            sentencia.setBoolean(9, cita.isSaldo());
+            sentencia.setString(10, cita.getOp());
+            sentencia.setInt(11, cita.getNum());
+            sentencia.setInt(12, cita.getRegistro());
+
             sentencia.executeUpdate();
 
             sentencia.close();
@@ -127,67 +146,84 @@ public class CitaDAO {
             return false;
         }
     }
-    
+
     public Cita buscar(int registro) {
         Cita cita = new Cita();
-        
+
         try {
-            
+
             String select_all = "SELECT * FROM citas WHERE registro = ?;";
             Connection conexion = this.conexion.getConnection();
-            
+
             PreparedStatement sentencia = conexion.prepareStatement(select_all);
-            
+
             sentencia.setInt(1, registro);
-            
+
             ResultSet rs = sentencia.executeQuery();
-            
+
             while (rs.next()) {
                 cita.setRegistro(rs.getInt(1));;
                 cita.setFecha_cita(rs.getDate(2));
                 cita.setImporte(rs.getFloat(3));
                 cita.setCodigo_paciente(rs.getInt(4));
+                cita.setCtodo(rs.getBoolean(5));
+                cita.setSde(rs.getBoolean(6));
+                cita.setObserva(rs.getString(7));
+                cita.setCitaBool(rs.getBoolean(8));
+                cita.setHora(rs.getString(9));
+                cita.setSaldo(rs.getBoolean(10));
+                cita.setOp(rs.getString(11));
+                cita.setNum(rs.getInt(12));
             }
-            
+
             rs.close();
             sentencia.close();
-            
+
         } catch (SQLException e) {
-            
+
             System.out.println("Error al buscar cita.");
             System.out.println("Error: " + e);
-            
+
         }
-        
+
         return cita;
     }
-    
+
     public Cita crear(Cita cita) {
-        
+
         try {
-            
-            String select_all = "INSERT INTO citas (`fecha_cita`, `importe`, `pacienteID`) "
-                    + "VALUES (?, ?, ?);";
+
+            String select_all = "INSERT INTO citas (`fecha_cita`, `importe`, `pacienteID`, `ctodo`, `sde`, "
+                    + "`observa`, `citaBool`, `hora`, `saldo`, `op`, `num`)"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             Connection conexion = this.conexion.getConnection();
-            
+
             PreparedStatement sentencia = conexion.prepareStatement(select_all);
-            
+
             sentencia.setDate(1, cita.getFecha_cita());
             sentencia.setFloat(2, cita.getImporte());
             sentencia.setInt(3, cita.getCodigo_paciente());
-            
+            sentencia.setBoolean(4, cita.isCtodo());
+            sentencia.setBoolean(5, cita.isSde());
+            sentencia.setString(6, cita.getObserva());
+            sentencia.setBoolean(7, cita.isCitaBool());
+            sentencia.setString(8, cita.getHora());
+            sentencia.setBoolean(9, cita.isSaldo());
+            sentencia.setString(10, cita.getOp());
+            sentencia.setInt(11, cita.getNum());
+
             sentencia.execute();
 
             sentencia.close();
-            
+
         } catch (SQLException e) {
-            
+
             System.out.println("Error al crear cita.");
             System.out.println("Error: " + e);
-            
+
         }
-        
+
         return cita;
     }
-    
+
 }

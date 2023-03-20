@@ -48,6 +48,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -187,46 +188,46 @@ public class G210Controller implements Initializable {
 
         cmOpciones = new ContextMenu();
 
-        MenuItem miEditar = new MenuItem("Editar");
+        // MenuItem miEditar = new MenuItem("Editar");
         MenuItem miEliminar = new MenuItem("Eliminar");
 
-        cmOpciones.getItems().addAll(miEditar, miEliminar);
+        cmOpciones.getItems().addAll(miEliminar);
 
-        miEditar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                String scene_name = "G210 - ModificarCita.fxml";
-                String titulo = "G210. - Modificar Citas";
-                try {
-                    Stage stage = (Stage) btnConsultarCitas.getScene().getWindow();
-
-                    int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
-                    int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
-                    Date fechaCitaModificar = tvCitasyPacientes.getItems().get(index).getFecha_cita();
-                    float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
-                    String nombreCitaModificar = tvCitasyPacientes.getItems().get(index).getNombre();
-                    int codigoPacienteModificar = tvCitasyPacientes.getItems().get(index).getCodigo_paciente();
-                    java.sql.Date sqlDate = new java.sql.Date(fechaCitaModificar.getTime());
-                    cita = new Cita(registroCitaModificar, codigoPacienteModificar, sqlDate, importeCitaModificar);
-                    Paciente paciente = new Paciente();
-                    paciente.setNombre(nombreCitaModificar);
-                    paciente.setCodigo(codigoPacienteModificar);
-                    Cita_Paciente cp = new Cita_Paciente(cita, paciente);
-                    DataSingleton.getInstance().setData(cp);
-
-                    AnchorPane pane = new FXMLLoader(getClass().getResource("G210 - ModificarCita.fxml")).load();
-                    rootPane.getChildren().setAll(pane);
-                    stage.setWidth(450);
-                    stage.setHeight(320);
-                    stage.setTitle(titulo);
-                    stage.centerOnScreen();
-
-                } catch (IOException ex) {
-                    System.err.println("Error al cargar.");
-                }
-            }
-
-        });
+//        miEditar.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent t) {
+//                String scene_name = "G210 - ModificarCita.fxml";
+//                String titulo = "G210. - Modificar Citas";
+//                try {
+//                    Stage stage = (Stage) btnConsultarCitas.getScene().getWindow();
+//
+//                    int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
+//                    int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
+//                    Date fechaCitaModificar = tvCitasyPacientes.getItems().get(index).getFecha_cita();
+//                    float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
+//                    String nombreCitaModificar = tvCitasyPacientes.getItems().get(index).getNombre();
+//                    int codigoPacienteModificar = tvCitasyPacientes.getItems().get(index).getCodigo_paciente();
+//                    java.sql.Date sqlDate = new java.sql.Date(fechaCitaModificar.getTime());
+//                    cita = new Cita(registroCitaModificar, codigoPacienteModificar, sqlDate, importeCitaModificar);
+//                    Paciente paciente = new Paciente();
+//                    paciente.setNombre(nombreCitaModificar);
+//                    paciente.setCodigo(codigoPacienteModificar);
+//                    Cita_Paciente cp = new Cita_Paciente(cita, paciente);
+//                    DataSingleton.getInstance().setData(cp);
+//
+//                    AnchorPane pane = new FXMLLoader(getClass().getResource("G210 - ModificarCita.fxml")).load();
+//                    rootPane.getChildren().setAll(pane);
+//                    stage.setWidth(450);
+//                    stage.setHeight(320);
+//                    stage.setTitle(titulo);
+//                    stage.centerOnScreen();
+//
+//                } catch (IOException ex) {
+//                    System.err.println("Error al cargar.");
+//                }
+//            }
+//
+//        });
 
         miEliminar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -371,10 +372,49 @@ public class G210Controller implements Initializable {
 
         });
 
+        TableColumn citaColumn = new TableColumn<>("Cita");
+        citaColumn.setCellValueFactory(new PropertyValueFactory<>("citaBool"));
+        citaColumn.setCellFactory(CheckBoxTableCell.forTableColumn(citaColumn));
+
+        TableColumn ctodoColumn = new TableColumn<>("Ctodo");
+        ctodoColumn.setCellValueFactory(new PropertyValueFactory<>("ctodo"));
+        ctodoColumn.setCellFactory(CheckBoxTableCell.forTableColumn(ctodoColumn));
+
+        TableColumn adeColumn = new TableColumn<>("Ade");
+        adeColumn.setCellValueFactory(new PropertyValueFactory<>("sde"));
+        adeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(adeColumn));
+
+        TableColumn saldoColumn = new TableColumn<>("Saldo");
+        saldoColumn.setCellValueFactory(new PropertyValueFactory<>("saldo"));
+        saldoColumn.setCellFactory(CheckBoxTableCell.forTableColumn(saldoColumn));
+
+        TableColumn obsColumn = new TableColumn("Observa");
+        obsColumn.setCellValueFactory(new PropertyValueFactory<>("observa"));
+        obsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        obsColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, String>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, String> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setObserva(event.getNewValue());
+            }
+
+        });
+
+        TableColumn opColumn = new TableColumn("Op");
+        obsColumn.setCellValueFactory(new PropertyValueFactory<>("op"));
+
+        TableColumn numColumn = new TableColumn("#");
+        obsColumn.setCellValueFactory(new PropertyValueFactory<>("num"));
+
+        TableColumn horaColumn = new TableColumn("Hora");
+        obsColumn.setCellValueFactory(new PropertyValueFactory<>("hora"));
+
         tvCitasyPacientes.setItems(cita_paciente);
 
         tvCitasyPacientes.getColumns()
-                .addAll(registroColumn, codigoColumn, nombreColumn, fechaColumn, importeColumn);
+                .addAll(registroColumn, horaColumn, codigoColumn, nombreColumn, fechaColumn,
+                        citaColumn, ctodoColumn, adeColumn, importeColumn,
+                        opColumn, saldoColumn, obsColumn, numColumn);
 
     }
 
@@ -466,7 +506,11 @@ public class G210Controller implements Initializable {
 
         Paciente p = PacienteSingleton.getInstance().getData();
 
-        if (p == null) {
+        int index = -1;
+
+        index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
+
+        if ((p == null) && (index == -1)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -477,12 +521,43 @@ public class G210Controller implements Initializable {
             return;
         }
 
-        int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
+        if (p != null) {
+            float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
+
+            Cita cita = new Cita();
+            cita.setCodigo_paciente(p.getCodigo());
+
+            if (dpFecha.getValue() == null) {
+
+                if (tvCitasyPacientes.getItems().get(index).getFecha_cita() == null) {
+                    dpFecha.setValue(LocalDate.now());
+                } else {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateString = sdf.format(tvCitasyPacientes.getItems().get(index).getFecha_cita());
+                    LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
+                    dpFecha.setValue(localDate);
+                }
+
+            }
+
+            cita.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
+            cita.setImporte(importeCitaModificar);
+
+            tvCitasyPacientes.getItems().get(index).setPaciente(p);
+            tvCitasyPacientes.getItems().get(index).setCodigo_paciente(p.getCodigo());
+            tvCitasyPacientes.getItems().get(index).setNombre(p.getNombre());
+
+            this.nueva_cita_paciente.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
+            this.nueva_cita_paciente.setCodigo_paciente(p.getCodigo());
+            this.nueva_cita_paciente.setImporte(importeCitaModificar);
+
+            this.nueva_cita_paciente.setPaciente(
+                    this.pacientedao.buscar(p.getCodigo()));
+        }
 
         float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
-
         Cita cita = new Cita();
-        cita.setCodigo_paciente(p.getCodigo());
+        cita.setCodigo_paciente(tvCitasyPacientes.getItems().get(index).getCodigo_paciente());
 
         if (dpFecha.getValue() == null) {
 
@@ -500,16 +575,12 @@ public class G210Controller implements Initializable {
         cita.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
         cita.setImporte(importeCitaModificar);
 
-        tvCitasyPacientes.getItems().get(index).setPaciente(p);
-        tvCitasyPacientes.getItems().get(index).setCodigo_paciente(p.getCodigo());
-        tvCitasyPacientes.getItems().get(index).setNombre(p.getNombre());
-
         this.nueva_cita_paciente.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
-        this.nueva_cita_paciente.setCodigo_paciente(p.getCodigo());
+        this.nueva_cita_paciente.setCodigo_paciente(tvCitasyPacientes.getItems().get(index).getCodigo_paciente());
         this.nueva_cita_paciente.setImporte(importeCitaModificar);
 
         this.nueva_cita_paciente.setPaciente(
-                this.pacientedao.buscar(p.getCodigo()));
+                this.pacientedao.buscar(tvCitasyPacientes.getItems().get(index).getCodigo_paciente()));
 
         tvCitasyPacientes.refresh();
 
@@ -538,6 +609,22 @@ public class G210Controller implements Initializable {
             citaModificar.setCodigo_paciente(tvCitasyPacientes.getItems().get(index).getCodigo_paciente());
 
             citaModificar.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
+            
+            citaModificar.setCtodo(tvCitasyPacientes.getItems().get(index).isCtodo());
+            
+            citaModificar.setSde(tvCitasyPacientes.getItems().get(index).isSde());
+            
+            citaModificar.setObserva(tvCitasyPacientes.getItems().get(index).getObserva());
+            
+            citaModificar.setCitaBool(tvCitasyPacientes.getItems().get(index).isCitaBool());
+            
+            citaModificar.setHora(tvCitasyPacientes.getItems().get(index).getHora());
+            
+            citaModificar.setSaldo(tvCitasyPacientes.getItems().get(index).isSaldo());
+            
+            citaModificar.setOp(tvCitasyPacientes.getItems().get(index).getOp());
+            
+            citaModificar.setNum(tvCitasyPacientes.getItems().get(index).getNum());
 
             this.citaDAO.editar(citaModificar);
 
@@ -570,15 +657,13 @@ public class G210Controller implements Initializable {
 
         String scene_name = "G140.fxml";
         String titulo = "G140. - Diagnósticos Médicos";
-        
+
         cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
 
     }
 
     @FXML
     private void irAdelante(ActionEvent event) throws IOException {
-
-        
 
     }
 

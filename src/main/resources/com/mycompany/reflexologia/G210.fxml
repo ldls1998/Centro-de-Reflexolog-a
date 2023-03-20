@@ -77,7 +77,7 @@
       <Line endX="983.0" layoutX="100.0" layoutY="538.0" startX="-100.0" />
       <Button fx:id="btnAtras" disable="true" layoutX="33.0" layoutY="567.0" mnemonicParsing="false" onAction="#irAtras" prefHeight="40.0" prefWidth="44.0" />
       <Button fx:id="btnSiguiente" layoutX="80.0" layoutY="567.0" mnemonicParsing="false" onAction="#irAdelante" prefHeight="40.0" prefWidth="44.0" />
-      <Button fx:id="btnNuevo" layoutX="130.0" layoutY="567.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" prefHeight="40.0" prefWidth="36.0" />
+      <Button fx:id="btnNuevo" layoutX="130.0" layoutY="567.0" mnemonicParsing="false" onAction="#btnCrearCita" prefHeight="40.0" prefWidth="36.0" />
       <Button layoutX="168.0" layoutY="567.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="44.0" />
       <Button layoutX="217.0" layoutY="567.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="39.0" />
       <Button fx:id="btnBuscar" layoutX="261.0" layoutY="567.0" mnemonicParsing="false" onAction="#buscar" prefHeight="40.0" prefWidth="39.0" />

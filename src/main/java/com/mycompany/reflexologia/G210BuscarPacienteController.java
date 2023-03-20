@@ -76,17 +76,14 @@ public class G210BuscarPacienteController implements Initializable {
 
         ObservableList<Paciente> data = FXCollections.observableArrayList(pacientes);
 
-        TableColumn codColumn = new TableColumn("Código");
-        codColumn.setCellValueFactory(new PropertyValueFactory("codigo"));
+        TableColumn dniColumn = new TableColumn("DNI");
+        dniColumn.setCellValueFactory(new PropertyValueFactory("codigo"));
 
         TableColumn nombreColumn = new TableColumn("Nombre");
         nombreColumn.setCellValueFactory(new PropertyValueFactory("nombre"));
 
-        TableColumn dniColumn = new TableColumn("DNI");
-        dniColumn.setCellValueFactory(new PropertyValueFactory("DNICE"));
-
         tvPacientes.setItems(data);
-        tvPacientes.getColumns().addAll(codColumn, nombreColumn, dniColumn);
+        tvPacientes.getColumns().addAll( dniColumn, nombreColumn);
     }
 
     @FXML
