@@ -40,7 +40,7 @@
             <Menu mnemonicParsing="false" text="Consulta">
                <items>
                   <MenuItem fx:id="mi310" mnemonicParsing="false" text="G310. - Visualiza Pacientes" />
-                  <MenuItem fx:id="miInformes" mnemonicParsing="false" text="Informes" />
+                  <MenuItem fx:id="miInformes" onAction="#informes" text="Informes" />
                   <MenuItem fx:id="miCopiaSeguridad" mnemonicParsing="false" text="Copia de Seguridad" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="mi320" mnemonicParsing="false" text="G320. - Revisa Fechas e Impresión" />

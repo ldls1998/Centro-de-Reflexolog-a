@@ -193,42 +193,6 @@ public class G210Controller implements Initializable {
 
         cmOpciones.getItems().addAll(miEliminar);
 
-//        miEditar.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent t) {
-//                String scene_name = "G210 - ModificarCita.fxml";
-//                String titulo = "G210. - Modificar Citas";
-//                try {
-//                    Stage stage = (Stage) btnConsultarCitas.getScene().getWindow();
-//
-//                    int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
-//                    int registroCitaModificar = tvCitasyPacientes.getItems().get(index).getRegistro();
-//                    Date fechaCitaModificar = tvCitasyPacientes.getItems().get(index).getFecha_cita();
-//                    float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
-//                    String nombreCitaModificar = tvCitasyPacientes.getItems().get(index).getNombre();
-//                    int codigoPacienteModificar = tvCitasyPacientes.getItems().get(index).getCodigo_paciente();
-//                    java.sql.Date sqlDate = new java.sql.Date(fechaCitaModificar.getTime());
-//                    cita = new Cita(registroCitaModificar, codigoPacienteModificar, sqlDate, importeCitaModificar);
-//                    Paciente paciente = new Paciente();
-//                    paciente.setNombre(nombreCitaModificar);
-//                    paciente.setCodigo(codigoPacienteModificar);
-//                    Cita_Paciente cp = new Cita_Paciente(cita, paciente);
-//                    DataSingleton.getInstance().setData(cp);
-//
-//                    AnchorPane pane = new FXMLLoader(getClass().getResource("G210 - ModificarCita.fxml")).load();
-//                    rootPane.getChildren().setAll(pane);
-//                    stage.setWidth(450);
-//                    stage.setHeight(320);
-//                    stage.setTitle(titulo);
-//                    stage.centerOnScreen();
-//
-//                } catch (IOException ex) {
-//                    System.err.println("Error al cargar.");
-//                }
-//            }
-//
-//        });
-
         miEliminar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {

@@ -11,137 +11,140 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="574.0" prefWidth="1063.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G120Controller">
+<AnchorPane id="AnchorPane" prefHeight="574.0" prefWidth="1063.0" style="-fx-background-color: #BCFD98;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.reflexologia.G120Controller">
    <children>
-      <Text layoutX="68.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DNI/CE:">
+      <Text layoutX="68.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DNI/CE:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="58.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE:">
+      <Text layoutX="58.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="53.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FEC. NAC.:">
+      <Text layoutX="53.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FEC. NAC.:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="77.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO:">
+      <Text layoutX="77.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEXO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="45.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIRECCION:">
+      <Text layoutX="45.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIRECCION:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="75.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DPTO:">
+      <Text layoutX="75.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DPTO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="75.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROV:">
+      <Text layoutX="75.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROV:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="48.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TELEFONO:">
+      <Text layoutX="48.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TELEFONO:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="73.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMAIL:">
+      <Text layoutX="73.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMAIL:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="32.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PERMANENTE:">
+      <Text layoutX="32.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PERMANENTE:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <Text layoutX="79.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIST:">
+      <Text layoutX="79.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIST:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
-      <TextField fx:id="tfNumero" layoutX="130.0" layoutY="56.0" prefHeight="26.0" prefWidth="149.0" />
-      <TextField fx:id="tfNombre" layoutX="130.0" layoutY="87.0" prefHeight="25.0" prefWidth="352.0" />
-      <DatePicker fx:id="dpFecha" layoutX="130.0" layoutY="117.0" />
-      <TextField fx:id="tfDireccion" layoutX="130.0" layoutY="179.0" prefHeight="25.0" prefWidth="352.0" />
-      <TextField fx:id="tfTelefono" layoutX="130.0" layoutY="303.0" />
-      <TextField fx:id="tfEmail" layoutX="130.0" layoutY="337.0" prefHeight="25.0" prefWidth="352.0" />
-      <CheckBox fx:id="chbPermanente" layoutX="130.0" layoutY="372.0" mnemonicParsing="false" />
+      <TextField fx:id="tfNumero" layoutX="130.0" layoutY="22.0" prefHeight="26.0" prefWidth="149.0" />
+      <TextField fx:id="tfNombre" layoutX="130.0" layoutY="59.0" prefHeight="25.0" prefWidth="352.0" />
+      <DatePicker fx:id="dpFecha" layoutX="130.0" layoutY="99.0" />
+      <TextField fx:id="tfDireccion" layoutX="130.0" layoutY="168.0" prefHeight="25.0" prefWidth="352.0" />
+      <TextField fx:id="tfTelefono" layoutX="130.0" layoutY="320.0" />
+      <TextField fx:id="tfEmail" layoutX="130.0" layoutY="357.0" prefHeight="25.0" prefWidth="352.0" />
+      <CheckBox fx:id="chbPermanente" layoutX="130.0" layoutY="398.0" mnemonicParsing="false" />
       <TableView fx:id="tvTerapeutas" layoutX="516.0" layoutY="41.0" prefHeight="237.0" prefWidth="522.0" />
       <ComboBox fx:id="cbBuscar" layoutX="516.0" layoutY="284.0" prefHeight="25.0" prefWidth="97.0" />
       <TextField fx:id="tfBuscar" layoutX="621.0" layoutY="284.0" onKeyTyped="#cargarTerapeutasBusqueda" prefHeight="25.0" prefWidth="418.0" />
-      <Button fx:id="btnRegistrar" layoutX="245.0" layoutY="408.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" prefHeight="25.0" prefWidth="119.0" text="Registrar">
+      <Button fx:id="btnRegistrar" layoutX="190.0" layoutY="433.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" prefHeight="25.0" prefWidth="119.0" text="Registrar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelar" disable="true" layoutX="402.0" layoutY="408.0" mnemonicParsing="false" onAction="#btnCancelarOnAction" text="Cancelar">
+      <Button fx:id="btnCancelar" disable="true" layoutX="347.0" layoutY="433.0" mnemonicParsing="false" onAction="#btnCancelarOnAction" text="Cancelar">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Line endX="951.0" layoutX="112.0" layoutY="476.0" startX="-100.0" />
-      <RadioButton fx:id="rbMasculino" layoutX="130.0" layoutY="149.0" mnemonicParsing="false" text="Masculino">
+      <RadioButton fx:id="rbMasculino" layoutX="130.0" layoutY="138.0" mnemonicParsing="false" text="Masculino">
          <font>
             <Font size="15.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbFemenino" layoutX="248.0" layoutY="149.0" mnemonicParsing="false" text="Femenino">
+      <RadioButton fx:id="rbFemenino" layoutX="248.0" layoutY="138.0" mnemonicParsing="false" text="Femenino">
          <font>
             <Font size="15.0" />
          </font>
       </RadioButton>
-      <ChoiceBox fx:id="chbDpto" layoutX="130.0" layoutY="208.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="chbProv" layoutX="130.0" layoutY="239.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="chbDist" layoutX="130.0" layoutY="271.0" prefWidth="150.0" />
-      <Button fx:id="btnAtras" disable="true" layoutX="48.0" layoutY="501.0" mnemonicParsing="false" onAction="#irAtras" prefHeight="40.0" prefWidth="44.0" />
-      <Button fx:id="btnSiguiente" layoutX="95.0" layoutY="501.0" mnemonicParsing="false" onAction="#irAdelante" prefHeight="40.0" prefWidth="44.0" />
-      <Button fx:id="btnNuevo" layoutX="145.0" layoutY="501.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" prefHeight="40.0" prefWidth="36.0" />
-      <Button layoutX="183.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="44.0" />
-      <Button layoutX="232.0" layoutY="501.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="39.0" />
-      <Button fx:id="btnBuscar" layoutX="276.0" layoutY="501.0" mnemonicParsing="false" onAction="#buscar" prefHeight="40.0" prefWidth="39.0" />
-      <Button layoutX="320.0" layoutY="502.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="51.0" />
-      <Button layoutX="376.0" layoutY="503.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="45.0" />
-      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="56.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/flecha-izquierda.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="106.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/flecha-correcta.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="151.0" layoutY="508.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/documento.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="191.0" layoutY="508.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/hojas.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="237.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/tacho.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="281.0" layoutY="508.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/buscar.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="333.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/impresora.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="387.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/cerrar.png" />
-         </image>
-      </ImageView>
+      <ChoiceBox fx:id="chbDpto" layoutX="130.0" layoutY="206.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="chbProv" layoutX="130.0" layoutY="245.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="chbDist" layoutX="130.0" layoutY="282.0" prefWidth="150.0" />
+      <Pane layoutX="1.0" layoutY="478.0" prefHeight="96.0" prefWidth="1064.0" style="-fx-background-color: #8CD58E;">
+         <children>
+            <Button fx:id="btnAtras" disable="true" layoutX="23.0" layoutY="17.0" mnemonicParsing="false" onAction="#irAtras" prefHeight="62.0" prefWidth="77.0" />
+            <Button fx:id="btnSiguiente" layoutX="107.0" layoutY="17.0" mnemonicParsing="false" onAction="#irAdelante" prefHeight="62.0" prefWidth="77.0" />
+            <Button fx:id="btnNuevo" layoutX="188.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnRegistrarOnAction" prefHeight="62.0" prefWidth="67.0" />
+            <Button layoutX="260.0" layoutY="17.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="65.0" />
+            <Button layoutX="329.0" layoutY="17.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="67.0" />
+            <Button fx:id="btnBuscar" layoutX="401.0" layoutY="16.0" mnemonicParsing="false" onAction="#buscar" prefHeight="62.0" prefWidth="67.0" />
+            <Button layoutX="472.0" layoutY="15.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="67.0" />
+            <Button layoutX="543.0" layoutY="15.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="72.0" />
+            <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="49.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/flecha-izquierda.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="133.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/flecha-correcta.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="210.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/documento.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="278.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/hojas.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="350.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/tacho.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="422.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/buscar.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="493.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/impresora.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="36.0" layoutX="567.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/cerrar.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

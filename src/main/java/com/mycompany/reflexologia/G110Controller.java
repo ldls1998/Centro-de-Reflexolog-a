@@ -640,6 +640,18 @@ public class G110Controller implements Initializable {
         cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
 
     }
+     
+    @FXML
+    private void visita(ActionEvent event) throws IOException {
+        
+        cargarScene cargarScene = new cargarScene();
+
+        String scene_name = "Visita.fxml";
+        String titulo = "Datos Visita";
+
+        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
+
+    }
 
     @FXML
     private void buscar(ActionEvent event) {
