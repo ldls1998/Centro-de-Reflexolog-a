@@ -336,9 +336,32 @@ public class G210Controller implements Initializable {
 
         });
 
-        TableColumn citaColumn = new TableColumn<>("Cita");
-        citaColumn.setCellValueFactory(new PropertyValueFactory<>("citaBool"));
-        citaColumn.setCellFactory(CheckBoxTableCell.forTableColumn(citaColumn));
+//        TableColumn citaColumn = new TableColumn<>("Cita");
+//        citaColumn.setCellValueFactory(new PropertyValueFactory<>("citaBool"));
+//        citaColumn.setCellFactory(CheckBoxTableCell.forTableColumn(citaColumn));
+        TableColumn<Cita_Paciente, Boolean> citaColumn = new TableColumn<Cita_Paciente, Boolean>("Cita");
+        citaColumn.setCellValueFactory(new PropertyValueFactory<Cita_Paciente, Boolean>("citaBool"));
+        citaColumn.setCellFactory(column -> new CheckBoxTableCell());
+//        citaColumn.setCellFactory(column -> new TableCell<Cita_Paciente, Boolean>() {
+//            private final CheckBox checkBox = new CheckBox();
+//
+//            {
+//                checkBox.setOnAction(event -> {
+//                    Cita_Paciente item = (Cita_Paciente) getTableRow().getItem();
+//                    item.setCitaBool(checkBox.isSelected());
+//                });
+//            }
+//        });
+
+        citaColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, Boolean>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, Boolean> event
+            ) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setCitaBool(event.getNewValue());
+            }
+        }
+        );
 
         TableColumn ctodoColumn = new TableColumn<>("Ctodo");
         ctodoColumn.setCellValueFactory(new PropertyValueFactory<>("ctodo"));
@@ -365,13 +388,31 @@ public class G210Controller implements Initializable {
         });
 
         TableColumn opColumn = new TableColumn("Op");
-        obsColumn.setCellValueFactory(new PropertyValueFactory<>("op"));
+        opColumn.setCellValueFactory(new PropertyValueFactory<>("op"));
+        opColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        opColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, String>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, String> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setOp(event.getNewValue());
+            }
+
+        });
 
         TableColumn numColumn = new TableColumn("#");
-        obsColumn.setCellValueFactory(new PropertyValueFactory<>("num"));
+        numColumn.setCellValueFactory(new PropertyValueFactory<>("num"));
+        numColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        numColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, Integer>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, Integer> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setNum(event.getNewValue());
+            }
+
+        });
 
         TableColumn horaColumn = new TableColumn("Hora");
-        obsColumn.setCellValueFactory(new PropertyValueFactory<>("hora"));
+        horaColumn.setCellValueFactory(new PropertyValueFactory<Cita_Paciente, String>("hora"));
 
         tvCitasyPacientes.setItems(cita_paciente);
 
@@ -573,21 +614,21 @@ public class G210Controller implements Initializable {
             citaModificar.setCodigo_paciente(tvCitasyPacientes.getItems().get(index).getCodigo_paciente());
 
             citaModificar.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
-            
+
             citaModificar.setCtodo(tvCitasyPacientes.getItems().get(index).isCtodo());
-            
+
             citaModificar.setSde(tvCitasyPacientes.getItems().get(index).isSde());
-            
+
             citaModificar.setObserva(tvCitasyPacientes.getItems().get(index).getObserva());
-            
+
             citaModificar.setCitaBool(tvCitasyPacientes.getItems().get(index).isCitaBool());
-            
+
             citaModificar.setHora(tvCitasyPacientes.getItems().get(index).getHora());
-            
+
             citaModificar.setSaldo(tvCitasyPacientes.getItems().get(index).isSaldo());
-            
+
             citaModificar.setOp(tvCitasyPacientes.getItems().get(index).getOp());
-            
+
             citaModificar.setNum(tvCitasyPacientes.getItems().get(index).getNum());
 
             this.citaDAO.editar(citaModificar);

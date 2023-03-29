@@ -393,4 +393,41 @@ public class Cita_Paciente {
         this.num = num;
     }
     
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cita_Paciente{");
+        sb.append("cita=").append(cita);
+        sb.append(", paciente=").append(paciente);
+        sb.append(", registro=").append(registro);
+        sb.append(", nombre=").append(nombre);
+        sb.append(", codigo_paciente=").append(codigo_paciente);
+        sb.append(", fecha_cita=").append(fecha_cita);
+        sb.append(", importe=").append(importe);
+        sb.append(", fecha_nacimiento=").append(fecha_nacimiento);
+        sb.append(", sexo=").append(sexo);
+        sb.append(", direccion=").append(direccion);
+        sb.append(", prov=").append(prov);
+        sb.append(", dpto=").append(dpto);
+        sb.append(", dist=").append(dist);
+        sb.append(", testimonio=").append(testimonio);
+        sb.append(", resultado=").append(resultado);
+        sb.append(", observacion=").append(observacion);
+        sb.append(", ocupacion=").append(ocupacion);
+        sb.append(", telefono=").append(telefono);
+        sb.append(", email=").append(email);
+        sb.append(", especial=").append(especial);
+        sb.append(", ctodo=").append(ctodo);
+        sb.append(", sde=").append(sde);
+        sb.append(", observa=").append(observa);
+        sb.append(", citaBool=").append(citaBool);
+        sb.append(", hora=").append(hora);
+        sb.append(", saldo=").append(saldo);
+        sb.append(", op=").append(op);
+        sb.append(", num=").append(num);
+        sb.append('}');
+        return sb.toString();
+    }
+    
 }
