@@ -77,13 +77,20 @@ public class Cita {
     public Cita() {
     }
 
-    public Cita(int registro, int codigo_paciente, Date fecha_cita, float importe) {
+    public Cita(int registro, int codigo_paciente, Date fecha_cita, float importe, boolean ctodo, boolean sde, String observa, boolean citaBool, String hora, boolean saldo, String op, int num) {
         this.registro = registro;
         this.codigo_paciente = codigo_paciente;
         this.fecha_cita = fecha_cita;
         this.importe = importe;
-        
-    }
+        this.ctodo = ctodo;
+        this.sde = sde;
+        this.observa = observa;
+        this.citaBool = citaBool;
+        this.hora = hora;
+        this.saldo = saldo;
+        this.op = op;
+        this.num = num;
+    }    
 
     public int getRegistro() {
         return registro;

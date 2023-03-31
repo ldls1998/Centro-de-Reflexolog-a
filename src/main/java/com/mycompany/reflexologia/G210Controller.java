@@ -40,6 +40,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
@@ -59,6 +60,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.FloatStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import modelo.Cita;
 import modelo.Cita_Paciente;
 import modelo.DataSingleton;
@@ -341,7 +343,25 @@ public class G210Controller implements Initializable {
 //        citaColumn.setCellFactory(CheckBoxTableCell.forTableColumn(citaColumn));
         TableColumn<Cita_Paciente, Boolean> citaColumn = new TableColumn<Cita_Paciente, Boolean>("Cita");
         citaColumn.setCellValueFactory(new PropertyValueFactory<Cita_Paciente, Boolean>("citaBool"));
-        citaColumn.setCellFactory(column -> new CheckBoxTableCell());
+        citaColumn.setCellFactory(column -> new CheckBoxTableCell() {
+
+            public void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    Cita_Paciente obj = (Cita_Paciente) getTableView().getItems().get(getIndex());
+                    setGraphic(null);
+                    setText(null);
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.setSelected(item);
+                    checkBox.setOnAction(event -> {
+                        obj.setCitaBool(checkBox.isSelected());
+                    });
+                    setGraphic(checkBox);
+                } else {
+                    setGraphic(null);
+                }
+            }
+        });
 //        citaColumn.setCellFactory(column -> new TableCell<Cita_Paciente, Boolean>() {
 //            private final CheckBox checkBox = new CheckBox();
 //
