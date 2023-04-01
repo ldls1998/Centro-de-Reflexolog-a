@@ -607,9 +607,17 @@ public class G210Controller implements Initializable {
             this.nueva_cita_paciente.setPaciente(
                     this.pacientedao.buscar(p.getCodigo()));
             this.nueva_cita_paciente.setHora(horaModificar);
+            this.nueva_cita_paciente.setOp(tvCitasyPacientes.getItems().get(index).getOp());
+            this.nueva_cita_paciente.setNum(tvCitasyPacientes.getItems().get(index).getNum());
+            this.nueva_cita_paciente.setObserva(tvCitasyPacientes.getItems().get(index).getObserva());
+            this.nueva_cita_paciente.setSaldo(tvCitasyPacientes.getItems().get(index).isSaldo());
+            this.nueva_cita_paciente.setCtodo(tvCitasyPacientes.getItems().get(index).isCtodo());
+            this.nueva_cita_paciente.setSde(tvCitasyPacientes.getItems().get(index).isSde());
+            this.nueva_cita_paciente.setCitaBool(tvCitasyPacientes.getItems().get(index).isCitaBool());
         }
 
         float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
+        String horaModificar = tvCitasyPacientes.getItems().get(index).getHora();
         Cita cita = new Cita();
         cita.setCodigo_paciente(tvCitasyPacientes.getItems().get(index).getCodigo_paciente());
 
@@ -628,10 +636,26 @@ public class G210Controller implements Initializable {
 
         cita.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
         cita.setImporte(importeCitaModificar);
+        cita.setHora(horaModificar);
+        cita.setOp(tvCitasyPacientes.getItems().get(index).getOp());
+        cita.setNum(tvCitasyPacientes.getItems().get(index).getNum());
+        cita.setObserva(tvCitasyPacientes.getItems().get(index).getObserva());
+        cita.setSaldo(tvCitasyPacientes.getItems().get(index).isSaldo());
+        cita.setCtodo(tvCitasyPacientes.getItems().get(index).isCtodo());
+        cita.setSde(tvCitasyPacientes.getItems().get(index).isSde());
+        cita.setCitaBool(tvCitasyPacientes.getItems().get(index).isCitaBool());
+
+        this.nueva_cita_paciente.setOp(tvCitasyPacientes.getItems().get(index).getOp());
+        this.nueva_cita_paciente.setNum(tvCitasyPacientes.getItems().get(index).getNum());
+        this.nueva_cita_paciente.setObserva(tvCitasyPacientes.getItems().get(index).getObserva());
 
         this.nueva_cita_paciente.setFecha_cita(java.sql.Date.valueOf(dpFecha.getValue()));
         this.nueva_cita_paciente.setCodigo_paciente(tvCitasyPacientes.getItems().get(index).getCodigo_paciente());
         this.nueva_cita_paciente.setImporte(importeCitaModificar);
+        this.nueva_cita_paciente.setSaldo(tvCitasyPacientes.getItems().get(index).isSaldo());
+        this.nueva_cita_paciente.setCtodo(tvCitasyPacientes.getItems().get(index).isCtodo());
+        this.nueva_cita_paciente.setSde(tvCitasyPacientes.getItems().get(index).isSde());
+        this.nueva_cita_paciente.setCitaBool(tvCitasyPacientes.getItems().get(index).isCitaBool());
 
         this.nueva_cita_paciente.setPaciente(
                 this.pacientedao.buscar(tvCitasyPacientes.getItems().get(index).getCodigo_paciente()));
