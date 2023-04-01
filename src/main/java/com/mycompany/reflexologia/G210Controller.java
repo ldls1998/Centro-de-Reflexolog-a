@@ -50,6 +50,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -101,6 +102,21 @@ public class G210Controller implements Initializable {
     private ContextMenu cmOpciones;
 
     private Cita_PacienteDAO cita_pacienteDAO;
+
+    private final ObservableList<String> horas = FXCollections.observableArrayList(
+            "07:00-07:30",
+            "07:30-08:00",
+            "08:00-08:30",
+            "08:30-09:00",
+            "09:00-09:30",
+            "09:30-10:00",
+            "10:00-10:30",
+            "10:30-11:00",
+            "11:00-11:30",
+            "11:30-12:00",
+            "12:00-12:30",
+            "12:30-13:00"
+    );
 
     private static final Map<String, Integer> monthMap = new HashMap<>();
 
@@ -433,6 +449,14 @@ public class G210Controller implements Initializable {
 
         TableColumn horaColumn = new TableColumn("Hora");
         horaColumn.setCellValueFactory(new PropertyValueFactory<Cita_Paciente, String>("hora"));
+        horaColumn.setCellFactory(ComboBoxTableCell.forTableColumn(horas));
+        horaColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, String>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, String> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setHora(event.getNewValue());
+            }
+        });
 
         tvCitasyPacientes.setItems(cita_paciente);
 
@@ -489,7 +513,8 @@ public class G210Controller implements Initializable {
     }
 
     @FXML
-    void btnLimpiarFechas(ActionEvent event) {
+    void btnLimpiarFechas(ActionEvent event
+    ) {
 
         dpFecha.setValue(null);
         cbAnio.setValue("Año");
@@ -499,7 +524,8 @@ public class G210Controller implements Initializable {
     }
 
     @FXML
-    private void btnCrearCita(ActionEvent event) {
+    private void btnCrearCita(ActionEvent event
+    ) {
 
         PacienteSingleton.getInstance().setData(null);
 
@@ -527,7 +553,8 @@ public class G210Controller implements Initializable {
     }
 
     @FXML
-    private void btnGuardarCita(ActionEvent event) {
+    private void btnGuardarCita(ActionEvent event
+    ) {
 
         Paciente p = PacienteSingleton.getInstance().getData();
 
@@ -548,6 +575,7 @@ public class G210Controller implements Initializable {
 
         if (p != null) {
             float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();
+            String horaModificar = tvCitasyPacientes.getItems().get(index).getHora();
 
             Cita cita = new Cita();
             cita.setCodigo_paciente(p.getCodigo());
@@ -578,6 +606,7 @@ public class G210Controller implements Initializable {
 
             this.nueva_cita_paciente.setPaciente(
                     this.pacientedao.buscar(p.getCodigo()));
+            this.nueva_cita_paciente.setHora(horaModificar);
         }
 
         float importeCitaModificar = tvCitasyPacientes.getItems().get(index).getImporte();

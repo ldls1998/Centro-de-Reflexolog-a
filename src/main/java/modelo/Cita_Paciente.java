@@ -362,7 +362,7 @@ public class Cita_Paciente {
     }
 
     public void setHora(String hora) {
-        this.setHora(hora);
+        this.cita.setHora(hora);
         this.hora = hora;
     }
 

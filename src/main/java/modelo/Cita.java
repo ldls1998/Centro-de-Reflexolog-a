@@ -6,6 +6,8 @@
 package modelo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,6 +27,7 @@ public class Cita {
     private boolean saldo;
     private String op;
     private int num;
+    private List<String> horas =  new ArrayList<>();
 
     public boolean isCtodo() {
         return ctodo;
@@ -90,6 +93,18 @@ public class Cita {
         this.saldo = saldo;
         this.op = op;
         this.num = num;
+        this.horas.add("07:00-07:30");
+        this.horas.add("07:30-08:00");
+        this.horas.add("08:00-08:30");
+        this.horas.add("08:30-09:00");
+        this.horas.add("09:00-09:30");
+        this.horas.add("09:30-10:00");
+        this.horas.add("10:00-10:30");
+        this.horas.add("10:30-11:00");
+        this.horas.add("11:00-11:30");
+        this.horas.add("11:30-12:00");
+        this.horas.add("12:00-12:30");
+        this.horas.add("12:30-01:00");
     }    
 
     public int getRegistro() {
@@ -138,6 +153,10 @@ public class Cita {
 
     public void setNum(int num) {
         this.num = num;
+    }
+    
+    public List getHoras() {
+        return this.horas;
     }
 
     @Override
