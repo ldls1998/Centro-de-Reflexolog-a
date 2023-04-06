@@ -14,6 +14,7 @@ import java.sql.Date;
 public class Cita {
     
     private int registro;
+    private String hora;
     private int codigo_paciente;
     private Date fecha_cita;
     private float importe;
@@ -21,10 +22,10 @@ public class Cita {
     private boolean sde;
     private String observa;
     private boolean citaBool;
-    private String hora;
     private boolean saldo;
     private String op;
     private int num;
+    private String tipo;
 
     public boolean isCtodo() {
         return ctodo;
@@ -58,6 +59,14 @@ public class Cita {
         this.citaBool = citaBool;
     }
 
+    public boolean isSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(boolean saldo) {
+        this.saldo = saldo;
+    }
+
     public String getHora() {
         return hora;
     }
@@ -66,12 +75,12 @@ public class Cita {
         this.hora = hora;
     }
 
-    public boolean isSaldo() {
-        return saldo;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setSaldo(boolean saldo) {
-        this.saldo = saldo;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Cita() {

@@ -193,24 +193,32 @@ public class CitaDAO {
 
         try {
 
-            String select_all = "INSERT INTO citas (`fecha_cita`, `importe`, `pacienteID`, `ctodo`, `sde`, "
-                    + "`observa`, `citaBool`, `hora`, `saldo`, `op`, `num`)"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String select_all = "INSERT INTO citas (`fecha_cita`, `tipo`,`importe`, `pacienteID`, `ctodo`, `sde`, "
+                    + "`observa`, `cita_bool`, `hora`, `saldo`, `op`, `num`)"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
             Connection conexion = this.conexion.getConnection();
 
             PreparedStatement sentencia = conexion.prepareStatement(select_all);
-
+            
+            int citas;
+            if(cita.isCitaBool == true){
+                citas = 0;
+             }
+            else{
+                citas=1;
+           }
             sentencia.setDate(1, cita.getFecha_cita());
-            sentencia.setFloat(2, cita.getImporte());
-            sentencia.setInt(3, cita.getCodigo_paciente());
-            sentencia.setBoolean(4, cita.isCtodo());
-            sentencia.setBoolean(5, cita.isSde());
-            sentencia.setString(6, cita.getObserva());
-            sentencia.setBoolean(7, cita.isCitaBool());
-            sentencia.setString(8, cita.getHora());
-            sentencia.setBoolean(9, cita.isSaldo());
-            sentencia.setString(10, cita.getOp());
-            sentencia.setInt(11, cita.getNum());
+             sentencia.setString(2, cita.getTipo());
+            sentencia.setFloat(3, cita.getImporte());
+            sentencia.setInt(4, cita.getCodigo_paciente());
+            sentencia.setBoolean(5, cita.isCtodo());
+            sentencia.setBoolean(6, cita.isSde());
+            sentencia.setString(7, cita.getObserva());
+            sentencia.setInt(8, cita.isCitaBool());
+            sentencia.setString(9, cita.getHora());
+            sentencia.setBoolean(10, cita.isSaldo());
+            sentencia.setString(11, cita.getOp());
+            sentencia.setInt(12, cita.getNum());
 
             sentencia.execute();
 

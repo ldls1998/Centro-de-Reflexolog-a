@@ -14,7 +14,6 @@ import java.sql.Date;
 public class Visita {
     //detalle de visita
     private int pacienteID;
-    private int codigo;
     private String diag_ext;
     private String medicamentos;
     private String operaciones;
@@ -26,6 +25,7 @@ public class Visita {
     private Date fecha_ini;
     private float peso_fin;
     private Date fecha_fin;
+    private float talla;
     private String diagnostico1;
     private String diagnostico2;
     private String diagnostico3;
@@ -36,8 +36,19 @@ public class Visita {
     private Boolean testimonio;
     private String resultado;
     private String observacion;
-
+    
+    private int nvisitas;
+    private int ftterapeuta;
+    
     public Visita() {
+    }
+
+    public int getFtterapeuta() {
+        return ftterapeuta;
+    }
+
+    public void setFtterapeuta(int ftterapeuta) {
+        this.ftterapeuta = ftterapeuta;
     }
 
     public int getPacienteID() {
@@ -48,13 +59,16 @@ public class Visita {
         this.pacienteID = pacienteID;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getNvisitas() {
+        return nvisitas;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setNvisitas(int nvisitas) {
+        this.nvisitas = nvisitas;
     }
+    
+    
+
 
     public String getDiag_ext() {
         return diag_ext;
@@ -70,6 +84,14 @@ public class Visita {
 
     public void setMedicamentos(String medicamentos) {
         this.medicamentos = medicamentos;
+    }
+
+    public float getTalla() {
+        return talla;
+    }
+
+    public void setTalla(float talla) {
+        this.talla = talla;
     }
 
     public String getOperaciones() {

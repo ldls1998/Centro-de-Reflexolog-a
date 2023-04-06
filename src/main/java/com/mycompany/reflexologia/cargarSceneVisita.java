@@ -10,29 +10,40 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import modelo.Visita;
 
 /**
  *
  * @author Vlik35
  */
 public class cargarSceneVisita {
+
+    public Scene loadScene(String scene_name, int width, int height, String title, boolean resizable, boolean onTop, String parametro, String parametro2, Visita visita) throws IOException {
+
+    // Cargar la vista desde el archivo FXML
+    FXMLLoader loader = new FXMLLoader(getClass().getResource(scene_name));
+    Parent root = loader.load();
+
+    // Establecer los datos de usuario en el nodo raíz de la vista
+    root.setUserData(parametro);
+    root.setUserData(parametro2);
+    root.setUserData(visita);
     
-    public void loadScene(String scene_name, int width, int height, String title, boolean resizable, boolean onTop) throws IOException {
+    // Obtener el controlador de la vista cargada y establecer el valor del parámetro en la etiqueta
+    VisitaController controller = loader.getController();
+    controller.setParametro(parametro, parametro2, visita);
 
-        Parent root = FXMLLoader.load(getClass().getResource(scene_name));
+    // Crear la escena con la raíz de la jerarquía de nodos como raíz
+    Scene scene = new Scene(root, width, height);
 
-        Scene scene_show = new Scene(root);
-        Stage new_stage = new Stage();
-        // Creamos la escena con la raíz de la jerarquía de nodos como raíz
-        new_stage.setScene(scene_show);
-        new_stage.setWidth(width);
-        new_stage.setHeight(height);
-        new_stage.setTitle(title);
-        new_stage.centerOnScreen();
-        new_stage.setResizable(resizable);
-        new_stage.setAlwaysOnTop(onTop);
-        new_stage.show();
+    // Crear una nueva ventana con la escena
+    Stage new_stage = new Stage();
+    new_stage.setScene(scene);
+    new_stage.setTitle(title);
+    new_stage.setResizable(resizable);
+    new_stage.setAlwaysOnTop(onTop);
 
-    }
-    
+    return scene;
+}
+
 }

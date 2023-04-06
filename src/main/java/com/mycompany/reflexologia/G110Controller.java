@@ -9,6 +9,7 @@ import conexion.ConexionMySQL;
 import dao.G110DAO;
 import dao.PacienteDAO;
 import dao.UbicacionDAO;
+import dao.VisitaDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,8 @@ import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
 import modelo.Paciente;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -40,6 +43,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import modelo.Visita;
 
 /**
  * FXML Controller class
@@ -129,6 +133,8 @@ public class G110Controller implements Initializable {
     private ChoiceBox<String> chbProv;
     @FXML
     private ChoiceBox<String> chbDist;
+    
+    private VisitaDAO VisitaDAO;
 
     /**
      * Initializes the controller class.
@@ -137,6 +143,7 @@ public class G110Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         this.ubicacionDAO = new UbicacionDAO();
+         this.VisitaDAO = new VisitaDAO();
 
         List<String> departamentos = new ArrayList<>();
 
@@ -641,21 +648,31 @@ public class G110Controller implements Initializable {
 
     }
      
+    //mostrar datos de la visita
     @FXML
-    private void visita(ActionEvent event) throws IOException {
-        
-        cargarScene cargarScene = new cargarScene();
+private void visita(ActionEvent event) throws IOException {
+    // Obtener el valor del parámetro desde el TextField
+    
+    String parametro = txtDNICE.getText();
+    String parametro2 = txtNombre.getText();
+    // Cargar la nueva vista
+    cargarSceneVisita cargarScene = new cargarSceneVisita();
+    String scene_name = "Visita.fxml";
+    String titulo = "Datos Visita";
+   
+     Visita visita = this.VisitaDAO.buscarPorPacienteID(Integer.parseInt(parametro));
+     Scene scene = cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true, parametro, parametro2, visita);
 
-        String scene_name = "Visita.fxml";
-        String titulo = "Datos Visita";
-
-        cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true);
-
-    }
+    // Mostrar la nueva vista
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.setScene(scene);
+    stage.show();
+}
 
     @FXML
     private void buscar(ActionEvent event) {
 
     }
 
+    
 }

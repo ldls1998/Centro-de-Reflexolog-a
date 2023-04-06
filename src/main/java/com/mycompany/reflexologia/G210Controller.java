@@ -9,6 +9,7 @@ import dao.Cita_PacienteDAO;
 import dao.G110DAO;
 import dao.CitaDAO;
 import dao.PacienteDAO;
+import dao.VisitaDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -49,6 +50,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -64,6 +66,7 @@ import modelo.Cita_Paciente;
 import modelo.DataSingleton;
 import modelo.Paciente;
 import modelo.PacienteSingleton;
+import modelo.Visita;
 
 /**
  * FXML Controller class
@@ -93,7 +96,8 @@ public class G210Controller implements Initializable {
     private ComboBox<String> cbMes;
     @FXML
     private ComboBox<String> cbAnio;
-
+    
+    private VisitaDAO VisitaDAO;
     private CitaDAO citaDAO;
 
     private ContextMenu cmOpciones;
@@ -190,9 +194,41 @@ public class G210Controller implements Initializable {
 
         // MenuItem miEditar = new MenuItem("Editar");
         MenuItem miEliminar = new MenuItem("Eliminar");
+         MenuItem miHistoria = new MenuItem("Historia");
+
 
         cmOpciones.getItems().addAll(miEliminar);
+        cmOpciones.getItems().addAll(miHistoria);
 
+        miHistoria.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+            
+            int index = tvCitasyPacientes.getSelectionModel().getSelectedIndex();
+            int paciente = tvCitasyPacientes.getItems().get(index).getCodigo_paciente();
+
+            cargarSceneVisita cargarScene = new cargarSceneVisita();
+            String scene_name = "Visita.fxml";
+            String titulo = "Datos Visita";
+            VisitaDAO = new VisitaDAO();
+            Visita visita = VisitaDAO.buscarPorPacienteID(paciente);
+            String cod = String.valueOf(paciente);
+            Scene scene = null;
+            try {
+                scene = cargarScene.loadScene(scene_name, 1080, 620, titulo, false, true, cod, "A", visita);
+            } catch (IOException ex) {
+                Logger.getLogger(ResulConsulta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // Mostrar la nueva vista
+            Stage stage = (Stage) miHistoria.getParentPopup().getOwnerWindow();
+            stage.setScene(scene);
+            stage.show();
+
+            }
+
+        });
+        
         miEliminar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
@@ -336,12 +372,26 @@ public class G210Controller implements Initializable {
 
         });
 
-//        TableColumn citaColumn = new TableColumn<>("Cita");
-//        citaColumn.setCellValueFactory(new PropertyValueFactory<>("citaBool"));
-//        citaColumn.setCellFactory(CheckBoxTableCell.forTableColumn(citaColumn));
-        TableColumn<Cita_Paciente, Boolean> citaColumn = new TableColumn<Cita_Paciente, Boolean>("Cita");
-        citaColumn.setCellValueFactory(new PropertyValueFactory<Cita_Paciente, Boolean>("citaBool"));
-        citaColumn.setCellFactory(column -> new CheckBoxTableCell());
+        //        TableColumn citaColumn = new TableColumn<>("Cita");
+        //        citaColumn.setCellValueFactory(new PropertyValueFactory<>("citaBool"));
+        //        citaColumn.setCellFactory(CheckBoxTableCell.forTableColumn(citaColumn));
+
+      TableColumn<Cita_Paciente, Boolean> citaColumn = new TableColumn<>("Cita");
+        citaColumn.setCellValueFactory(new PropertyValueFactory<>("citaBool"));
+        citaColumn.setCellFactory(CheckBoxTableCell.forTableColumn(citaColumn));
+        citaColumn.setEditable(true);
+
+        citaColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, Boolean>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, Boolean> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setCitaBool(event.getNewValue());
+                System.out.println(cp_2.isCitaBool());
+            }
+        });
+
+
+
 //        citaColumn.setCellFactory(column -> new TableCell<Cita_Paciente, Boolean>() {
 //            private final CheckBox checkBox = new CheckBox();
 //
@@ -353,23 +403,34 @@ public class G210Controller implements Initializable {
 //            }
 //        });
 
-        citaColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, Boolean>>() {
+
+     
+        TableColumn<Cita_Paciente, Boolean> checkboxColumn = new TableColumn<>("Ctodo");
+        checkboxColumn.setCellValueFactory(new PropertyValueFactory<>("ctodo"));
+        checkboxColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkboxColumn));
+        checkboxColumn.setEditable(true);
+
+        checkboxColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, Boolean>>() {
             @Override
-            public void handle(CellEditEvent<Cita_Paciente, Boolean> event
-            ) {
+            public void handle(CellEditEvent<Cita_Paciente, Boolean> event) {
                 Cita_Paciente cp_2 = event.getRowValue();
-                cp_2.setCitaBool(event.getNewValue());
+                cp_2.setCtodo(event.getNewValue());
             }
-        }
-        );
+        });
 
-        TableColumn ctodoColumn = new TableColumn<>("Ctodo");
-        ctodoColumn.setCellValueFactory(new PropertyValueFactory<>("ctodo"));
-        ctodoColumn.setCellFactory(CheckBoxTableCell.forTableColumn(ctodoColumn));
 
-        TableColumn adeColumn = new TableColumn<>("Ade");
+       TableColumn<Cita_Paciente, Boolean> adeColumn = new TableColumn<>("Ade");
         adeColumn.setCellValueFactory(new PropertyValueFactory<>("sde"));
         adeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(adeColumn));
+        adeColumn.setEditable(true);
+
+        adeColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, Boolean>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, Boolean> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setSde(event.getNewValue());
+            }
+        });
 
         TableColumn saldoColumn = new TableColumn<>("Saldo");
         saldoColumn.setCellValueFactory(new PropertyValueFactory<>("saldo"));
@@ -401,7 +462,7 @@ public class G210Controller implements Initializable {
 
         TableColumn numColumn = new TableColumn("#");
         numColumn.setCellValueFactory(new PropertyValueFactory<>("num"));
-        numColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+     //   numColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         numColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, Integer>>() {
             @Override
             public void handle(CellEditEvent<Cita_Paciente, Integer> event) {
@@ -412,13 +473,33 @@ public class G210Controller implements Initializable {
         });
 
         TableColumn horaColumn = new TableColumn("Hora");
-        horaColumn.setCellValueFactory(new PropertyValueFactory<Cita_Paciente, String>("hora"));
+        ObservableList<String> horasList = FXCollections.observableArrayList();
+
+        // Agregar las horas desde las 7AM hasta las 6PM a la lista
+        for (int i = 7; i <= 18; i++) {
+            horasList.add(String.format("%02d:00", i));
+        }
+
+        // Crear la columna y setear la celda de fábrica
+        horaColumn.setCellValueFactory(new PropertyValueFactory("hora"));
+        horaColumn.setCellFactory(ComboBoxTableCell.forTableColumn(horasList));
+        horaColumn.setOnEditCommit(new EventHandler<CellEditEvent<Cita_Paciente, String>>() {
+            @Override
+            public void handle(CellEditEvent<Cita_Paciente, String> event) {
+                Cita_Paciente cp_2 = event.getRowValue();
+                cp_2.setHora(event.getNewValue());
+            }
+        });
+
+        
+        
+        
 
         tvCitasyPacientes.setItems(cita_paciente);
 
         tvCitasyPacientes.getColumns()
                 .addAll(registroColumn, horaColumn, codigoColumn, nombreColumn, fechaColumn,
-                        citaColumn, ctodoColumn, adeColumn, importeColumn,
+                        citaColumn,checkboxColumn, adeColumn, importeColumn,
                         opColumn, saldoColumn, obsColumn, numColumn);
 
     }
@@ -470,12 +551,10 @@ public class G210Controller implements Initializable {
 
     @FXML
     void btnLimpiarFechas(ActionEvent event) {
-
         dpFecha.setValue(null);
         cbAnio.setValue("Año");
         cbMes.setValue("Mes");
         btnConsultarCitas(event);
-
     }
 
     @FXML
@@ -646,6 +725,7 @@ public class G210Controller implements Initializable {
 
     }
 
+    
     public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())
