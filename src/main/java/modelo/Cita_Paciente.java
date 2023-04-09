@@ -41,6 +41,15 @@ public class Cita_Paciente {
     private boolean saldo;
     private String op;
     private int num;
+    private Boolean Social;
+
+    public Boolean getSocial() {
+        return Social;
+    }
+
+    public void setSocial(Boolean Social) {
+        this.Social = Social;
+    }
     
     
     
@@ -64,6 +73,7 @@ public class Cita_Paciente {
         this.saldo = this.cita.isSaldo();
         this.op = this.cita.getOp();
         this.num = this.cita.getNum();
+        this.Social = this.cita.isSocial();
     }
     
     public Cita_Paciente(Paciente paciente) {
@@ -114,6 +124,7 @@ public class Cita_Paciente {
         this.saldo = this.cita.isSaldo();
         this.op = this.cita.getOp();
         this.num = this.cita.getNum();
+        this.Social = this.cita.isSocial();
     }
 
     public Cita getCita() {
@@ -134,6 +145,8 @@ public class Cita_Paciente {
         this.saldo = this.cita.isSaldo();
         this.op = this.cita.getOp();
         this.num = this.cita.getNum();
+        this.Social = this.cita.isSocial();
+        
     }
 
     public Paciente getPaciente() {
@@ -362,7 +375,7 @@ public class Cita_Paciente {
     }
 
     public void setHora(String hora) {
-        this.setHora(hora);
+        this.cita.setHora(hora);
         this.hora = hora;
     }
 

@@ -6,6 +6,8 @@
 package modelo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,12 +22,18 @@ public class Cita {
     private float importe;
     private boolean ctodo;
     private boolean sde;
+    private boolean social;
+
+  
+    
     private String observa;
     private boolean citaBool;
     private boolean saldo;
     private String op;
     private int num;
     private String tipo;
+
+
 
     public boolean isCtodo() {
         return ctodo;
@@ -34,7 +42,15 @@ public class Cita {
     public void setCtodo(boolean ctodo) {
         this.ctodo = ctodo;
     }
+    
+    public boolean isSocial() {
+        return social;
+    }
 
+    public void setSocial(boolean social) {
+        this.social = social;
+    }
+    
     public boolean isSde() {
         return sde;
     }
@@ -86,13 +102,22 @@ public class Cita {
     public Cita() {
     }
 
-    public Cita(int registro, int codigo_paciente, Date fecha_cita, float importe) {
+    public Cita(int registro, int codigo_paciente, Date fecha_cita, float importe, boolean ctodo, boolean sde, String observa, boolean citaBool, String hora, boolean saldo, String op, int num, boolean social) {
         this.registro = registro;
         this.codigo_paciente = codigo_paciente;
         this.fecha_cita = fecha_cita;
         this.importe = importe;
-        
-    }
+        this.ctodo = ctodo;
+        this.sde = sde;
+        this.observa = observa;
+        this.citaBool = citaBool;
+        this.hora = hora;
+        this.saldo = saldo;
+        this.op = op;
+        this.num = num;
+        this.social = social;
+
+    }    
 
     public int getRegistro() {
         return registro;
@@ -141,6 +166,8 @@ public class Cita {
     public void setNum(int num) {
         this.num = num;
     }
+    
+
 
     @Override
     public String toString() {
@@ -158,6 +185,7 @@ public class Cita {
         sb.append(", saldo=").append(saldo);
         sb.append(", op=").append(op);
         sb.append(", num=").append(num);
+        sb.append(", Social=").append(social);
         sb.append('}');
         return sb.toString();
     }

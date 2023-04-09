@@ -17,10 +17,6 @@ import modelo.Cita;
 import modelo.Paciente;
 import modelo.Cita_Paciente;
 
-/**
- *
- * @author Vlik35
- */
 public class CitaDAO {
 
     private ConexionMySQL conexion;
@@ -46,20 +42,56 @@ public class CitaDAO {
 
                 Cita cita = new Cita();
                 Paciente paciente = new Paciente();
+                
+                Boolean citas;
+               if(rs.getInt(8) == 1){
+                    citas=true;
+                }else{
+                   citas=false;
+               }
+               Boolean sde;
+               if(rs.getInt(6) == 1){
+                    sde=true;
+                }else{
+                   sde=false;
+               }
+               Boolean saldo;
+                 if(rs.getInt(10) == 1){
+                    saldo=true;
+                }else{
+                   saldo=false;
+               }
+               Boolean todo;
+                 if(rs.getInt(5) == 1){
+                    todo=true;
+                }else{
+                   todo=false;
+               }
+                 
+               Boolean social;
+               if(rs.getInt(14) == 1){
+                    social=true;
+                }
+               else{
+                   social=false;
+                  
+               }
+                
 
                 cita.setRegistro(rs.getInt(1));
                 cita.setFecha_cita(rs.getDate(2));
                 cita.setImporte(rs.getFloat(3));
                 cita.setCodigo_paciente(rs.getInt(4));
-                cita.setCtodo(rs.getBoolean(5));
-                cita.setSde(rs.getBoolean(6));
+                cita.setCtodo(todo);
+                cita.setSde(sde);
                 cita.setObserva(rs.getString(7));
-                cita.setCitaBool(rs.getBoolean(8));
+                cita.setCitaBool(citas);
                 cita.setHora(rs.getString(9));
-                cita.setSaldo(rs.getBoolean(10));
+                cita.setSaldo(saldo);
                 cita.setOp(rs.getString(11));
                 cita.setNum(rs.getInt(12));
-                
+                cita.setSocial(social);              
+
                 System.out.println(cita.toString());
 
                 String select_nombre = "SELECT * FROM paciente "
@@ -114,25 +146,64 @@ public class CitaDAO {
         try {
 
             String SQL = "UPDATE citas SET fecha_cita = ?, importe = ?, pacienteID = ?, ctodo = ?, sde = ?, "
-                    + "observa = ?, citaBool = ?, hora = ?, saldo = ?, op = ?, num = ? WHERE registro = ?;";
+                    + "observa = ?, cita_bool = ?, hora = ?, saldo = ?, op = ?, num = ?, social = ? WHERE registro = ?;";
 
             Connection conexion = this.conexion.getConnection();
 
             PreparedStatement sentencia = conexion.prepareStatement(SQL);
-
+             int citas;
+             
+            if(cita.isCitaBool() == true){
+                citas = 1;
+             }
+            else{
+                citas=0;
+           }
+            
+             int Ctodo;
+            if(cita.isCtodo() == true){
+                Ctodo = 1;
+             }
+            else{
+                Ctodo=0;
+           }
+            int sde;
+             if(cita.isSde() == true){
+                sde = 1;
+             }
+            else{
+                sde=0;
+           }
+             
+            int saldo;
+             if(cita.isSaldo() == true){
+                saldo = 1;
+             }
+            else{
+                saldo=0;
+           }
+             
+            int social;
+             if(cita.isSocial() == true){
+                social = 1;
+             }
+            else{
+                social=0;
+           }
             sentencia.setDate(1, (Date) cita.getFecha_cita());
             sentencia.setFloat(2, cita.getImporte());
             sentencia.setInt(3, cita.getCodigo_paciente());
-            sentencia.setBoolean(4, cita.isCtodo());
-            sentencia.setBoolean(5, cita.isSde());
+            sentencia.setInt(4, Ctodo);
+            sentencia.setInt(5, sde);
             sentencia.setString(6, cita.getObserva());
-            sentencia.setBoolean(7, cita.isCitaBool());
+            sentencia.setInt(7, citas);
             sentencia.setString(8, cita.getHora());
-            sentencia.setBoolean(9, cita.isSaldo());
+            sentencia.setInt(9, saldo);
             sentencia.setString(10, cita.getOp());
             sentencia.setInt(11, cita.getNum());
-            sentencia.setInt(12, cita.getRegistro());
-
+            sentencia.setInt(13, cita.getRegistro());
+            sentencia.setInt(12, social);
+            
             sentencia.executeUpdate();
 
             sentencia.close();
@@ -194,31 +265,65 @@ public class CitaDAO {
         try {
 
             String select_all = "INSERT INTO citas (`fecha_cita`, `tipo`,`importe`, `pacienteID`, `ctodo`, `sde`, "
-                    + "`observa`, `cita_bool`, `hora`, `saldo`, `op`, `num`)"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
+                    + "`observa`, `cita_bool`, `hora`, `saldo`, `op`, `num`, `social`)"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);";
             Connection conexion = this.conexion.getConnection();
 
             PreparedStatement sentencia = conexion.prepareStatement(select_all);
             
             int citas;
-            if(cita.isCitaBool == true){
-                citas = 0;
+            if(cita.isCitaBool() == true){
+                citas = 1;
              }
             else{
-                citas=1;
+                citas = 0;
            }
+            
+            int Ctodo;
+            if(cita.isCtodo() == true){
+                Ctodo = 1;
+             }
+            else{
+                Ctodo=0;
+           }
+            int sde;
+             if(cita.isSde() == true){
+                sde = 1;
+             }
+            else{
+                sde=0;
+           }
+             
+             int saldo;
+             if(cita.isSaldo() == true){
+                saldo = 1;
+             }
+            else{
+                saldo=0;
+           }
+             
+            int social;
+            
+            if(cita.isSocial() == true){
+                social = 1;
+             }
+            else{
+                social=0;
+           }
+             
             sentencia.setDate(1, cita.getFecha_cita());
-             sentencia.setString(2, cita.getTipo());
+            sentencia.setString(2, cita.getTipo());
             sentencia.setFloat(3, cita.getImporte());
             sentencia.setInt(4, cita.getCodigo_paciente());
-            sentencia.setBoolean(5, cita.isCtodo());
-            sentencia.setBoolean(6, cita.isSde());
+            sentencia.setInt(5, Ctodo);
+            sentencia.setInt(6, sde);
             sentencia.setString(7, cita.getObserva());
-            sentencia.setInt(8, cita.isCitaBool());
+            sentencia.setInt(8, citas);
             sentencia.setString(9, cita.getHora());
-            sentencia.setBoolean(10, cita.isSaldo());
+            sentencia.setInt(10, saldo);
             sentencia.setString(11, cita.getOp());
             sentencia.setInt(12, cita.getNum());
+            sentencia.setInt(13, 1);
 
             sentencia.execute();
 
